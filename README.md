@@ -1,4 +1,4 @@
-# # Data Story - Core (WIP)
+# Data Story - Core (WIP)
 
 ## Description
 
