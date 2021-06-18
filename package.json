@@ -1,5 +1,5 @@
 {
-  "name": "typescript-package-boilerplate",
+  "name": "@ajthinking/core2",
   "version": "0.1.0",
   "description": "TypeScript NPM Module Boilerplate",
   "main": "lib/index.js",

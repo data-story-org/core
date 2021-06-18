@@ -1,1 +1,1 @@
-export default 'This module must not be required!';
+export { Feature } from './Feature'
