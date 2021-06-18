@@ -1,14 +1,7 @@
-# NPM TypeScript Module Boilerplate
+# # Data Story - Core (WIP)
 
-> Note: This module should **not** be required!
+## Description
 
-### What is it?
+This repo supplies a core functionality to Data Story GUIs and processing servers
 
-This is the boilerplate that you can use to build your awesome NPM modules using TypeScript ✨
-
-### How to use it?
-
-There are 2 ways to use it:
-
-1. Go to the [repository page](https://github.com/uWynell/typescript-module-boilerplate) and press the green **"Use this template"** button.
-2. Run the following command in the terminal: ```npx degit uWynell/typescript-module-boilerplate```
+<img src="https://user-images.githubusercontent.com/3457668/117117786-3d48a900-ad90-11eb-91eb-520f7919d7fa.png">
