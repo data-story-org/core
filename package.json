@@ -1,5 +1,5 @@
 {
-  "name": "@ajthinking/core2",
+  "name": "@data-story-org/core",
   "version": "0.1.0",
   "description": "TypeScript NPM Module Boilerplate",
   "main": "lib/index.js",
