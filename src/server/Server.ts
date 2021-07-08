@@ -30,4 +30,8 @@ export default class Server
     protected nodeDescriptions(): object[] {
         return ServerNodeFactory.all().map(node => (new node()).serialize())
     }
+
+	public hey() {
+		return 'hiya!'
+	}
 }
