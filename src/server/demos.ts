@@ -14,7 +14,7 @@ import Map from "./nodes/Map";
 import Log from "./nodes/Log";
 import FilterDuplicates from "./nodes/FilterDuplicates";
 import CreateSequence from "./nodes/CreateSequence";
-import Aggregate from "./nodes/Aggregate";
+// import Aggregate from "./nodes/Aggregate";
 
 // export const playing_with_json = DiagramModelBuilder.begin()
 // 	.add(Create, {feature_type: 'object', contents: '{}'})

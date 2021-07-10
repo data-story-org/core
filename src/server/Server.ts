@@ -2,7 +2,7 @@ import ServerDiagram from "./ServerDiagram";
 import ServerNodeFactory from "./ServerNodeFactory";
 import { BootPayload } from "../types/BootPayload";
 
-export default class Server
+export class Server
 {
     public boot() {
         return new Promise<BootPayload>((callback) => {

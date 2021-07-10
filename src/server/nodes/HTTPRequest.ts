@@ -63,11 +63,11 @@ export default class HTTPRequest extends ServerNode {
 	}
 
     protected request(feature: Feature) {
-		// console.info("Running HTTPRequest")
+
         if(this.getParameterValue('verb', feature) == 'GET') {
             return this.client.get(
                 this.getParameterValue('url', feature),
-                this.getParameterValue('config')
+                JSON.parse(this.getParameterValue('config'))
             )
         }
 
@@ -75,7 +75,7 @@ export default class HTTPRequest extends ServerNode {
             return this.client.post(
                 this.getParameterValue('url', feature),
                 this.getParameterValue('data'),
-                this.getParameterValue('config')
+                JSON.parse(this.getParameterValue('config'))
             )   
         }
 

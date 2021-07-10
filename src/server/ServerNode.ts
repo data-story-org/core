@@ -1,5 +1,5 @@
 import ServerDiagram from "./ServerDiagram";
-import * as _ from "lodash";
+import _ from "lodash";
 import { Feature } from "../Feature";
 import UID from "../utils/UID";
 import NodeParameter from "../NodeParameter";

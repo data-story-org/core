@@ -1,4 +1,3 @@
-import Server from '../server/Server'
 import ServerDiagram from '../server/ServerDiagram';
 import ServerNodeFactory from '../server/ServerNodeFactory';
 import { nonCircularJsonStringify } from '../utils/nonCircularJsonStringify';
@@ -23,8 +22,6 @@ const run = async (serializedDiagram) => {
 	let result = await ServerDiagram.hydrate(JSON.parse(serializedDiagram), ServerNodeFactory).run()
 	console.log(nonCircularJsonStringify((result as any).data))
 }
-
-console.log(process.argv)
 
 const handlers = {boot, help, run}
 const handler = handlers[type] ?? help
