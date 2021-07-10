@@ -14,7 +14,7 @@ import Evaluate from './nodes/Evaluate'
 import FilterDuplicates from './nodes/FilterDuplicates'
 import Flatten from './nodes/Flatten'
 import Group from './nodes/Group'
-// import HTTPRequest from './nodes/HTTPRequest'
+import HTTPRequest from './nodes/HTTPRequest'
 import Inspect from './nodes/Inspect'
 import Log from './nodes/Log'
 import Map from './nodes/Map'
@@ -48,7 +48,7 @@ export default class ServerNodeFactory {
 		FilterDuplicates,
         Flatten,
 		Group,
-        // HTTPRequest,
+        HTTPRequest,
         Inspect,
         Log,
         Map,

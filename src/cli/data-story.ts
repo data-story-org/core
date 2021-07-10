@@ -24,6 +24,8 @@ const run = async (serializedDiagram) => {
 	console.log(nonCircularJsonStringify((result as any).data))
 }
 
+console.log(process.argv)
+
 const handlers = {boot, help, run}
 const handler = handlers[type] ?? help
 handler(...args)
