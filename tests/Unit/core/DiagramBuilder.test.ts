@@ -17,7 +17,7 @@ it('the created diagrams are runnable', async () => {
 		.add(Inspect)
 		.finish()
 	
-	await diagram.run()
+	let result = await diagram.run()
 
-	console.log(diagram)
+	expect(diagram).toBeInstanceOf(Diagram)
 });

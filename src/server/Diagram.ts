@@ -5,7 +5,8 @@ export default class Diagram {
     nodes: any[] = []
     cachedNodeDependencyMap: {[T:string]: string[];} = {
         // id1: [d1, d2, ...]
-    }	
+    }
+	history: []
  
     static hydrate(data: SerializedDiagram, factory) {
         let instance = new this()
@@ -59,6 +60,13 @@ export default class Diagram {
 	}
 
     addNode(node) {
+		
+		// Dummy link map
+		node.ports = node.ports.map(p => {
+			p.links = []
+			return p
+		})
+
         this.nodes.push(node)
 
         return this

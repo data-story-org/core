@@ -12,14 +12,12 @@ export class DiagramBuilder {
 	add(nodeClass, parameterKeyValues = {}, config = {}) {
 		let diagram = this.getDiagram()
 
-		// let node = new Node(
-		// 	{
-		// 		...(new nodeClass).serialize(),
-		// 		...config
-		// 	}
-		// )
-
-		let node = new nodeClass;
+		let node = new nodeClass(
+			{
+				...(new nodeClass).serialize(),
+				...config
+			}
+		)
 
 		diagram.addNode(node)
 

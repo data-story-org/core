@@ -108,9 +108,8 @@ export class NodeTester {
 	}
 
 	protected setupDiagram() {
-
 		this.diagram = DiagramBuilder.begin()
-
+			
 			.add(OutputProvider, {
 				// Used by the Node run method to fan out data
 				outputs: this.inputMap
@@ -180,9 +179,7 @@ export class NodeTester {
 	protected async runOnce() {
         if(this.hasRun) return
 
-		let server = new Server
-
-		await server.run(this.diagram).then((result: any) => {
+		await this.diagram.run().then((result: any) => {
 			this.runResult = result.data.diagram
 			this.ranSuccessfully = true
 		}).catch(f => {
