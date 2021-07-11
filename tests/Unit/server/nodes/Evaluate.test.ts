@@ -1,5 +1,5 @@
 import Evaluate from '../../../../src/server/nodes/Evaluate'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can execute javascript per feature', async () => {
     await when(Evaluate).hasInput([{nbr: 3}]).and().parameters({

@@ -1,7 +1,7 @@
 import { Feature } from "../../Feature";
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 
-export default class Flatten extends ServerNode {
+export default class Flatten extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

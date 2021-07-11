@@ -1,5 +1,5 @@
 import Flatten from '../../../../src/server/nodes/Flatten'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('does not break non flattable features', async () => {
     await when(Flatten).hasInput({name: 'ajthinking'})

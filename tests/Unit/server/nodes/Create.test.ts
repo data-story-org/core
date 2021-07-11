@@ -1,5 +1,5 @@
 import Create from '../../../../src/server/nodes/Create'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('creates an empty object by default', async () => {
     await when(Create).hasDefaultParameters()

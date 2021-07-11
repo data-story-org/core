@@ -1,5 +1,5 @@
 import Sample from '../../../../src/server/nodes/Sample'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can sample first N features', async () => {
     await when(Sample).hasInput([1,2,3])

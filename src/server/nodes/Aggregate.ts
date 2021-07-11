@@ -1,9 +1,9 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 import NodeParameter from "../../NodeParameter";
 import { groupBy } from '../../utils/Arr'
 import { Feature } from "../../Feature";
 
-export default class Aggregate extends ServerNode {
+export default class Aggregate extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

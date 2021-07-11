@@ -1,5 +1,5 @@
 import RegExpFilter from '../../../../src/server/nodes/RegExpFilter'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can filter features based on property regex match', async () => {
     await when(RegExpFilter).hasInput(['imac', 'iphone', 'samsung'])

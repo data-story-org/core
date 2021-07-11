@@ -1,9 +1,9 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 import axios from 'axios';
 import { Feature } from "../../Feature";
 import NodeParameter from "../../NodeParameter";
 
-export default class HTTPRequest extends ServerNode {
+export default class HTTPRequest extends Node {
 	client = axios
 
 	constructor(options = {}) {

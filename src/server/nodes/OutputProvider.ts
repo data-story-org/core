@@ -1,8 +1,8 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 import NodeParameter from "../../NodeParameter";
 import { Feature } from "../../Feature";
 
-export default class OutputProvider extends ServerNode {
+export default class OutputProvider extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

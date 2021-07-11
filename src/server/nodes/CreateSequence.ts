@@ -1,8 +1,8 @@
 import { Feature } from "../../Feature";
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 import NodeParameter from "../../NodeParameter";
 
-export default class CreateSequence extends ServerNode {
+export default class CreateSequence extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

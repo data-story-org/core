@@ -29,7 +29,7 @@ import ThrowError from './nodes/ThrowError'
 
 import { SerializedNodeModel } from '../types/SerializedNodeModel'
 
-export default class ServerNodeFactory {
+export default class NodeFactory {
     protected static nodes = {
 		Aggregate,
 		Clone_,
@@ -74,7 +74,7 @@ export default class ServerNodeFactory {
     }
 
     static hydrate(node: SerializedNodeModel, diagram = null) {
-		const type = this.find(node.serverNodeType)
+		const type = this.find(node.NodeType)
 
         return new type({
 			...node,

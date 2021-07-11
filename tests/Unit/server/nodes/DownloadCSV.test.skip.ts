@@ -1,5 +1,5 @@
 // import DownloadCSV from '../../../../src/server/nodes/DownloadCSV'
-// import { when } from "../ServerNodeTester";
+// import { when } from "../NodeTester";
 
 // it.skip('DESCRIPTION', async () => {
 //     await when(DownloadCSV).hasDefaultParameters()

@@ -1,5 +1,5 @@
 import OutputProvider from '../../../../src/server/nodes/OutputProvider'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it.skip('can provide outputs', async () => {
     await when(OutputProvider).hasParameters({

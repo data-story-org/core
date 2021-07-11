@@ -18,7 +18,7 @@ export type SerializedNodeModel = {
 		name: string,
 	}[],
 	summary: string, // what?
-	serverNodeType: string,
+	NodeType: string,
 	selected: any,
 	extras: any,
 	locked: any,

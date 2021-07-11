@@ -1,12 +1,12 @@
-import ServerDiagram from "../../../src/server/ServerDiagram"
-import { ServerDiagramBuilder } from "../../../src/server/ServerDiagramBuilder"
+import Diagram from "../../../src/server/Diagram"
+import { DiagramBuilder } from "../../../src/server/DiagramBuilder"
 import { Feature } from "../../../src/Feature"
 import OutputProvider from "../../../src/server/nodes/OutputProvider"
 import { Server } from "../../../src/server/Server"
 
-export class ServerNodeTester {
-	diagram: ServerDiagram
-	runResult: ServerDiagram
+export class NodeTester {
+	diagram: Diagram
+	runResult: Diagram
 	nodeClass
 	parameterKeyValues: {}
 	configurations = {}
@@ -109,13 +109,13 @@ export class ServerNodeTester {
 
 	protected setupDiagram() {
 
-		this.diagram = ServerDiagramBuilder.begin()
+		this.diagram = DiagramBuilder.begin()
 
 			.add(OutputProvider, {
-				// Used by the ServerNode run method to fan out data
+				// Used by the Node run method to fan out data
 				outputs: this.inputMap
 			}, {
-				// used by the ServerNode constructor to override default input/outputs
+				// used by the Node constructor to override default input/outputs
 				ports: Object.keys(this.inputMap).map(p => {
 					return {
 						name: p,
@@ -142,17 +142,17 @@ export class ServerNodeTester {
 	protected async doAssertOutputs() {
 		await this.runOnce()
 
-		let serverDiagram = this.runResult
+		let Diagram = this.runResult
 
 		// Check explicitly provided port outputs
 		for(const [portName, expected] of Object.entries(this.outputMap)) {
-			let port = serverDiagram.findByName(portName)
+			let port = Diagram.findByName(portName)
 			let expectedFeatures = (expected as any).map(f => new Feature(f))
 			expect(port.features).toStrictEqual(expectedFeatures)
 		}
 
 		// Check that no other ports emits feautures
-		let ports = serverDiagram.findByName(this.nodeClass.name).ports
+		let ports = Diagram.findByName(this.nodeClass.name).ports
 		let outputingPorts = ports.filter(p => p.features && p.features.length).map(p => p.name)
 		const msg = 'There was a port outputting features that was not listed!'
 		expect({msg, keys: Object.keys(this.outputMap)}).toEqual({msg, keys: outputingPorts})
@@ -161,16 +161,16 @@ export class ServerNodeTester {
 	protected async doAssertOutputCounts() {
 		await this.runOnce()
 
-		let serverDiagram = this.runResult
+		let Diagram = this.runResult
 
 		// Check explicitly provided port outputs
 		for(const [portName, expectedCount] of Object.entries(this.outputCountMap)) {
-			let port = serverDiagram.findByName(portName)
+			let port = Diagram.findByName(portName)
 			expect(port.features.length).toStrictEqual(expectedCount)
 		}
 
 		// Check that no other ports emits feautures
-		let ports = serverDiagram.findByName(this.nodeClass.name).ports
+		let ports = Diagram.findByName(this.nodeClass.name).ports
 		let outputingPorts = ports.filter(p => p.features && p.features.length).map(p => p.name)
 		const msg = 'There was a port outputting features that was not listed!'
 		
@@ -195,5 +195,5 @@ export class ServerNodeTester {
 }
 
 export function when(nodeClass) {
-	return new ServerNodeTester(nodeClass)
+	return new NodeTester(nodeClass)
 }

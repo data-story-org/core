@@ -1,6 +1,6 @@
 import axios from 'axios';
 import HTTPRequest from '../../../../src/server/nodes/HTTPRequest'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it.skip('can make requests', async () => {
     await when(HTTPRequest).hasInput('a feature')

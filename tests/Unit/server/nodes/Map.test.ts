@@ -1,5 +1,5 @@
 import Map from '../../../../src/server/nodes/Map'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can map into properties', async () => {
     await when(Map).hasInput({name: 'ajthinking'})

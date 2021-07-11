@@ -1,9 +1,9 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 // @ts-ignore
 import { trim } from "../../utils/Str"
 import NodeParameter from "../../NodeParameter";
 
-export default class RegExpFilter extends ServerNode {
+export default class RegExpFilter extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

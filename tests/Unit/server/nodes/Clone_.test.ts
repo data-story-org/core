@@ -1,5 +1,5 @@
 import Clone_ from '../../../../src/server/nodes/Clone_'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('makes ten clones by default', async () => {
     await when(Clone_).hasInput(['a feature'])

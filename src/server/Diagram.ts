@@ -1,6 +1,6 @@
 import { SerializedDiagramModel } from "../types/SerializedDiagramModel"
 
-export default class ServerDiagram {
+export default class Diagram {
     links: any[] = []
     nodes: any[] = []
     cachedNodeDependencyMap: {[T:string]: string[];} = {

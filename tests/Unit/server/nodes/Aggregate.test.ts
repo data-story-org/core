@@ -1,5 +1,5 @@
 import Aggregate from '../../../../src/server/nodes/Aggregate'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester"
 
 const dates = [
 	{date: '2021-05-27', id: 1},

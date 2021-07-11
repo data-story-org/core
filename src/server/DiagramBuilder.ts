@@ -1,9 +1,9 @@
-import ServerDiagram from "./ServerDiagram"
-import ServerNode from "./ServerNode"
+import Diagram from "./Diagram"
+import Node from "./Node"
 
-export class ServerDiagramBuilder {
-	currentNode?: ServerNode
-	diagram?: ServerDiagram
+export class DiagramBuilder {
+	currentNode?: Node
+	diagram?: Diagram
 
 	static begin() {
 		return new this
@@ -12,7 +12,7 @@ export class ServerDiagramBuilder {
 	add(nodeClass, parameterKeyValues = {}, config = {}) {
 		let diagram = this.getDiagram()
 
-		// let node = new ServerNode(
+		// let node = new Node(
 		// 	{
 		// 		...(new nodeClass).serialize(),
 		// 		...config
@@ -44,6 +44,6 @@ export class ServerDiagramBuilder {
 	}
 
 	protected getDiagram() {
-		return this.diagram ?? new ServerDiagram()
+		return this.diagram ?? new Diagram()
 	}
 }

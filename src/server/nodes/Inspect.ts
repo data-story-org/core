@@ -1,6 +1,6 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 
-export default class Inspect extends ServerNode {
+export default class Inspect extends Node {
     public features: any[]
 
 	constructor(options = {}) {

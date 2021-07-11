@@ -2,7 +2,7 @@ fs = require('fs');
 
 const nodeName = process.argv[2]
 
-// Create ServerNode file
+// Create Node file
 fs.writeFile(
     __dirname + '/../server/nodes/' + nodeName + '.ts', 
     fs.readFileSync(__dirname + '/add-node.stub').toString().replace(/NODE_NAME/g, nodeName),
@@ -10,7 +10,7 @@ fs.writeFile(
     () => {}
 )
 
-// Add ServerNode file to ServerNodeFactory
+// Add Node file to NodeFactory
 // TODO
 
 // Create Test file
@@ -21,4 +21,4 @@ fs.writeFile(
     () => {}
 )
 
-console.info(nodeName + " NodeFile and test created. Remember to add your node in ServerNodeFactory.")
+console.info(nodeName + " NodeFile and test created. Remember to add your node in NodeFactory.")

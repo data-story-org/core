@@ -1,11 +1,11 @@
-import ServerDiagram from "./ServerDiagram";
+import Diagram from "./Diagram";
 import _ from "lodash";
 import { Feature } from "../Feature";
 import UID from "../utils/UID";
 import NodeParameter from "../NodeParameter";
 
-type ServerNodeOptions = {
-	diagram?: ServerDiagram,
+type NodeOptions = {
+	diagram?: Diagram,
 	parameters?: object[],
 	defaultInPorts?: string[],
 	defaultOutPorts?: string[],
@@ -17,16 +17,16 @@ type ServerNodeOptions = {
 	id?: string,
 }
 
-export default abstract class ServerNode {
+export default abstract class Node {
     public id: string
     public ports: any[]
-    public diagram: ServerDiagram
+    public diagram: Diagram
     public category: string = 'Custom'
     public editableInPorts: boolean = false
     public editableOutPorts: boolean = false
     public key: string = 'test-key'
     public name: string
-    public serverNodeType: string
+    public NodeType: string
     public nodeReact: string = 'Node'
     public parameters: any[]
     public summary: string = 'No summary provided.'
@@ -35,7 +35,7 @@ export default abstract class ServerNode {
 
     abstract run(): any;
 
-    constructor(options: ServerNodeOptions = {}) {
+    constructor(options: NodeOptions = {}) {
         this.diagram = options.diagram
         this.id = options.id ?? UID()
 		this.name = options.name,
@@ -83,7 +83,7 @@ export default abstract class ServerNode {
             key: this.key,
             name: this.name,
             nodeReact: this.nodeReact,
-            serverNodeType: this.name,
+            NodeType: this.name,
             parameters: this.getParameters(),
             summary: this.summary,
 		}

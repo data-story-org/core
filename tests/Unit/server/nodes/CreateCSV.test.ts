@@ -1,5 +1,5 @@
 import CreateCSV from '../../../../src/server/nodes/CreateCSV'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 let content =
 `date	user	score

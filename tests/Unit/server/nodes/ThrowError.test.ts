@@ -1,5 +1,5 @@
 import ThrowError from '../../../../src/server/nodes/ThrowError'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it.skip('will throw an error', async () => {
     await when(ThrowError).hasInput(['a feature'])

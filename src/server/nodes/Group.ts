@@ -1,7 +1,7 @@
 import { Feature } from "../../Feature";
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 
-export default class Group extends ServerNode {
+export default class Group extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

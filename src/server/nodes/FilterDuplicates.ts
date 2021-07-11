@@ -1,8 +1,8 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 import NodeParameter from "../../NodeParameter";
 import { Feature } from "../../Feature";
 
-export default class FilterDuplicates extends ServerNode {
+export default class FilterDuplicates extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

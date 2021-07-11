@@ -1,5 +1,5 @@
 import CreateAttribute from '../../../../src/server/nodes/CreateAttribute'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can add a attribute value to an object feature', async () => {
     await when(CreateAttribute).hasInput([{}]).and().parameters({

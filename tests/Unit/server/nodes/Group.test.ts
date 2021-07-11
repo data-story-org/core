@@ -1,5 +1,5 @@
 import Group from '../../../../src/server/nodes/Group'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can group features', async () => {
     await when(Group).hasInput([1,2,3])

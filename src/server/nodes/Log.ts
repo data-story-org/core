@@ -1,6 +1,6 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 
-export default class Log extends ServerNode {
+export default class Log extends Node {
 	logger = console
 
 	constructor(options = {}) {

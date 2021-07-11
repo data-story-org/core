@@ -1,5 +1,5 @@
 import CreateSequence from '../../../../src/server/nodes/CreateSequence'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('creates 10 objects by default', async () => {
     await when(CreateSequence).hasDefaultParameters()

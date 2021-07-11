@@ -1,5 +1,5 @@
 import FilterDuplicates from '../../../../src/server/nodes/FilterDuplicates'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can filter out primitive duplicates', async () => {
     await when(FilterDuplicates).hasInput([7,7,7]).and().parameters({

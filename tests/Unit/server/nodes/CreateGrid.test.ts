@@ -1,5 +1,5 @@
 import CreateGrid from '../../../../src/server/nodes/CreateGrid'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('creates a 10 x 10 grid with default parameters', async () => {
     await when(CreateGrid).hasDefaultParameters()

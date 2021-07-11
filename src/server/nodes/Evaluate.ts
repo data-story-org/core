@@ -1,4 +1,4 @@
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 import NodeParameter from "../../NodeParameter";
 import { Feature } from "../../Feature";
 
@@ -11,7 +11,7 @@ const placeholder =
 // use this.input() and this.output()
 `
 
-export default class Evaluate extends ServerNode {
+export default class Evaluate extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults

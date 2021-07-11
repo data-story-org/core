@@ -1,5 +1,5 @@
 import Sort from '../../../../src/server/nodes/Sort'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('can sort shallow objects', async () => {
     await when(Sort).hasInput([

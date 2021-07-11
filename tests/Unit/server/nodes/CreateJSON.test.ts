@@ -1,5 +1,5 @@
 import CreateJSON from '../../../../src/server/nodes/CreateJSON'
-import { when } from "../ServerNodeTester";
+import { when } from "../NodeTester";
 
 it('has a default key value pair', async () => {
     await when(CreateJSON).hasDefaultParameters()

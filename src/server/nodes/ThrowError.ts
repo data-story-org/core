@@ -1,7 +1,7 @@
 import NodeParameter from "../../NodeParameter";
-import ServerNode from "../ServerNode";
+import Node from "../Node";
 
-export default class ThrowError extends ServerNode {
+export default class ThrowError extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults
