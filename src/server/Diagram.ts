@@ -1,4 +1,4 @@
-import { SerializedDiagramModel } from "../types/SerializedDiagramModel"
+import { SerializedDiagram } from "../types/SerializedDiagram"
 
 export default class Diagram {
     links: any[] = []
@@ -7,7 +7,7 @@ export default class Diagram {
         // id1: [d1, d2, ...]
     }	
  
-    static hydrate(data: SerializedDiagramModel, factory) {
+    static hydrate(data: SerializedDiagram, factory) {
         let instance = new this()
 		
         for (const [key, value] of Object.entries(data)) {

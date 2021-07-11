@@ -1,4 +1,4 @@
-// import { DiagramModelBuilder } from "./../DiagramModelBuilder";
+// import { DiagramBuilder } from "./../DiagramBuilder";
 import CreateAttribute from "./nodes/CreateAttribute";
 import Clone_ from "./nodes/Clone_";
 import Create from "./nodes/Create";
@@ -16,7 +16,7 @@ import FilterDuplicates from "./nodes/FilterDuplicates";
 import CreateSequence from "./nodes/CreateSequence";
 // import Aggregate from "./nodes/Aggregate";
 
-// export const playing_with_json = DiagramModelBuilder.begin()
+// export const playing_with_json = DiagramBuilder.begin()
 // 	.add(Create, {feature_type: 'object', contents: '{}'})
 // 	.add(CreateAttribute, {attribute: 'resource', value: 'todos'})
 // 	.add(Clone_, {number_of_clones: 3})
@@ -26,7 +26,7 @@ import CreateSequence from "./nodes/CreateSequence";
 // 	.add(Inspect)		
 // 	.finish()
 
-// // export const cleanup_old_github_repos = DiagramModelBuilder.begin()
+// // export const cleanup_old_github_repos = DiagramBuilder.begin()
 // // 	.add(HTTPRequest)
 // // 	.finish()
 
@@ -43,7 +43,7 @@ import CreateSequence from "./nodes/CreateSequence";
 // // grid_max_y: 59.41853568293486,
 
 
-// export const scraping_a_map_service = DiagramModelBuilder.begin()
+// export const scraping_a_map_service = DiagramBuilder.begin()
 // 	.add(CreateGrid, {
 // 		grid_type: 'boxes',
 // 		grid_min_x: 18.01826477050781,
@@ -66,7 +66,7 @@ import CreateSequence from "./nodes/CreateSequence";
 // 	// .add(Log)
 // 	.finish()
 
-// export const grouping = DiagramModelBuilder.begin()
+// export const grouping = DiagramBuilder.begin()
 // 	.add(Create)
 // 	.add(HTTPRequest, {
 // 		url: 'https://api.sheety.co/5daeb7a966361cbf4030212dc3045cd9/fakeData/sheet1',

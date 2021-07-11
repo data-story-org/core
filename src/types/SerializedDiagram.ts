@@ -1,4 +1,4 @@
-export type SerializedDiagramModel = {
+export type SerializedDiagram = {
 	id: string,
 	offsetX: number,
 	offsetY: number,
