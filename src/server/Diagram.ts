@@ -1,4 +1,5 @@
 import { SerializedDiagram } from "../types/SerializedDiagram"
+import Node from "./Node"
 
 export default class Diagram {
     links: any[] = []
@@ -6,7 +7,7 @@ export default class Diagram {
     cachedNodeDependencyMap: {[T:string]: string[];} = {
         // id1: [d1, d2, ...]
     }
-	history: []
+	history: Node[] = []
  
     static hydrate(data: SerializedDiagram, factory) {
         let instance = new this()
@@ -60,13 +61,7 @@ export default class Diagram {
 	}
 
     addNode(node) {
-		
-		// Dummy link map
-		node.ports = node.ports.map(p => {
-			p.links = []
-			return p
-		})
-
+		this.history.push(node)
         this.nodes.push(node)
 
         return this
@@ -137,5 +132,62 @@ export default class Diagram {
         return this.dependencies(n1).map(d => {
 			return d.id
 		}).includes(n2.id)
+    }
+
+    attemptLinkToLatest(node)
+    {
+        let linked = false;
+        
+        // Try to link to latest nodes
+        this.history.find(latest => {
+            if(this.hasNode(latest)) {
+                if(this.canLink(latest, node)) {
+                    let link = this.getAutomatedLink(latest, node)
+                    // break out of find with a return true
+                    return linked = true;
+                }
+            }
+        })
+    }
+
+    getAutomatedLink(from, to) {
+        if(!this.canLink(from, to)) return;
+
+        // fromPort: prefer first unused outPort. Otherwise defaults to first
+        let fromPort: any = this.getAutomatedFromPort(from)
+
+        // toPort: the first inPort
+        let toPort: any = Object.values(to.getInPorts())[0];
+        
+		let link = {
+			from: fromPort,
+			to: toPort
+		}
+
+        return link
+    }
+
+	getAutomatedFromPort(fromNode) {
+        // fromPort: prefer first unused outPort. Otherwise defaults to first
+        return Object.values(fromNode.getOutPorts()).find((candidate: any) => {
+            return Object.values(candidate.links).length === 0
+        }) ?? Object.values(fromNode.getOutPorts())[0]
+	}
+
+    canLink(from, to)
+    {
+        // Has from node?
+        if(!from) return
+        
+        // Resolve ports
+        let fromPort = Object.values(from.getOutPorts())[0] ?? false;
+        let toPort = Object.values(to.getInPorts())[0] ?? false;
+
+        // Ensure there are ports to connect to
+        return fromPort && toPort
+    }
+
+    hasNode(node) {
+        return Boolean(node.id && this.find(node.id))
     }	
 }

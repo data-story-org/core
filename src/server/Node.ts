@@ -3,6 +3,7 @@ import _ from "lodash";
 import { Feature } from "../Feature";
 import UID from "../utils/UID";
 import NodeParameter from "../NodeParameter";
+import { Port } from "./Port";
 
 type NodeOptions = {
 	diagram?: Diagram,
@@ -58,19 +59,19 @@ export default abstract class Node {
 
 	getDefaultInPorts() {
 		return (this.defaultInPorts).map(name => {
-			return {
+			return new Port({
 				name,
-				in: true
-			}			
+				in: true,
+			})
 		})
 	}
 
 	getDefaultOutPorts() {
 		return this.defaultOutPorts.map(name => {
-			return {
+			return new Port({
 				name,
 				in: false
-			}			
+			})
 		})
 	}	
 
