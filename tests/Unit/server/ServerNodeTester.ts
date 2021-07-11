@@ -1,14 +1,11 @@
-import DiagramModel from "../../../src/DiagramModel"
-import { DiagramModelBuilder } from "../../../src/DiagramModelBuilder"
-import { Feature } from "@data-story-org/core"
-import OutputProvider from "../../../src/server/nodes/OutputProvider"
-import Server from "../../../src/server/Server"
 import ServerDiagram from "../../../src/server/ServerDiagram"
-import ServerNode from "../../../src/server/ServerNode"
-import ServerNodeFactory from '../../../src/server/ServerNodeFactory'
+import { ServerDiagramBuilder } from "../../../src/server/ServerDiagramBuilder"
+import { Feature } from "../../../src/Feature"
+import OutputProvider from "../../../src/server/nodes/OutputProvider"
+import { Server } from "../../../src/server/Server"
 
 export class ServerNodeTester {
-	diagram: DiagramModel
+	diagram: ServerDiagram
 	runResult: ServerDiagram
 	nodeClass
 	parameterKeyValues: {}
@@ -112,7 +109,7 @@ export class ServerNodeTester {
 
 	protected setupDiagram() {
 
-		this.diagram = DiagramModelBuilder.begin()
+		this.diagram = ServerDiagramBuilder.begin()
 
 			.add(OutputProvider, {
 				// Used by the ServerNode run method to fan out data
