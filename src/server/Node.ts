@@ -26,7 +26,7 @@ export default abstract class Node {
     public editableOutPorts: boolean = false
     public key: string = 'test-key'
     public name: string
-    public NodeType: string
+    public nodeType: string
     public nodeReact: string = 'Node'
     public parameters: any[]
     public summary: string = 'No summary provided.'
@@ -83,7 +83,7 @@ export default abstract class Node {
             key: this.key,
             name: this.name,
             nodeReact: this.nodeReact,
-            NodeType: this.name,
+            nodeType: this.name,
             parameters: this.getParameters(),
             summary: this.summary,
 		}
