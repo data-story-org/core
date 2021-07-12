@@ -35,14 +35,10 @@ jobs:
         run: npm run lint:quiet:fix
 
       - name: Get all unfixable eslint errors
-        uses: bradennapier/eslint-plus-action@v3.4.2
+        uses: wearerequired/lint-action@v1
         with:
-          includeGlob: src/**/*
-          npmInstall: false
-        # uses: wearerequired/lint-action@v1
-        # with:
-        #   eslint: true
-        #   eslint_extensions: js,ts
+          eslint: true
+          eslint_extensions: js,ts
 
       - name: Commit formatting changes
         uses: stefanzweifel/git-auto-commit-action@v4
