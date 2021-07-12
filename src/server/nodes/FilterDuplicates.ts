@@ -40,7 +40,8 @@ export default class FilterDuplicates extends Node {
       const type = typeof comparable;
 
       if (type in prims) {
-        if (!prims[type].hasOwnProperty(comparable)) {
+        // if (!prims[type].hasOwnProperty(comparable)) {
+        if (!Object.prototype.hasOwnProperty.call(prims[type], comparable)) {
           uniqueFeatures.push(feature);
           prims[type][comparable] = true;
         }
