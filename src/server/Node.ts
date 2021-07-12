@@ -108,8 +108,34 @@ export default abstract class Node {
         return this.parameters.find(p => p.name == name)
     }
 
-    return parametric;
+  protected getParameterValue(name: string, feature: Feature = null) {
+    const value = this.getParameter(name).value;
+
+    if (!feature) return value;
+
+    return this.interpretParameterValue(value, feature);
   }
+
+  protected interpretParameterValue(parametric, feature) {
+    const matches = parametric.match(/\{\{[\.a-zA-Z\s_]*\}\}/g);
+    if (matches) {
+      for (const match of matches) {
+        const originalMatch = match;
+
+        const parts = match.replace('{{', '').replace('}}', '').trim().split('.');
+
+        parts.shift(); // Remove 'feature'
+
+        const interpreted = parts.reduce((carry, property) => {
+          return carry[property];
+        }, feature.original);
+
+        parametric = parametric.replace(originalMatch, interpreted);
+      }
+    }
+
+    return parametric;
+  }  
 
   protected input(portName = 'Input') {
     return this.getDataAtPortNamed(portName);
@@ -118,6 +144,8 @@ export default abstract class Node {
   protected getDataAtPortNamed(name = 'Input') {
     const port = this.portNamed(name);
 
+	// TODO the ports are missing UID and cant be tracked...
+	
     const features = port.links
       .map((linkId) => {
         const link = this.diagram.find(linkId);

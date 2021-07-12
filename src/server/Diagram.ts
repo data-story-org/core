@@ -56,6 +56,7 @@ export default class Diagram {
   }
 
   addNode(node) {
+	node.diagram = this
 	this.history.push(node)
 	this.nodes.push(node)
 	this.linkToLatest(node)
@@ -98,7 +99,6 @@ export default class Diagram {
   getAutomatedFromPort(fromNode) {
 	// fromPort: prefer first unused outPort. Otherwise defaults to first
 	return Object.values(fromNode.getOutPorts()).find((candidate: any) => {
-		console.log(candidate)
 		return Object.values(candidate.links).length === 0
 	}) ?? Object.values(fromNode.getOutPorts())[0]
 }

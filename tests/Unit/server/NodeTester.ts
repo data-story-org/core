@@ -3,6 +3,7 @@ import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
 import { Feature } from '../../../src/Feature';
 import OutputProvider from '../../../src/server/nodes/OutputProvider';
 import { Server } from '../../../src/server/Server';
+import { Port } from '../../../src/server/Port';
 
 export class NodeTester {
   diagram: Diagram;
@@ -119,10 +120,10 @@ export class NodeTester {
         {
           // used by the Node constructor to override default input/outputs
           ports: Object.keys(this.inputMap).map((p) => {
-            return {
+            return new Port({
               name: p,
               in: false,
-            };
+            });
           }),
         },
       )
