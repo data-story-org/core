@@ -1,19 +1,19 @@
 // import { DiagramBuilder } from "./../DiagramBuilder";
-import CreateAttribute from "./nodes/CreateAttribute";
-import Clone_ from "./nodes/Clone_";
-import Create from "./nodes/Create";
-import CreateGrid from "./nodes/CreateGrid";
-import CreateJSON from "./nodes/CreateJSON";
+import CreateAttribute from './nodes/CreateAttribute';
+import Clone_ from './nodes/Clone_';
+import Create from './nodes/Create';
+import CreateGrid from './nodes/CreateGrid';
+import CreateJSON from './nodes/CreateJSON';
 // import DownloadJSON from "./nodes/DownloadJSON";
 // import DownloadGeoJSON from "./nodes/DownloadGeoJSON";
-import Evaluate from "./nodes/Evaluate";
-import Flatten from "./nodes/Flatten";
+import Evaluate from './nodes/Evaluate';
+import Flatten from './nodes/Flatten';
 // import HTTPRequest from "./nodes/HTTPRequest";
-import Inspect from "./nodes/Inspect";
-import Map from "./nodes/Map";
-import Log from "./nodes/Log";
-import FilterDuplicates from "./nodes/FilterDuplicates";
-import CreateSequence from "./nodes/CreateSequence";
+import Inspect from './nodes/Inspect';
+import Map from './nodes/Map';
+import Log from './nodes/Log';
+import FilterDuplicates from './nodes/FilterDuplicates';
+import CreateSequence from './nodes/CreateSequence';
 // import Aggregate from "./nodes/Aggregate";
 
 // export const playing_with_json = DiagramBuilder.begin()
@@ -23,7 +23,7 @@ import CreateSequence from "./nodes/CreateSequence";
 // 	.add(HTTPRequest)
 // 	.add(Inspect)
 // 	.add(Inspect)
-// 	.add(Inspect)		
+// 	.add(Inspect)
 // 	.finish()
 
 // // export const cleanup_old_github_repos = DiagramBuilder.begin()
@@ -39,9 +39,8 @@ import CreateSequence from "./nodes/CreateSequence";
 // // // Greater Stockholm area
 // // grid_min_x: 17.782745361328125,
 // // grid_min_y: 59.2163658770415,
-// // grid_max_x: 18.30665588378906,		
+// // grid_max_x: 18.30665588378906,
 // // grid_max_y: 59.41853568293486,
-
 
 // export const scraping_a_map_service = DiagramBuilder.begin()
 // 	.add(CreateGrid, {
@@ -49,13 +48,13 @@ import CreateSequence from "./nodes/CreateSequence";
 // 		grid_min_x: 18.01826477050781,
 // 		grid_min_y: 59.29674702504426,
 // 		grid_max_x: '',
-// 		grid_max_y: '',		
+// 		grid_max_y: '',
 // 		grid_size_x: 2,
 // 		grid_size_y: 2,
 // 		// Trial and error approxiamtes something like 1000 x 1000 meters
 // 		grid_spacing_x: 0.00437431579,
 // 		grid_spacing_y: 0.00975251197,
-// 	})			
+// 	})
 // 	.add(HTTPRequest, {
 // 		url: 'https://layers.enirocdn.com/{{ feature.y_min }}/{{ feature.x_min }}/{{ feature.y_max }}/{{ feature.x_max }}/17/se_realestate.json',
 // 		features_path: 'data.se_realestate'

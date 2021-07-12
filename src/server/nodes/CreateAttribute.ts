@@ -1,34 +1,28 @@
-import Node from "../Node";
-import NodeParameter from "../../NodeParameter";
+import Node from '../Node';
+import NodeParameter from '../../NodeParameter';
 
 export default class CreateAttribute extends Node {
-	constructor(options = {}) {
-		super({
-			// Defaults
-			name: 'CreateAttribute',
-			summary: 'Create a new attribute from an expression',
-			category: 'Workflow',
-			defaultInPorts: ['Input'],
-			defaultOutPorts: ['Output'],			
-			// Explicitly configured
-			...options,
-		})
-	}
+  constructor(options = {}) {
+    super({
+      // Defaults
+      name: 'CreateAttribute',
+      summary: 'Create a new attribute from an expression',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output'],
+      // Explicitly configured
+      ...options,
+    });
+  }
 
-    async run() {
-        let attribute = this.getParameterValue('attribute')
-        let value = this.getParameterValue('value')
+  async run() {
+    const attribute = this.getParameterValue('attribute');
+    const value = this.getParameterValue('value');
 
-        this.output(
-            this.input().map(feature => feature.set(attribute, value))
-        );       
-    }
-	
-	getParameters() {
-		return [
-			...super.getParameters(),
-            NodeParameter.string('attribute'),
-            NodeParameter.string('value'),              
-		]
-	}	
+    this.output(this.input().map((feature) => feature.set(attribute, value)));
+  }
+
+  getParameters() {
+    return [...super.getParameters(), NodeParameter.string('attribute'), NodeParameter.string('value')];
+  }
 }
