@@ -6,7 +6,7 @@ const type = process.argv[2];
 const args = process.argv.slice(3)
 
 const boot = () => {
-	let result = JSON.stringify({
+	const result = JSON.stringify({
 		stories: [],
 		availableNodes: NodeFactory.all().map(node => (new node()).serialize())
 	})
@@ -19,7 +19,7 @@ const help = () => {
 }
 
 const run = async (serializedDiagram) => {
-	let result = await Diagram.hydrate(JSON.parse(serializedDiagram), NodeFactory).run()
+	const result = await Diagram.hydrate(JSON.parse(serializedDiagram), NodeFactory).run()
 	console.log(nonCircularJsonStringify((result as any).data))
 }
 

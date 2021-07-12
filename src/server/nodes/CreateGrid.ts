@@ -17,26 +17,26 @@ export default class CreateGrid extends Node {
 	}
 
     async run() {
-		let type = this.getParameterValue('grid_type')
-        let gridMinX = parseFloat(this.getParameterValue('grid_min_x'))
-        let gridMinY = parseFloat(this.getParameterValue('grid_min_y'))
-        let gridMaxX = parseFloat(this.getParameterValue('grid_max_x'))
-        let gridMaxY = parseFloat(this.getParameterValue('grid_max_y'))		
+		const type = this.getParameterValue('grid_type')
+        const gridMinX = parseFloat(this.getParameterValue('grid_min_x'))
+        const gridMinY = parseFloat(this.getParameterValue('grid_min_y'))
+        const gridMaxX = parseFloat(this.getParameterValue('grid_max_x'))
+        const gridMaxY = parseFloat(this.getParameterValue('grid_max_y'))		
         let gridSizeX = parseInt(this.getParameterValue('grid_size_x'))
         let gridSizeY = parseInt(this.getParameterValue('grid_size_y'))		
-        let gridSpacingX = parseFloat(this.getParameterValue('grid_spacing_x'))
-        let gridSpacingY = parseFloat(this.getParameterValue('grid_spacing_y'))
+        const gridSpacingX = parseFloat(this.getParameterValue('grid_spacing_x'))
+        const gridSpacingY = parseFloat(this.getParameterValue('grid_spacing_y'))
 
 		if(gridMaxX && gridMaxY) {
 			gridSizeX = Math.ceil((gridMaxX - gridMinX)/gridSpacingX)
 			gridSizeY = Math.ceil((gridMaxY - gridMinY)/gridSpacingY)
 		}
 
-        let features = [];
+        const features = [];
 
         for(let x = 0; x < gridSizeX; x++) {
             for(let y = 0; y < gridSizeY; y++) {
-				let point = {
+				const point = {
 					x: gridMinX + x * gridSpacingX,
 					y: gridMinY + y * gridSpacingY,
 				}

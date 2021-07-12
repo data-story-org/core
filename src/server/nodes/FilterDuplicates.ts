@@ -31,14 +31,14 @@ export default class FilterDuplicates extends Node {
 
 	uniqueFeatures(all) {
 		const attribute = this.getParameterValue('attribute');
-		var prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
-		var uniqueFeatures = []
+		const prims = {"boolean":{}, "number":{}, "string":{}}, objs = [];
+		const uniqueFeatures = []
 	
 		all.forEach(function(feature) {
 			let comparable = attribute.split('.').reduce((traversed, part) => {
 				return part ? traversed[part] : traversed
 			}, feature.original)
-			var type = typeof comparable;
+			const type = typeof comparable;
 
 			if((type in prims)) {
 				if(!prims[type].hasOwnProperty(comparable)) {

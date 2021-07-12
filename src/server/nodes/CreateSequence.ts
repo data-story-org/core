@@ -17,7 +17,7 @@ export default class CreateSequence extends Node {
 	}
 
     async run() {
-        let count = parseInt(this.getParameterValue('number_of_features_to_create'))
+        const count = parseInt(this.getParameterValue('number_of_features_to_create'))
 
         this.output(
             Array.from(Array(count).keys()).map(i => {

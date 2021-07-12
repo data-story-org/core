@@ -1,5 +1,5 @@
 export const nonCircularJsonStringify = function(data, callback = null, indentation = 0) {
-    var cache = [];
+    const cache = [];
     return JSON.stringify(data, function(key, value) {
         if (typeof value === 'object' && value !== null) {
             if (cache.indexOf(value) !== -1) {

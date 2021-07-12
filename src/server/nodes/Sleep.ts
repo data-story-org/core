@@ -21,7 +21,7 @@ export default class Sleep extends Node {
         );
 
         return new Promise(resolve => {
-            let wait = setTimeout(() => {
+            const wait = setTimeout(() => {
                 if(typeof wait !== "undefined"){
                     clearTimeout(wait);
                 }

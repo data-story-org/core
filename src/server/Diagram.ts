@@ -10,7 +10,7 @@ export default class Diagram {
 	history: Node[] = []
  
     static hydrate(data: SerializedDiagram, factory) {
-        let instance = new this()
+        const instance = new this()
 		
         for (const [key, value] of Object.entries(data)) {
             
@@ -31,7 +31,7 @@ export default class Diagram {
     }
 
     async run() {
-        for await (let node of this.executionOrder()) {
+        for await (const node of this.executionOrder()) {
             await node.run()
         }
         
@@ -45,7 +45,7 @@ export default class Diagram {
     }
 
     find(id: string) {
-        let searchables = this.nodes
+        const searchables = this.nodes
             .concat(this.nodes.map(node => node.ports).flat())
             .concat(this.links)
 
@@ -53,7 +53,7 @@ export default class Diagram {
     }
 
 	findByName(name: string) {
-        let searchables = this.nodes
+        const searchables = this.nodes
             .concat(this.nodes.map(node => node.ports).flat())
             .concat(this.links)
 
@@ -70,7 +70,7 @@ export default class Diagram {
     executionOrder() {
         this.clearCachedNodeDependencies();
 
-        let r = this.nodes.sort((n1, n2) => {
+        const r = this.nodes.sort((n1, n2) => {
 
             if (this.dependsOn(n2, n1)) {
                 return -1;
@@ -99,29 +99,29 @@ export default class Diagram {
     }
 
     dependencies(node) {
-        let cached = this.getCachedNodeDependencies(node.id)
+        const cached = this.getCachedNodeDependencies(node.id)
         if(cached !== null) {
             return cached;
         }
 
-        let inPorts = Object.values(node.ports.filter(p => p.in == true))
+        const inPorts = Object.values(node.ports.filter(p => p.in == true))
 
-        let linkLists = inPorts.map((port: any) => port.links)
+        const linkLists = inPorts.map((port: any) => port.links)
 
-        let links = linkLists.map(linkList => Object.values(linkList)).flat()
-        let dependencies = links.map((link: any) => {
-			let sourcePort = this.find(link).sourcePort
-			let sourceNode = this.find(sourcePort).parentNode
+        const links = linkLists.map(linkList => Object.values(linkList)).flat()
+        const dependencies = links.map((link: any) => {
+			const sourcePort = this.find(link).sourcePort
+			const sourceNode = this.find(sourcePort).parentNode
 			return this.find(sourceNode).id
 		})
 
-        let deepDependencies = dependencies.map(d => {
+        const deepDependencies = dependencies.map(d => {
 			return this.dependencies(
 				this.find(d)
 			)
 		})
 
-        let result = dependencies.concat(deepDependencies.flat())
+        const result = dependencies.concat(deepDependencies.flat())
 
         this.setCachedNodeDependencies(node.id, result)
 
@@ -142,7 +142,7 @@ export default class Diagram {
         this.history.find(latest => {
             if(this.hasNode(latest)) {
                 if(this.canLink(latest, node)) {
-                    let link = this.getAutomatedLink(latest, node)
+                    const link = this.getAutomatedLink(latest, node)
                     // break out of find with a return true
                     return linked = true;
                 }
@@ -154,12 +154,12 @@ export default class Diagram {
         if(!this.canLink(from, to)) return;
 
         // fromPort: prefer first unused outPort. Otherwise defaults to first
-        let fromPort: any = this.getAutomatedFromPort(from)
+        const fromPort: any = this.getAutomatedFromPort(from)
 
         // toPort: the first inPort
-        let toPort: any = Object.values(to.getInPorts())[0];
+        const toPort: any = Object.values(to.getInPorts())[0];
         
-		let link = {
+		const link = {
 			from: fromPort,
 			to: toPort
 		}
@@ -180,8 +180,8 @@ export default class Diagram {
         if(!from) return
         
         // Resolve ports
-        let fromPort = Object.values(from.getOutPorts())[0] ?? false;
-        let toPort = Object.values(to.getInPorts())[0] ?? false;
+        const fromPort = Object.values(from.getOutPorts())[0] ?? false;
+        const toPort = Object.values(to.getInPorts())[0] ?? false;
 
         // Ensure there are ports to connect to
         return fromPort && toPort
