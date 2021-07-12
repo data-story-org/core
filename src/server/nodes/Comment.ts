@@ -15,7 +15,9 @@ export default class Comment extends Node {
     });
   }
 
-  async run() {}
+  async run() {
+    throw new Error("Not implemented")
+  }
 
   getParameters() {
     return [...super.getParameters(), NodeParameter.string('text').withValue('This is a comment')];
