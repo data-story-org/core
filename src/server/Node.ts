@@ -104,6 +104,7 @@ export default abstract class Node {
   }
 
   protected interpretParameterValue(parametric, feature) {
+    /* eslint-disable no-useless-escape */
     const matches = parametric.match(/\{\{[\.a-zA-Z\s_]*\}\}/g);
     if (matches) {
       for (const match of matches) {
