@@ -1,14 +1,15 @@
-import OutputProvider from '../../../../src/server/nodes/OutputProvider'
-import { when } from "../NodeTester";
+import OutputProvider from '../../../../src/server/nodes/OutputProvider';
+import { when } from '../NodeTester';
 
 it.skip('can provide outputs', async () => {
-    await when(OutputProvider).hasParameters({
-		ok: [1],
-		rejected: [2,3]
-	})
-		.assertOutputs({
-			ok: [1],
-			rejected: [2,3]
-		})
-		.finish()
+  await when(OutputProvider)
+    .hasParameters({
+      ok: [1],
+      rejected: [2, 3],
+    })
+    .assertOutputs({
+      ok: [1],
+      rejected: [2, 3],
+    })
+    .finish();
 });

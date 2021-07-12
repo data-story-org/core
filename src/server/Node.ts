@@ -1,22 +1,22 @@
-import Diagram from "./Diagram";
-import _ from "lodash";
-import { Feature } from "../Feature";
-import UID from "../utils/UID";
-import NodeParameter from "../NodeParameter";
-import { Port } from "./Port";
+import Diagram from './Diagram';
+import _ from 'lodash';
+import { Feature } from '../Feature';
+import UID from '../utils/UID';
+import NodeParameter from '../NodeParameter';
+import { Port } from './Port';
 
 type NodeOptions = {
-	diagram?: Diagram,
-	parameters?: object[],
-	defaultInPorts?: string[],
-	defaultOutPorts?: string[],
-	editableInPorts?: boolean,
-	editableOutPorts?: boolean,
-	name?: string,
-	summary?: string,
-	category?: string,
-	id?: string,
-}
+  diagram?: Diagram;
+  parameters?: object[];
+  defaultInPorts?: string[];
+  defaultOutPorts?: string[];
+  editableInPorts?: boolean;
+  editableOutPorts?: boolean;
+  name?: string;
+  summary?: string;
+  category?: string;
+  id?: string;
+};
 
 export default abstract class Node {
     public id: string
@@ -108,64 +108,35 @@ export default abstract class Node {
         return this.parameters.find(p => p.name == name)
     }
 
-    protected getParameterValue(name: string, feature: Feature = null) {
+    return parametric;
+  }
 
-        let value = this.getParameter(name).value
+  protected input(portName = 'Input') {
+    return this.getDataAtPortNamed(portName);
+  }
 
-        if(!feature) return value
+  protected getDataAtPortNamed(name = 'Input') {
+    const port = this.portNamed(name);
 
-        return this.interpretParameterValue(value, feature)
-    }
+    const features = port.links
+      .map((linkId) => {
+        const link = this.diagram.find(linkId);
+        const source = this.diagram.find(link.sourcePort);
 
-    protected interpretParameterValue(parametric, feature) {
-        let matches = parametric.match(/\{\{[\.a-zA-Z\s_]*\}\}/g)
-        if(matches) {
+        return source.features ?? [];
+      })
+      .flat();
 
-            for(let match of matches) {
-                let originalMatch = match
+    return _.cloneDeep(features);
+  }
 
-                let parts = match.replace('{{', '')
-                    .replace('}}', '')
-                    .trim()
-                    .split('.')
-                
-                parts.shift() // Remove 'feature'
+  protected output(features: any[], port = 'Output') {
+    this.portNamed(port).features = this.portNamed(port).features
+      ? this.portNamed(port).features.concat(features)
+      : features;
+  }
 
-                let interpreted = parts.reduce((carry, property) => {
-                    return carry[property]
-                }, feature.original)
-
-                parametric = parametric.replace(originalMatch, interpreted)
-            }
-        }
-
-        return parametric
-    }    
-
-    protected input(portName: string = 'Input')
-    {
-        return this.getDataAtPortNamed(portName);
-    }
-
-    protected getDataAtPortNamed(name: string = 'Input')
-    {
-       let port = this.portNamed(name);
-
-        let features = port.links.map(linkId => {
-            let link = this.diagram.find(linkId)
-            let source = this.diagram.find(link.sourcePort)
-
-            return source.features ?? []
-        }).flat()
-        
-        return _.cloneDeep(features)
-    }    
-
-    protected output(features: any[], port: string = 'Output') {
-        this.portNamed(port).features = this.portNamed(port).features ? this.portNamed(port).features.concat(features) : features		
-    }
-
-    protected portNamed(name: string) {
-        return this.ports.find(port => port.name == name)
-    }	
+  protected portNamed(name: string) {
+    return this.ports.find((port) => port.name == name);
+  }
 }

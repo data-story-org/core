@@ -1,8 +1,6 @@
-import Comment from '../../../../src/server/nodes/Comment'
-import { when } from "../NodeTester";
+import Comment from '../../../../src/server/nodes/Comment';
+import { when } from '../NodeTester';
 
 test('that comments wont break', async () => {
-    await when(Comment).hasDefaultParameters()
-		.assertCanRun()
-		.finish()
+  await when(Comment).hasDefaultParameters().assertCanRun().finish();
 });

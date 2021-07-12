@@ -1,7 +1,7 @@
-import Diagram from "./Diagram";
+import Diagram from './Diagram';
 
 export default class DiagramFactory {
-    static make() {
-        return new Diagram
-    }
+  static make() {
+    return new Diagram();
+  }
 }

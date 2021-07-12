@@ -6,3 +6,5 @@ lib
 
 # don't lint nyc coverage output
 coverage
+
+src/cli/*.js
