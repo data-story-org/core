@@ -17,11 +17,23 @@ export default class Clone_ extends Node {
 
   async run() {
     this.output(
-      [this.input(), ...Array(parseInt(this.getParameterValue('number_of_clones'))).fill(this.input())].flat(),
+      [
+        this.input(),
+        ...Array(
+          parseInt(
+            this.getParameterValue('number_of_clones'),
+          ),
+        ).fill(this.input()),
+      ].flat(),
     );
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.number('number_of_clones').withValue(10)];
+    return [
+      ...super.getParameters(),
+      NodeParameter.number('number_of_clones').withValue(
+        10,
+      ),
+    ];
   }
 }

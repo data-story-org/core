@@ -20,6 +20,11 @@ export default class Comment extends Node {
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.string('text').withValue('This is a comment')];
+    return [
+      ...super.getParameters(),
+      NodeParameter.string('text').withValue(
+        'This is a comment',
+      ),
+    ];
   }
 }

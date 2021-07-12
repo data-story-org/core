@@ -26,10 +26,13 @@ export default class HTTPRequest extends Node {
           this.output([new Feature(result)], 'Response');
 
           if (this.getParameterValue('features_path')) {
-            const features_path = this.getParameterValue('features_path');
-            const raw = features_path.split('.').reduce((traversed, part) => {
-              return part ? traversed[part] : traversed;
-            }, result);
+            const features_path =
+              this.getParameterValue('features_path');
+            const raw = features_path
+              .split('.')
+              .reduce((traversed, part) => {
+                return part ? traversed[part] : traversed;
+              }, result);
 
             const wrapped = [raw].flat();
             this.output(
@@ -42,7 +45,11 @@ export default class HTTPRequest extends Node {
           if (reason) {
             this.output(
               // Prevent functions in data
-              [new Feature(JSON.parse(JSON.stringify(reason)))],
+              [
+                new Feature(
+                  JSON.parse(JSON.stringify(reason)),
+                ),
+              ],
               'Failed',
             );
           }
@@ -54,23 +61,32 @@ export default class HTTPRequest extends Node {
     return [
       ...super.getParameters(),
       //NodeParameter.select('client').withOptions(['axios', 'mock']).withValue('axios'),
-      NodeParameter.string('url').withValue('https://jsonplaceholder.cypress.io/{{ feature.resource }}'),
+      NodeParameter.string('url').withValue(
+        'https://jsonplaceholder.cypress.io/{{ feature.resource }}',
+      ),
       NodeParameter.string('verb').withValue('GET'),
       NodeParameter.json('data').withValue('{}'),
       NodeParameter.json('config').withValue('{}'),
       NodeParameter.string('features_path')
         .withValue('data')
-        .withDescription('optional dot.notated.path to feature(s)'),
+        .withDescription(
+          'optional dot.notated.path to feature(s)',
+        ),
     ];
   }
 
   protected getClient() {
-    this.getParameterValue('client') == 'axios' ? axios : axios;
+    this.getParameterValue('client') == 'axios'
+      ? axios
+      : axios;
   }
 
   protected request(feature: Feature) {
     if (this.getParameterValue('verb', feature) == 'GET') {
-      return this.client.get(this.getParameterValue('url', feature), JSON.parse(this.getParameterValue('config')));
+      return this.client.get(
+        this.getParameterValue('url', feature),
+        JSON.parse(this.getParameterValue('config')),
+      );
     }
 
     if (this.getParameterValue('verb') == 'POST') {
@@ -82,7 +98,10 @@ export default class HTTPRequest extends Node {
     }
 
     if (this.getParameterValue('verb') == 'DELETE') {
-      return this.client.delete(this.getParameterValue('url', feature), JSON.parse(this.getParameterValue('config')));
+      return this.client.delete(
+        this.getParameterValue('url', feature),
+        JSON.parse(this.getParameterValue('config')),
+      );
     }
   }
 }

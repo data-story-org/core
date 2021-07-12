@@ -9,7 +9,12 @@ const dates = [
 ];
 
 it('can aggregate features', async () => {
-  await when(Aggregate).hasInput(dates).and().parameters({ group_by: 'date' }).assertOutputCount(2).finish();
+  await when(Aggregate)
+    .hasInput(dates)
+    .and()
+    .parameters({ group_by: 'date' })
+    .assertOutputCount(2)
+    .finish();
 });
 
 it('will keep the grouping key and appended the aggregated features in a features property', async () => {

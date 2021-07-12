@@ -17,7 +17,8 @@ export default class Create extends Node {
   }
 
   async run() {
-    const featurType = this.getParameterValue('feature_type');
+    const featurType =
+      this.getParameterValue('feature_type');
     const contents = this.getParameterValue('contents');
 
     if (featurType == 'null') {
@@ -45,7 +46,13 @@ export default class Create extends Node {
     return [
       ...super.getParameters(),
       NodeParameter.select('feature_type')
-        .withOptions(['null', 'object', 'float', 'integer', 'string'])
+        .withOptions([
+          'null',
+          'object',
+          'float',
+          'integer',
+          'string',
+        ])
         .withValue('object'),
       NodeParameter.json('contents').withValue('{}'),
     ];

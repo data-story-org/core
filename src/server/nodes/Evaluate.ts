@@ -25,7 +25,10 @@ export default class Evaluate extends Node {
   }
 
   async run() {
-    return this.getParameterValue('evaluation_context') == 'per_feature' ? this.runPerFeature() : this.runGlobal();
+    return this.getParameterValue('evaluation_context') ==
+      'per_feature'
+      ? this.runPerFeature()
+      : this.runGlobal();
   }
 
   runPerFeature() {
@@ -54,8 +57,12 @@ export default class Evaluate extends Node {
   getParameters() {
     return [
       ...super.getParameters(),
-      NodeParameter.select('evaluation_context').withOptions(['per_feature', 'global']).withValue('per_feature'),
-      NodeParameter.js('expression').withDescription('javascript code to execute').withValue(placeholder),
+      NodeParameter.select('evaluation_context')
+        .withOptions(['per_feature', 'global'])
+        .withValue('per_feature'),
+      NodeParameter.js('expression')
+        .withDescription('javascript code to execute')
+        .withValue(placeholder),
     ];
   }
 }

@@ -14,9 +14,13 @@ export default class Diagram {
 
     for (const [key, value] of Object.entries(data)) {
       if (key === 'layers') {
-        instance.links = Object.values(data.layers[0].models);
+        instance.links = Object.values(
+          data.layers[0].models,
+        );
 
-        instance.nodes = Object.values(data.layers[1].models).map((node) => {
+        instance.nodes = Object.values(
+          data.layers[1].models,
+        ).map((node) => {
           return factory.hydrate(node, instance);
         });
 
@@ -44,15 +48,21 @@ export default class Diagram {
   }
 
   find(id: string) {
-    const searchables = this.nodes.concat(this.nodes.map((node) => node.ports).flat()).concat(this.links);
+    const searchables = this.nodes
+      .concat(this.nodes.map((node) => node.ports).flat())
+      .concat(this.links);
 
     return searchables.find((entity) => entity.id == id);
   }
 
   findByName(name: string) {
-    const searchables = this.nodes.concat(this.nodes.map((node) => node.ports).flat()).concat(this.links);
+    const searchables = this.nodes
+      .concat(this.nodes.map((node) => node.ports).flat())
+      .concat(this.links);
 
-    return searchables.find((entity) => entity.name == name);
+    return searchables.find(
+      (entity) => entity.name == name,
+    );
   }
 
   addNode(node) {
@@ -98,11 +108,17 @@ export default class Diagram {
       return cached;
     }
 
-    const inPorts = Object.values(node.ports.filter((p) => p.in == true));
+    const inPorts = Object.values(
+      node.ports.filter((p) => p.in == true),
+    );
 
-    const linkLists = inPorts.map((port: any) => port.links);
+    const linkLists = inPorts.map(
+      (port: any) => port.links,
+    );
 
-    const links = linkLists.map((linkList) => Object.values(linkList)).flat();
+    const links = linkLists
+      .map((linkList) => Object.values(linkList))
+      .flat();
     const dependencies = links.map((link: any) => {
       const sourcePort = this.find(link).sourcePort;
       const sourceNode = this.find(sourcePort).parentNode;
@@ -113,7 +129,9 @@ export default class Diagram {
       return this.dependencies(this.find(d));
     });
 
-    const result = dependencies.concat(deepDependencies.flat());
+    const result = dependencies.concat(
+      deepDependencies.flat(),
+    );
 
     this.setCachedNodeDependencies(node.id, result);
 
@@ -163,9 +181,13 @@ export default class Diagram {
   getAutomatedFromPort(fromNode) {
     // fromPort: prefer first unused outPort. Otherwise defaults to first
     return (
-      Object.values(fromNode.getOutPorts()).find((candidate: any) => {
-        return Object.values(candidate.links).length === 0;
-      }) ?? Object.values(fromNode.getOutPorts())[0]
+      Object.values(fromNode.getOutPorts()).find(
+        (candidate: any) => {
+          return (
+            Object.values(candidate.links).length === 0
+          );
+        },
+      ) ?? Object.values(fromNode.getOutPorts())[0]
     );
   }
 
@@ -174,8 +196,10 @@ export default class Diagram {
     if (!from) return;
 
     // Resolve ports
-    const fromPort = Object.values(from.getOutPorts())[0] ?? false;
-    const toPort = Object.values(to.getInPorts())[0] ?? false;
+    const fromPort =
+      Object.values(from.getOutPorts())[0] ?? false;
+    const toPort =
+      Object.values(to.getInPorts())[0] ?? false;
 
     // Ensure there are ports to connect to
     return fromPort && toPort;

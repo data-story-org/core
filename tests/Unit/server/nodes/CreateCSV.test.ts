@@ -7,7 +7,10 @@ let content = `date	user	score
 2021-05-28	2	0.2148094642`;
 
 it('can load csv content', async () => {
-  await when(CreateCSV).hasParameters({ content }).assertOutputCount(3).finish();
+  await when(CreateCSV)
+    .hasParameters({ content })
+    .assertOutputCount(3)
+    .finish();
 });
 
 content = `date,user,score
@@ -33,6 +36,10 @@ zero
 it('will convert to int or float when possible', async () => {
   await when(CreateCSV)
     .hasParameters({ content })
-    .assertOutput([{ nbr: 'zero' }, { nbr: 1 }, { nbr: 2.0 }])
+    .assertOutput([
+      { nbr: 'zero' },
+      { nbr: 1 },
+      { nbr: 2.0 },
+    ])
     .finish();
 });

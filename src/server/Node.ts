@@ -42,16 +42,29 @@ export default abstract class Node {
     (this.name = options.name),
       (this.summary = options.summary),
       (this.category = options.category),
-      (this.defaultInPorts = options.defaultInPorts ?? ['Input']),
-      (this.defaultOutPorts = options.defaultOutPorts ?? ['Output']),
-      (this.editableInPorts = options.editableInPorts ?? false);
-    this.editableOutPorts = options.editableOutPorts ?? false;
-    this.parameters = options.parameters ? options.parameters : [];
+      (this.defaultInPorts = options.defaultInPorts ?? [
+        'Input',
+      ]),
+      (this.defaultOutPorts = options.defaultOutPorts ?? [
+        'Output',
+      ]),
+      (this.editableInPorts =
+        options.editableInPorts ?? false);
+    this.editableOutPorts =
+      options.editableOutPorts ?? false;
+    this.parameters = options.parameters
+      ? options.parameters
+      : [];
     this.ports = this.createPorts(options);
   }
 
   createPorts(options) {
-    return options.ports ?? [...this.getDefaultInPorts(), ...this.getDefaultOutPorts()];
+    return (
+      options.ports ?? [
+        ...this.getDefaultInPorts(),
+        ...this.getDefaultOutPorts(),
+      ]
+    );
   }
 
   getDefaultInPorts() {
@@ -88,14 +101,21 @@ export default abstract class Node {
   }
 
   getParameters() {
-    return [NodeParameter.string('node_name').withValue(this.name)];
+    return [
+      NodeParameter.string('node_name').withValue(
+        this.name,
+      ),
+    ];
   }
 
   protected getParameter(name: string) {
     return this.parameters.find((p) => p.name == name);
   }
 
-  protected getParameterValue(name: string, feature: Feature = null) {
+  protected getParameterValue(
+    name: string,
+    feature: Feature = null,
+  ) {
     const value = this.getParameter(name).value;
 
     if (!feature) return value;
@@ -105,20 +125,32 @@ export default abstract class Node {
 
   protected interpretParameterValue(parametric, feature) {
     /* eslint-disable no-useless-escape */
-    const matches = parametric.match(/\{\{[\.a-zA-Z\s_]*\}\}/g);
+    const matches = parametric.match(
+      /\{\{[\.a-zA-Z\s_]*\}\}/g,
+    );
     if (matches) {
       for (const match of matches) {
         const originalMatch = match;
 
-        const parts = match.replace('{{', '').replace('}}', '').trim().split('.');
+        const parts = match
+          .replace('{{', '')
+          .replace('}}', '')
+          .trim()
+          .split('.');
 
         parts.shift(); // Remove 'feature'
 
-        const interpreted = parts.reduce((carry, property) => {
-          return carry[property];
-        }, feature.original);
+        const interpreted = parts.reduce(
+          (carry, property) => {
+            return carry[property];
+          },
+          feature.original,
+        );
 
-        parametric = parametric.replace(originalMatch, interpreted);
+        parametric = parametric.replace(
+          originalMatch,
+          interpreted,
+        );
       }
     }
 
@@ -145,7 +177,8 @@ export default abstract class Node {
   }
 
   protected output(features: any[], port = 'Output') {
-    this.portNamed(port).features = this.portNamed(port).features
+    this.portNamed(port).features = this.portNamed(port)
+      .features
       ? this.portNamed(port).features.concat(features)
       : features;
   }

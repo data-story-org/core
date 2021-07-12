@@ -1,4 +1,8 @@
-export const nonCircularJsonStringify = function (data, callback = null, indentation = 0) {
+export const nonCircularJsonStringify = function (
+  data,
+  callback = null,
+  indentation = 0,
+) {
   const cache = [];
   return JSON.stringify(
     data,

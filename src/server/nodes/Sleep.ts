@@ -29,6 +29,9 @@ export default class Sleep extends Node {
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.number('seconds_to_sleep').withValue(5)];
+    return [
+      ...super.getParameters(),
+      NodeParameter.number('seconds_to_sleep').withValue(5),
+    ];
   }
 }

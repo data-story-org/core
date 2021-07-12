@@ -19,7 +19,9 @@ export default class CreateCSV extends Node {
   async run() {
     const delimiter = this.getParameterValue('delimiter');
     const content = this.getParameterValue('content');
-    const rows = content.split('\n').map((row) => row.split(delimiter));
+    const rows = content
+      .split('\n')
+      .map((row) => row.split(delimiter));
     const headings = rows.shift();
 
     const objects = rows.map((row) => {
@@ -39,7 +41,9 @@ export default class CreateCSV extends Node {
     const description = super.serialize();
 
     description.parameters.push(
-      NodeParameter.string('delimiter').withValue('	').withDescription('Default is TAB'),
+      NodeParameter.string('delimiter')
+        .withValue('	')
+        .withDescription('Default is TAB'),
       NodeParameter.textarea('content'),
     );
 
@@ -50,8 +54,10 @@ export default class CreateCSV extends Node {
     // Its just some string
     if (isNaN(value as any)) return value;
     // Its numeric
-    if (!Number.isNaN(parseFloat(value))) return parseFloat(value);
-    if (!Number.isNaN(parseInt(value))) return parseInt(value);
+    if (!Number.isNaN(parseFloat(value)))
+      return parseFloat(value);
+    if (!Number.isNaN(parseInt(value)))
+      return parseInt(value);
 
     // Fallback
     return value;

@@ -16,10 +16,13 @@ export default class OutputProvider extends Node {
   }
 
   async run() {
-    let outputs = this.getParameterValue('outputs') ? this.getParameterValue('outputs') : {};
+    let outputs = this.getParameterValue('outputs')
+      ? this.getParameterValue('outputs')
+      : {};
 
     // It can accept json string or object
-    if (typeof outputs == 'string') outputs = JSON.parse(outputs);
+    if (typeof outputs == 'string')
+      outputs = JSON.parse(outputs);
 
     for (const [key, value] of Object.entries(outputs)) {
       this.output(
@@ -30,6 +33,9 @@ export default class OutputProvider extends Node {
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.js('outputs').withValue('')];
+    return [
+      ...super.getParameters(),
+      NodeParameter.js('outputs').withValue(''),
+    ];
   }
 }

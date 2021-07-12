@@ -73,7 +73,10 @@ export default class NodeFactory {
     return new (this.find(type))();
   }
 
-  static hydrate(node: SerializedNodeModel, diagram = null) {
+  static hydrate(
+    node: SerializedNodeModel,
+    diagram = null,
+  ) {
     const type = this.find(node.nodeType);
 
     return new type({

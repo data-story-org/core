@@ -16,10 +16,20 @@ export default class Sample extends Node {
   }
 
   async run() {
-    this.output(this.input().slice(0, this.getParameterValue('first_n_features')));
+    this.output(
+      this.input().slice(
+        0,
+        this.getParameterValue('first_n_features'),
+      ),
+    );
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.number('first_n_features').withValue(100)];
+    return [
+      ...super.getParameters(),
+      NodeParameter.number('first_n_features').withValue(
+        100,
+      ),
+    ];
   }
 }
