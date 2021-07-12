@@ -36,6 +36,9 @@ jobs:
 
       - name: Get all unfixable eslint errors
         uses: bradennapier/eslint-plus-action@v3.4.2
+        with:
+          includeGlob: src/**/*
+          npmInstall: false
         # uses: wearerequired/lint-action@v1
         # with:
         #   eslint: true
