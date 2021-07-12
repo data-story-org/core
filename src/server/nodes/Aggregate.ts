@@ -1,51 +1,43 @@
-import Node from "../Node";
-import NodeParameter from "../../NodeParameter";
-import { groupBy } from '../../utils/Arr'
-import { Feature } from "../../Feature";
+import Node from '../Node';
+import NodeParameter from '../../NodeParameter';
+import { groupBy } from '../../utils/Arr';
+import { Feature } from '../../Feature';
 
 export default class Aggregate extends Node {
-	constructor(options = {}) {
-		super({
-			// Defaults
-			name: 'Aggregate',
-			summary: 'Group features by attribute',
-			category: 'Workflow',
-			defaultInPorts: ['Input'],
-			defaultOutPorts: ['Output'],			
-			// Explicitly configured
-			...options,
-		})
-	}
+  constructor(options = {}) {
+    super({
+      // Defaults
+      name: 'Aggregate',
+      summary: 'Group features by attribute',
+      category: 'Workflow',
+      defaultInPorts: ['Input'],
+      defaultOutPorts: ['Output'],
+      // Explicitly configured
+      ...options,
+    });
+  }
 
-    async run() {
-		const groupKey = this.getParameterValue('group_by')
+  async run() {
+    const groupKey = this.getParameterValue('group_by');
 
-        const key = [
-			'original',
-			...(groupKey ? [groupKey] : [])
-		].join('.')
-        
-		const groups = groupBy(this.input(), key)
-		const features = [];
+    const key = ['original', ...(groupKey ? [groupKey] : [])].join('.');
 
-		for (const value in groups) {
-			features.push(
-				new Feature({
-					[groupKey]: value,
-					features: groups[value].map(feature => feature.original)
-				})
-			)
-		}
+    const groups = groupBy(this.input(), key);
+    const features = [];
 
-        this.output(
-            features
-        )
+    for (const value in groups) {
+      features.push(
+        new Feature({
+          [groupKey]: value,
+          features: groups[value].map((feature) => feature.original),
+        }),
+      );
     }
 
-	getParameters() {
-		return [
-			...super.getParameters(),
-            NodeParameter.string('group_by'),
-		]
-	}     
+    this.output(features);
+  }
+
+  getParameters() {
+    return [...super.getParameters(), NodeParameter.string('group_by')];
+  }
 }
