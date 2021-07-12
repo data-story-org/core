@@ -1,13 +1,9 @@
 export class HTTPClient {
-	get() {
-		return
-	}
+  get() {
+    return;
+  }
 
-	post() {
+  post() {}
 
-	}
-
-	delete() {
-
-	}
+  delete() {}
 }
