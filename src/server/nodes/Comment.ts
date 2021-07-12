@@ -16,7 +16,7 @@ export default class Comment extends Node {
   }
 
   async run() {
-    return null
+    return null;
   }
 
   getParameters() {
