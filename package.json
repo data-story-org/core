@@ -1,7 +1,7 @@
 {
   "name": "@data-story-org/core",
   "version": "0.1.0",
-  "description": "TypeScript NPM Module Boilerplate",
+  "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -20,18 +20,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uWynell/typescript-package-boilerplate.git"
+    "url": ""
   },
   "keywords": [
-    "boilerplate",
     "typescript"
   ],
-  "author": "Wynell",
+  "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/uWynell/typescript-package-boilerplate/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/uWynell/typescript-package-boilerplate#readme",
+  "homepage": "",
   "devDependencies": {
     "@types/jest": "^26.0.15",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
