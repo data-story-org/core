@@ -16,7 +16,7 @@ export default class Comment extends Node {
   }
 
   async run() {
-    throw new Error('Not implemented');
+    return null
   }
 
   getParameters() {
