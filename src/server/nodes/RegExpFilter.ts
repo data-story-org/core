@@ -1,5 +1,4 @@
 import Node from '../Node';
-// @ts-ignore
 import { trim } from '../../utils/Str';
 import NodeParameter from '../../NodeParameter';
 
