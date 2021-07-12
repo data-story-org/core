@@ -73,7 +73,15 @@ export default abstract class Node {
 				in: false
 			})
 		})
-	}	
+	}
+
+	getInPorts() {
+		return this.ports.filter(p => p.in)
+	}
+
+	getOutPorts() {
+		return this.ports.filter(p => !p.in)
+	}
 
 	serialize() {
 		return {

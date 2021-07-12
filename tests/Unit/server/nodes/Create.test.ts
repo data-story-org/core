@@ -7,12 +7,6 @@ it('creates an empty object by default', async () => {
 		.finish()
 });
 
-it('creates an empty object by default', async () => {
-    await when(Create).hasDefaultParameters()
-		//.assertOutput([{}])
-		.finish()
-});
-
 it('can create complex object from json', async () => {
     await when(Create).hasParameters({ contents: '{"foo": "bar"}'})
 		.assertOutput([{foo: 'bar'}])

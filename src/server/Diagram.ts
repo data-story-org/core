@@ -62,7 +62,19 @@ export default class Diagram {
 
     addNode(node) {
 		this.history.push(node)
-        this.nodes.push(node)
+		this.nodes.push(node)
+		this.linkToLatest(node)
+
+        return this
+    }
+
+    addLink(fromPort, toPort) {
+		let link = {
+			fromPort,
+			toPort,
+		}
+
+		this.links.push(link)
 
         return this
     }
@@ -134,42 +146,33 @@ export default class Diagram {
 		}).includes(n2.id)
     }
 
-    attemptLinkToLatest(node)
+    linkToLatest(node)
     {
-        let linked = false;
-        
         // Try to link to latest nodes
         this.history.find(latest => {
             if(this.hasNode(latest)) {
                 if(this.canLink(latest, node)) {
-                    let link = this.getAutomatedLink(latest, node)
-                    // break out of find with a return true
-                    return linked = true;
+					// fromPort: prefer first unused outPort. Otherwise defaults to first
+					let fromPort: any = this.getAutomatedFromPort(latest)
+
+					// toPort: the first inPort
+					let toPort: any = Object.values(node.getInPorts())[0];
+
+					this.links.push({
+						from: fromPort,
+						to: toPort
+					})
+
+					return true // exit find
                 }
             }
         })
     }
 
-    getAutomatedLink(from, to) {
-        if(!this.canLink(from, to)) return;
-
-        // fromPort: prefer first unused outPort. Otherwise defaults to first
-        let fromPort: any = this.getAutomatedFromPort(from)
-
-        // toPort: the first inPort
-        let toPort: any = Object.values(to.getInPorts())[0];
-        
-		let link = {
-			from: fromPort,
-			to: toPort
-		}
-
-        return link
-    }
-
 	getAutomatedFromPort(fromNode) {
         // fromPort: prefer first unused outPort. Otherwise defaults to first
         return Object.values(fromNode.getOutPorts()).find((candidate: any) => {
+			console.log(candidate)
             return Object.values(candidate.links).length === 0
         }) ?? Object.values(fromNode.getOutPorts())[0]
 	}
