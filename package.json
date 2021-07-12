@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "build-cli": "npx webpack",
-    "format": "prettier --write \"src/**/*.(js|ts)\"",
+    "format": "prettier --write \"./**/*.(js|ts|json|md|css|less|scss)\"",
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "lint:quiet:fix": "eslint src --quiet --fix --ext .js,.ts",
