@@ -14,19 +14,21 @@ export class Port {
     name: string;
     in: boolean;
     links?: [];
-	id?: string;
-	node?: Node;
+    id?: string;
+    node?: Node;
   }) {
     this.name = options.name;
     this.in = options.in;
     this.links = options.links ?? [];
-	this.id = options.id ?? UID()
-	this.node = options.node ?? null
+    this.id = options.id ?? UID();
+    this.node = options.node ?? null;
   }
 
   getLinks() {
-	return this.node.diagram.links.filter(link => {
-		return link.from.id == this.id || link.to.id == this.id
-	})
+    return this.node.diagram.links.filter((link) => {
+      return (
+        link.from.id == this.id || link.to.id == this.id
+      );
+    });
   }
 }
