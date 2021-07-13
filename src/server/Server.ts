@@ -4,7 +4,6 @@ import { BootPayload } from '../types/BootPayload';
 
 export class Server {
   public boot() {
-	console.log("hey!")
     return new Promise<BootPayload>((callback) => {
       return callback({
         data: {
