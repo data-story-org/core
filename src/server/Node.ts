@@ -39,32 +39,35 @@ export default abstract class Node {
   constructor(options: NodeOptions = {}) {
     this.diagram = options.diagram;
     this.id = options.id ?? UID();
-    (this.name = options.name),
-      (this.summary = options.summary),
-      (this.category = options.category),
-      (this.defaultInPorts = options.defaultInPorts ?? [
+    this.name = options.name
+    this.summary = options.summary
+    this.category = options.category
+    this.defaultInPorts = options.defaultInPorts ?? [
         'Input',
-      ]),
-      (this.defaultOutPorts = options.defaultOutPorts ?? [
-        'Output',
-      ]),
-      (this.editableInPorts =
-        options.editableInPorts ?? false);
-    this.editableOutPorts =
-      options.editableOutPorts ?? false;
+    ],
+    this.defaultOutPorts = options.defaultOutPorts ?? [
+    	'Output',
+    ],
+    this.editableInPorts = options.editableInPorts ?? false;
+    this.editableOutPorts = options.editableOutPorts ?? false;
     this.parameters = options.parameters
       ? options.parameters
       : [];
+
     this.ports = this.createPorts(options);
   }
 
   createPorts(options) {
-    return (
-      options.ports ?? [
+    let ports = options.ports ?? [
         ...this.getDefaultInPorts(),
         ...this.getDefaultOutPorts(),
-      ]
-    );
+    ];
+
+	// Attach this node as parent node
+	return ports.map(p => {
+		p.node = this
+		return p
+	})
   }
 
   getDefaultInPorts() {
@@ -72,6 +75,7 @@ export default abstract class Node {
       return new Port({
         name,
         in: true,
+		node: this
       });
     });
   }
@@ -81,6 +85,7 @@ export default abstract class Node {
       return new Port({
         name,
         in: false,
+		node: this		
       });
     });
   }
@@ -172,14 +177,9 @@ export default abstract class Node {
   protected getDataAtPortNamed(name = 'Input') {
     const port = this.portNamed(name);
 
-    // TODO the ports are missing UID and cant be tracked...
-
-    const features = port.links
-      .map((linkId) => {
-        const link = this.diagram.find(linkId);
-        const source = this.diagram.find(link.sourcePort);
-
-        return source.features ?? [];
+    const features = port.getLinks()
+      .map((link) => {
+        return link.from.features ?? [];
       })
       .flat();
 
