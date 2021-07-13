@@ -4,15 +4,19 @@ import Create from '../../../src/server/nodes/Create';
 import Inspect from '../../../src/server/nodes/Inspect';
 
 it('can build diagrams programatically', () => {
-  expect(DiagramBuilder.begin()
-  	.add(Create)
-	.add(Inspect)
-	.finish())
-	.toBeInstanceOf(Diagram);
+  expect(
+    DiagramBuilder.begin()
+      .add(Create)
+      .add(Inspect)
+      .finish(),
+  ).toBeInstanceOf(Diagram);
 });
 
 it('the created diagrams are runnable', async () => {
-  let diagram = DiagramBuilder.begin().add(Create).add(Inspect).finish();
+  let diagram = DiagramBuilder.begin()
+    .add(Create)
+    .add(Inspect)
+    .finish();
 
   let result = await diagram.run();
 

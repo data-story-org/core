@@ -18,7 +18,10 @@ fs.writeFile(
 
 // Create Test file
 fs.writeFile(
-  __dirname + '/../../tests/unit/server/nodes/' + nodeName + '.test.ts',
+  __dirname +
+    '/../../tests/unit/server/nodes/' +
+    nodeName +
+    '.test.ts',
   fs
     .readFileSync(__dirname + '/add-node-test.stub')
     .toString()
@@ -27,4 +30,7 @@ fs.writeFile(
   () => {},
 );
 
-console.info(nodeName + ' NodeFile and test created. Remember to add your node in NodeFactory.');
+console.info(
+  nodeName +
+    ' NodeFile and test created. Remember to add your node in NodeFactory.',
+);

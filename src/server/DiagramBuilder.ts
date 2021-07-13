@@ -27,8 +27,12 @@ export class DiagramBuilder {
   }
 
   withParameters(parameters: object) {
-    for (const [name, value] of Object.entries(parameters)) {
-      const parameter = this.currentNode.parameters.find((p) => p.name == name);
+    for (const [name, value] of Object.entries(
+      parameters,
+    )) {
+      const parameter = this.currentNode.parameters.find(
+        (p) => p.name == name,
+      );
       parameter.value = value;
     }
 

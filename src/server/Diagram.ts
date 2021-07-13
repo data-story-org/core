@@ -14,9 +14,13 @@ export default class Diagram {
 
     for (const [key, value] of Object.entries(data)) {
       if (key === 'layers') {
-        instance.links = Object.values(data.layers[0].models);
+        instance.links = Object.values(
+          data.layers[0].models,
+        );
 
-        instance.nodes = Object.values(data.layers[1].models).map((node) => {
+        instance.nodes = Object.values(
+          data.layers[1].models,
+        ).map((node) => {
           return factory.hydrate(node, instance);
         });
 
@@ -44,77 +48,91 @@ export default class Diagram {
   }
 
   find(id: string) {
-    const searchables = this.nodes.concat(this.nodes.map((node) => node.ports).flat()).concat(this.links);
+    const searchables = this.nodes
+      .concat(this.nodes.map((node) => node.ports).flat())
+      .concat(this.links);
 
     return searchables.find((entity) => entity.id == id);
   }
 
   findByName(name: string) {
-    const searchables = this.nodes.concat(this.nodes.map((node) => node.ports).flat()).concat(this.links);
+    const searchables = this.nodes
+      .concat(this.nodes.map((node) => node.ports).flat())
+      .concat(this.links);
 
-    return searchables.find((entity) => entity.name == name);
+    return searchables.find(
+      (entity) => entity.name == name,
+    );
   }
 
   addNode(node) {
-	node.diagram = this
-	this.history.push(node)
-	this.nodes.push(node)
-	this.linkToLatest(node)
+    node.diagram = this;
+    this.history.push(node);
+    this.nodes.push(node);
+    this.linkToLatest(node);
 
-	return this
+    return this;
   }
 
   addLink(fromPort, toPort) {
-	this.links.push({
-		fromPort,
-		toPort,
-	})
+    this.links.push({
+      fromPort,
+      toPort,
+    });
 
-	return this
+    return this;
   }
-  
-  linkToLatest(node)
-  {
-	  // Try to link to latest nodes
-	  this.history.find(latest => {
-		  if(this.hasNode(latest)) {
-			  if(this.canLink(latest, node)) {
-				  // fromPort: prefer first unused outPort. Otherwise defaults to first
-				  let fromPort: any = this.getAutomatedFromPort(latest)
 
-				  // toPort: the first inPort
-				  let toPort: any = Object.values(node.getInPorts())[0];
+  linkToLatest(node) {
+    // Try to link to latest nodes
+    this.history.find((latest) => {
+      if (this.hasNode(latest)) {
+        if (this.canLink(latest, node)) {
+          // fromPort: prefer first unused outPort. Otherwise defaults to first
+          const fromPort: any =
+            this.getAutomatedFromPort(latest);
 
-				  this.links.push({
-					  from: fromPort,
-					  to: toPort
-				  })
+          // toPort: the first inPort
+          const toPort: any = Object.values(
+            node.getInPorts(),
+          )[0];
 
-				  return true // exit find
-			  }
-		  }
-	  })
+          this.links.push({
+            from: fromPort,
+            to: toPort,
+          });
+
+          return true; // exit find
+        }
+      }
+    });
   }
-  
+
   getAutomatedFromPort(fromNode) {
-	// fromPort: prefer first unused outPort. Otherwise defaults to first
-	return Object.values(fromNode.getOutPorts()).find((candidate: any) => {
-		return Object.values(candidate.links).length === 0
-	}) ?? Object.values(fromNode.getOutPorts())[0]
-}
+    // fromPort: prefer first unused outPort. Otherwise defaults to first
+    return (
+      Object.values(fromNode.getOutPorts()).find(
+        (candidate: any) => {
+          return (
+            Object.values(candidate.links).length === 0
+          );
+        },
+      ) ?? Object.values(fromNode.getOutPorts())[0]
+    );
+  }
 
-	canLink(from, to)
-	{
-		// Has from node?
-		if(!from) return
-		
-		// Resolve ports
-		let fromPort = Object.values(from.getOutPorts())[0] ?? false;
-		let toPort = Object.values(to.getInPorts())[0] ?? false;
+  canLink(from, to) {
+    // Has from node?
+    if (!from) return;
 
-		// Ensure there are ports to connect to
-		return fromPort && toPort
-	}  
+    // Resolve ports
+    const fromPort =
+      Object.values(from.getOutPorts())[0] ?? false;
+    const toPort = Object.values(to.getInPorts())[0] ?? false;
+
+    // Ensure there are ports to connect to
+    return fromPort && toPort;
+  }
 
   executionOrder() {
     this.clearCachedNodeDependencies();
@@ -152,11 +170,17 @@ export default class Diagram {
       return cached;
     }
 
-    const inPorts = Object.values(node.ports.filter((p) => p.in == true));
+    const inPorts = Object.values(
+      node.ports.filter((p) => p.in == true),
+    );
 
-    const linkLists = inPorts.map((port: any) => port.links);
+    const linkLists = inPorts.map(
+      (port: any) => port.links,
+    );
 
-    const links = linkLists.map((linkList) => Object.values(linkList)).flat();
+    const links = linkLists
+      .map((linkList) => Object.values(linkList))
+      .flat();
     const dependencies = links.map((link: any) => {
       const sourcePort = this.find(link).sourcePort;
       const sourceNode = this.find(sourcePort).parentNode;
@@ -167,7 +191,9 @@ export default class Diagram {
       return this.dependencies(this.find(d));
     });
 
-    const result = dependencies.concat(deepDependencies.flat());
+    const result = dependencies.concat(
+      deepDependencies.flat(),
+    );
 
     this.setCachedNodeDependencies(node.id, result);
 

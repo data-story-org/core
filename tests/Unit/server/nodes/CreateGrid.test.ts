@@ -2,7 +2,11 @@ import CreateGrid from '../../../../src/server/nodes/CreateGrid';
 import { when } from '../NodeTester';
 
 it('creates a 10 x 10 grid with default parameters', async () => {
-  await when(CreateGrid).hasDefaultParameters().assertCanRun().assertOutputCount(100).finish();
+  await when(CreateGrid)
+    .hasDefaultParameters()
+    .assertCanRun()
+    .assertOutputCount(100)
+    .finish();
 });
 
 it('can set a explicit grid size if max x/y is empty', async () => {

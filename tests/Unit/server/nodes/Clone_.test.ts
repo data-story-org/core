@@ -2,7 +2,11 @@ import Clone_ from '../../../../src/server/nodes/Clone_';
 import { when } from '../NodeTester';
 
 it('makes ten clones by default', async () => {
-  await when(Clone_).hasInput(['a feature']).assertCanRun().assertOutputCount(11).finish();
+  await when(Clone_)
+    .hasInput(['a feature'])
+    .assertCanRun()
+    .assertOutputCount(11)
+    .finish();
 });
 
 it('allows configuration of number of clones', async () => {

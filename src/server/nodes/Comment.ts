@@ -16,10 +16,15 @@ export default class Comment extends Node {
   }
 
   async run() {
-    return null
+    return null;
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.string('text').withValue('This is a comment')];
+    return [
+      ...super.getParameters(),
+      NodeParameter.string('text').withValue(
+        'This is a comment',
+      ),
+    ];
   }
 }

@@ -6,7 +6,8 @@ export default class Group extends Node {
     super({
       // Defaults
       name: 'Group',
-      summary: 'Outputs one array feature per incoming set of features',
+      summary:
+        'Outputs one array feature per incoming set of features',
       category: 'Workflow',
       defaultInPorts: ['Input'],
       defaultOutPorts: ['Output'],
@@ -16,6 +17,8 @@ export default class Group extends Node {
   }
 
   async run() {
-    this.output([new Feature(this.input().map((f) => f.original))]);
+    this.output([
+      new Feature(this.input().map((f) => f.original)),
+    ]);
   }
 }

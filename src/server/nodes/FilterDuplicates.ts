@@ -23,7 +23,9 @@ export default class FilterDuplicates extends Node {
   getParameters() {
     return [
       ...super.getParameters(),
-      NodeParameter.string('attribute').withDescription('attribute to filter on, may use dot notation'),
+      NodeParameter.string('attribute').withDescription(
+        'attribute to filter on, may use dot notation',
+      ),
     ];
   }
 
@@ -34,14 +36,21 @@ export default class FilterDuplicates extends Node {
     const uniqueFeatures = [];
 
     all.forEach(function (feature) {
-      let comparable = attribute.split('.').reduce((traversed, part) => {
-        return part ? traversed[part] : traversed;
-      }, feature.original);
+      let comparable = attribute
+        .split('.')
+        .reduce((traversed, part) => {
+          return part ? traversed[part] : traversed;
+        }, feature.original);
       const type = typeof comparable;
 
       if (type in prims) {
         // if (!prims[type].hasOwnProperty(comparable)) {
-        if (!Object.prototype.hasOwnProperty.call(prims[type], comparable)) {
+        if (
+          !Object.prototype.hasOwnProperty.call(
+            prims[type],
+            comparable,
+          )
+        ) {
           uniqueFeatures.push(feature);
           prims[type][comparable] = true;
         }

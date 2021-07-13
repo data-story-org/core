@@ -11,7 +11,13 @@ it('can sort shallow objects', async () => {
 });
 
 it('can sort primitives', async () => {
-  await when(Sort).hasInput([1, 3, 2]).assertOutput([1, 2, 3]).finish();
+  await when(Sort)
+    .hasInput([1, 3, 2])
+    .assertOutput([1, 2, 3])
+    .finish();
 
-  await when(Sort).hasInput(['a', 'x', 'b']).assertOutput(['a', 'b', 'x']).finish();
+  await when(Sort)
+    .hasInput(['a', 'x', 'b'])
+    .assertOutput(['a', 'b', 'x'])
+    .finish();
 });

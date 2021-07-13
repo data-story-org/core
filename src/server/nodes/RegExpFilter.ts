@@ -7,7 +7,8 @@ export default class RegExpFilter extends Node {
     super({
       // Defaults
       name: 'RegExpFilter',
-      summary: 'Filter features matching an attribute regular expression',
+      summary:
+        'Filter features matching an attribute regular expression',
       category: 'Workflow',
       defaultInPorts: ['Input'],
       defaultOutPorts: ['Passed', 'Failed'],
@@ -20,7 +21,9 @@ export default class RegExpFilter extends Node {
     return [
       ...super.getParameters(),
       NodeParameter.string('attribute').withValue(''),
-      NodeParameter.string('expression').withValue('/test|draft|dummy/'),
+      NodeParameter.string('expression').withValue(
+        '/test|draft|dummy/',
+      ),
     ];
   }
 
@@ -41,16 +44,23 @@ export default class RegExpFilter extends Node {
     return features.filter((feature) => {
       const expression = this.getExpression();
       const attribute = this.getParameterValue('attribute');
-      const comparable = attribute.split('.').reduce((traversed, part) => {
-        return part ? traversed[part] : traversed;
-      }, feature.original);
+      const comparable = attribute
+        .split('.')
+        .reduce((traversed, part) => {
+          return part ? traversed[part] : traversed;
+        }, feature.original);
 
-      return returnFailed ? !expression.test(comparable) : expression.test(comparable);
+      return returnFailed
+        ? !expression.test(comparable)
+        : expression.test(comparable);
     });
   }
 
   protected getExpression() {
-    const cleaned = trim(this.getParameterValue('expression'), '/');
+    const cleaned = trim(
+      this.getParameterValue('expression'),
+      '/',
+    );
     return RegExp(cleaned);
   }
 }

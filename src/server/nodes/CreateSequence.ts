@@ -17,7 +17,11 @@ export default class CreateSequence extends Node {
   }
 
   async run() {
-    const count = parseInt(this.getParameterValue('number_of_features_to_create'));
+    const count = parseInt(
+      this.getParameterValue(
+        'number_of_features_to_create',
+      ),
+    );
 
     this.output(
       Array.from(Array(count).keys()).map((i) => {
@@ -27,6 +31,11 @@ export default class CreateSequence extends Node {
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.number('number_of_features_to_create').withValue(10)];
+    return [
+      ...super.getParameters(),
+      NodeParameter.number(
+        'number_of_features_to_create',
+      ).withValue(10),
+    ];
   }
 }

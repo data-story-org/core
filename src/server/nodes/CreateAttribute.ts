@@ -19,10 +19,18 @@ export default class CreateAttribute extends Node {
     const attribute = this.getParameterValue('attribute');
     const value = this.getParameterValue('value');
 
-    this.output(this.input().map((feature) => feature.set(attribute, value)));
+    this.output(
+      this.input().map((feature) =>
+        feature.set(attribute, value),
+      ),
+    );
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.string('attribute'), NodeParameter.string('value')];
+    return [
+      ...super.getParameters(),
+      NodeParameter.string('attribute'),
+      NodeParameter.string('value'),
+    ];
   }
 }

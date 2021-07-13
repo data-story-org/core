@@ -20,7 +20,10 @@ export default class Aggregate extends Node {
   async run() {
     const groupKey = this.getParameterValue('group_by');
 
-    const key = ['original', ...(groupKey ? [groupKey] : [])].join('.');
+    const key = [
+      'original',
+      ...(groupKey ? [groupKey] : []),
+    ].join('.');
 
     const groups = groupBy(this.input(), key);
     const features = [];
@@ -29,7 +32,9 @@ export default class Aggregate extends Node {
       features.push(
         new Feature({
           [groupKey]: value,
-          features: groups[value].map((feature) => feature.original),
+          features: groups[value].map(
+            (feature) => feature.original,
+          ),
         }),
       );
     }
@@ -38,6 +43,9 @@ export default class Aggregate extends Node {
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.string('group_by')];
+    return [
+      ...super.getParameters(),
+      NodeParameter.string('group_by'),
+    ];
   }
 }

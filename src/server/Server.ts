@@ -15,7 +15,10 @@ export class Server {
   }
 
   public async run(diagram: any) {
-    return Diagram.hydrate(diagram.serialize(), NodeFactory).run();
+    return Diagram.hydrate(
+      diagram.serialize(),
+      NodeFactory,
+    ).run();
   }
 
   public async save(name: string, model: any) {
@@ -25,7 +28,9 @@ export class Server {
   }
 
   protected nodeDescriptions(): object[] {
-    return NodeFactory.all().map((node) => new node().serialize());
+    return NodeFactory.all().map((node) =>
+      new node().serialize(),
+    );
   }
 
   public hey() {

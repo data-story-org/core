@@ -17,10 +17,19 @@ export default class CreateJSON extends Node {
   }
 
   async run() {
-    this.output(JSON.parse(this.getParameterValue('features')).map((item) => new Feature(item)));
+    this.output(
+      JSON.parse(this.getParameterValue('features')).map(
+        (item) => new Feature(item),
+      ),
+    );
   }
 
   getParameters() {
-    return [...super.getParameters(), NodeParameter.json('features').withValue('[{ "resource": "todos"}]')];
+    return [
+      ...super.getParameters(),
+      NodeParameter.json('features').withValue(
+        '[{ "resource": "todos"}]',
+      ),
+    ];
   }
 }

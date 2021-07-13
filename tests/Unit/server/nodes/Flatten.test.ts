@@ -2,7 +2,10 @@ import Flatten from '../../../../src/server/nodes/Flatten';
 import { when } from '../NodeTester';
 
 it('does not break non flattable features', async () => {
-  await when(Flatten).hasInput({ name: 'ajthinking' }).assertOutput({ name: 'ajthinking' }).finish();
+  await when(Flatten)
+    .hasInput({ name: 'ajthinking' })
+    .assertOutput({ name: 'ajthinking' })
+    .finish();
 });
 
 it('can flatten arrays in arrays', async () => {

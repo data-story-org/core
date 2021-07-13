@@ -10,7 +10,9 @@ it('has a default key value pair', async () => {
 
 it('accepts a json array of features', async () => {
   await when(CreateJSON)
-    .hasParameters({ features: '[{"cool": "yes"}, {"cool": "sometimes"}]' })
+    .hasParameters({
+      features: '[{"cool": "yes"}, {"cool": "sometimes"}]',
+    })
     .assertOutput([{ cool: 'yes' }, { cool: 'sometimes' }])
     .finish();
 });

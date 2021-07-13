@@ -25,7 +25,10 @@ it('can filter on shallow object properties', async () => {
 
 it('can filter on nested object properties using dot notation', async () => {
   await when(FilterDuplicates)
-    .hasInput([{ a: { b: { c: 5 } } }, { a: { b: { c: 5 } } }])
+    .hasInput([
+      { a: { b: { c: 5 } } },
+      { a: { b: { c: 5 } } },
+    ])
     .and()
     .parameters({
       attribute: 'a.b.c',
