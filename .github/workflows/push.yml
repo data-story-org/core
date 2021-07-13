@@ -14,7 +14,6 @@ on:
       - "*rc"
       - ".github/workflows/**.yml"
 
-
 jobs:
   lint:
     runs-on: ubuntu-latest
