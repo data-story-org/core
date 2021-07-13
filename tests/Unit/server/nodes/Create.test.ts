@@ -11,7 +11,7 @@ it('creates an empty object by default', async () => {
 it('creates an empty object by default', async () => {
   await when(Create)
     .hasDefaultParameters()
-    //.assertOutput([{}])
+    .assertOutput([{}])
     .finish();
 });
 

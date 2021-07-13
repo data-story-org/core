@@ -66,11 +66,65 @@ export default class Diagram {
   }
 
   addNode(node) {
-    this.history.push(node);
-    this.nodes.push(node);
+	node.diagram = this
+	this.history.push(node)
+	this.nodes.push(node)
+	this.linkToLatest(node)
 
-    return this;
+	return this
   }
+
+  addLink(fromPort, toPort) {
+	this.links.push({
+		fromPort,
+		toPort,
+	})
+
+	return this
+  }
+  
+  linkToLatest(node)
+  {
+	  // Try to link to latest nodes
+	  this.history.find(latest => {
+		  if(this.hasNode(latest)) {
+			  if(this.canLink(latest, node)) {
+				  // fromPort: prefer first unused outPort. Otherwise defaults to first
+				  let fromPort: any = this.getAutomatedFromPort(latest)
+
+				  // toPort: the first inPort
+				  let toPort: any = Object.values(node.getInPorts())[0];
+
+				  this.links.push({
+					  from: fromPort,
+					  to: toPort
+				  })
+
+				  return true // exit find
+			  }
+		  }
+	  })
+  }
+  
+  getAutomatedFromPort(fromNode) {
+	// fromPort: prefer first unused outPort. Otherwise defaults to first
+	return Object.values(fromNode.getOutPorts()).find((candidate: any) => {
+		return Object.values(candidate.links).length === 0
+	}) ?? Object.values(fromNode.getOutPorts())[0]
+}
+
+	canLink(from, to)
+	{
+		// Has from node?
+		if(!from) return
+		
+		// Resolve ports
+		let fromPort = Object.values(from.getOutPorts())[0] ?? false;
+		let toPort = Object.values(to.getInPorts())[0] ?? false;
+
+		// Ensure there are ports to connect to
+		return fromPort && toPort
+	}  
 
   executionOrder() {
     this.clearCachedNodeDependencies();
@@ -176,33 +230,6 @@ export default class Diagram {
     };
 
     return link;
-  }
-
-  getAutomatedFromPort(fromNode) {
-    // fromPort: prefer first unused outPort. Otherwise defaults to first
-    return (
-      Object.values(fromNode.getOutPorts()).find(
-        (candidate: any) => {
-          return (
-            Object.values(candidate.links).length === 0
-          );
-        },
-      ) ?? Object.values(fromNode.getOutPorts())[0]
-    );
-  }
-
-  canLink(from, to) {
-    // Has from node?
-    if (!from) return;
-
-    // Resolve ports
-    const fromPort =
-      Object.values(from.getOutPorts())[0] ?? false;
-    const toPort =
-      Object.values(to.getInPorts())[0] ?? false;
-
-    // Ensure there are ports to connect to
-    return fromPort && toPort;
   }
 
   hasNode(node) {

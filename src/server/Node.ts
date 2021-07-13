@@ -19,103 +19,96 @@ type NodeOptions = {
 };
 
 export default abstract class Node {
-  public id: string;
-  public ports: any[];
-  public diagram: Diagram;
-  public category = 'Custom';
-  public editableInPorts = false;
-  public editableOutPorts = false;
-  public key = 'test-key';
-  public name: string;
-  public nodeType: string;
-  public nodeReact = 'Node';
-  public parameters: any[];
-  public summary = 'No summary provided.';
-  public defaultInPorts: string[];
-  public defaultOutPorts: string[];
+    public id: string
+    public ports: any[]
+    public diagram: Diagram
+    public category: string = 'Custom'
+    public editableInPorts: boolean = false
+    public editableOutPorts: boolean = false
+    public key: string = 'test-key'
+    public name: string
+    public nodeType: string
+    public nodeReact: string = 'Node'
+    public parameters: any[]
+    public summary: string = 'No summary provided.'
+	public defaultInPorts: string[];
+	public defaultOutPorts: string[];
 
-  abstract run(): any;
+    abstract run(): any;
 
-  constructor(options: NodeOptions = {}) {
-    this.diagram = options.diagram;
-    this.id = options.id ?? UID();
-    (this.name = options.name),
-      (this.summary = options.summary),
-      (this.category = options.category),
-      (this.defaultInPorts = options.defaultInPorts ?? [
-        'Input',
-      ]),
-      (this.defaultOutPorts = options.defaultOutPorts ?? [
-        'Output',
-      ]),
-      (this.editableInPorts =
-        options.editableInPorts ?? false);
-    this.editableOutPorts =
-      options.editableOutPorts ?? false;
-    this.parameters = options.parameters
-      ? options.parameters
-      : [];
-    this.ports = this.createPorts(options);
-  }
+    constructor(options: NodeOptions = {}) {
+        this.diagram = options.diagram
+        this.id = options.id ?? UID()
+		this.name = options.name,
+		this.summary = options.summary,
+		this.category = options.category,
+		this.defaultInPorts = options.defaultInPorts ?? ['Input'],
+		this.defaultOutPorts = options.defaultOutPorts ?? ['Output'],					
+		this.editableInPorts = options.editableInPorts ?? false
+		this.editableOutPorts = options.editableOutPorts ?? false
+        this.parameters = options.parameters ? options.parameters : []
+        this.ports = this.createPorts(options)
+    }
 
-  createPorts(options) {
-    return (
-      options.ports ?? [
-        ...this.getDefaultInPorts(),
-        ...this.getDefaultOutPorts(),
-      ]
-    );
-  }
+	createPorts(options) {
+		return options.ports ?? [
+            ...this.getDefaultInPorts(),
+            ...this.getDefaultOutPorts(),
+        ]
+	}
 
-  getDefaultInPorts() {
-    return this.defaultInPorts.map((name) => {
-      return new Port({
-        name,
-        in: true,
-      });
-    });
-  }
+	getDefaultInPorts() {
+		return (this.defaultInPorts).map(name => {
+			return new Port({
+				name,
+				in: true,
+			})
+		})
+	}
 
-  getDefaultOutPorts() {
-    return this.defaultOutPorts.map((name) => {
-      return new Port({
-        name,
-        in: false,
-      });
-    });
-  }
+	getDefaultOutPorts() {
+		return this.defaultOutPorts.map(name => {
+			return new Port({
+				name,
+				in: false
+			})
+		})
+	}
 
-  serialize() {
-    return {
-      category: this.category,
-      editableInPorts: this.editableInPorts,
-      editableOutPorts: this.editableOutPorts,
-      ports: this.ports,
-      key: this.key,
-      name: this.name,
-      nodeReact: this.nodeReact,
-      nodeType: this.name,
-      parameters: this.getParameters(),
-      summary: this.summary,
-    };
-  }
+	getInPorts() {
+		return this.ports.filter(p => p.in)
+	}
 
-  getParameters() {
-    return [
-      NodeParameter.string('node_name').withValue(
-        this.name,
-      ),
-    ];
-  }
+	getOutPorts() {
+		return this.ports.filter(p => !p.in)
+	}
 
-  protected getParameter(name: string) {
-    return this.parameters.find((p) => p.name == name);
-  }
+	serialize() {
+		return {
+            category: this.category,
+            editableInPorts: this.editableInPorts,
+            editableOutPorts: this.editableOutPorts,
+			ports: this.ports,
+            key: this.key,
+            name: this.name,
+            nodeReact: this.nodeReact,
+            nodeType: this.name,
+            parameters: this.getParameters(),
+            summary: this.summary,
+		}
+	}
 
-  protected getParameterValue(
-    name: string,
-    feature: Feature = null,
-  ) {
+	getParameters() {
+		return [
+			NodeParameter.string('node_name').withValue(this.name)
+		]
+	}
+
+    protected getParameter(name: string) {
+        return this.parameters.find(p => p.name == name)
+    }
+
+  protected getParameterValue(name: string, feature: Feature = null) {
     const value = this.getParameter(name).value;
 
     if (!feature) return value;
@@ -124,38 +117,25 @@ export default abstract class Node {
   }
 
   protected interpretParameterValue(parametric, feature) {
-    /* eslint-disable no-useless-escape */
-    const matches = parametric.match(
-      /\{\{[\.a-zA-Z\s_]*\}\}/g,
-    );
+    const matches = parametric.match(/\{\{[\.a-zA-Z\s_]*\}\}/g);
     if (matches) {
       for (const match of matches) {
         const originalMatch = match;
 
-        const parts = match
-          .replace('{{', '')
-          .replace('}}', '')
-          .trim()
-          .split('.');
+        const parts = match.replace('{{', '').replace('}}', '').trim().split('.');
 
         parts.shift(); // Remove 'feature'
 
-        const interpreted = parts.reduce(
-          (carry, property) => {
-            return carry[property];
-          },
-          feature.original,
-        );
+        const interpreted = parts.reduce((carry, property) => {
+          return carry[property];
+        }, feature.original);
 
-        parametric = parametric.replace(
-          originalMatch,
-          interpreted,
-        );
+        parametric = parametric.replace(originalMatch, interpreted);
       }
     }
 
     return parametric;
-  }
+  }  
 
   protected input(portName = 'Input') {
     return this.getDataAtPortNamed(portName);
@@ -164,6 +144,8 @@ export default abstract class Node {
   protected getDataAtPortNamed(name = 'Input') {
     const port = this.portNamed(name);
 
+	// TODO the ports are missing UID and cant be tracked...
+	
     const features = port.links
       .map((linkId) => {
         const link = this.diagram.find(linkId);
@@ -177,8 +159,7 @@ export default abstract class Node {
   }
 
   protected output(features: any[], port = 'Output') {
-    this.portNamed(port).features = this.portNamed(port)
-      .features
+    this.portNamed(port).features = this.portNamed(port).features
       ? this.portNamed(port).features.concat(features)
       : features;
   }
