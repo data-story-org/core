@@ -39,17 +39,19 @@ export default abstract class Node {
   constructor(options: NodeOptions = {}) {
     this.diagram = options.diagram;
     this.id = options.id ?? UID();
-    this.name = options.name
-    this.summary = options.summary
-    this.category = options.category
-    this.defaultInPorts = options.defaultInPorts ?? [
-        'Input',
-    ],
-    this.defaultOutPorts = options.defaultOutPorts ?? [
-    	'Output',
-    ],
-    this.editableInPorts = options.editableInPorts ?? false;
-    this.editableOutPorts = options.editableOutPorts ?? false;
+    this.name = options.name;
+    this.summary = options.summary;
+    this.category = options.category;
+    (this.defaultInPorts = options.defaultInPorts ?? [
+      'Input',
+    ]),
+      (this.defaultOutPorts = options.defaultOutPorts ?? [
+        'Output',
+      ]),
+      (this.editableInPorts =
+        options.editableInPorts ?? false);
+    this.editableOutPorts =
+      options.editableOutPorts ?? false;
     this.parameters = options.parameters
       ? options.parameters
       : [];
@@ -58,16 +60,16 @@ export default abstract class Node {
   }
 
   createPorts(options) {
-    let ports = options.ports ?? [
-        ...this.getDefaultInPorts(),
-        ...this.getDefaultOutPorts(),
+    const ports = options.ports ?? [
+      ...this.getDefaultInPorts(),
+      ...this.getDefaultOutPorts(),
     ];
 
-	// Attach this node as parent node
-	return ports.map(p => {
-		p.node = this
-		return p
-	})
+    // Attach this node as parent node
+    return ports.map((p) => {
+      p.node = this;
+      return p;
+    });
   }
 
   getDefaultInPorts() {
@@ -75,7 +77,7 @@ export default abstract class Node {
       return new Port({
         name,
         in: true,
-		node: this
+        node: this,
       });
     });
   }
@@ -85,7 +87,7 @@ export default abstract class Node {
       return new Port({
         name,
         in: false,
-		node: this		
+        node: this,
       });
     });
   }
@@ -177,7 +179,8 @@ export default abstract class Node {
   protected getDataAtPortNamed(name = 'Input') {
     const port = this.portNamed(name);
 
-    const features = port.getLinks()
+    const features = port
+      .getLinks()
       .map((link) => {
         return link.from.features ?? [];
       })
