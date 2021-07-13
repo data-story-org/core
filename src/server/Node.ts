@@ -61,25 +61,28 @@ export abstract class Node {
   }
 
   createPorts(options) {
-		if(!options.ports) {
-			return [
-				...this.getDefaultInPorts(),
-				...this.getDefaultOutPorts(),
-			];
-		}
+    if (!options.ports) {
+      return [
+        ...this.getDefaultInPorts(),
+        ...this.getDefaultOutPorts(),
+      ];
+    }
 
-		let ports = Object.values(options.ports)
+    const ports = Object.values(options.ports);
 
-		return ports.map((port: any) => {
-			port = port instanceof Port ? port : new Port({
-				id: port.id ?? null,
-				name: port.name,
-				in: port.in,
-			});
+    return ports.map((port: any) => {
+      port =
+        port instanceof Port
+          ? port
+          : new Port({
+              id: port.id ?? null,
+              name: port.name,
+              in: port.in,
+            });
 
-			port.node = this
-			return port
-		});
+      port.node = this;
+      return port;
+    });
   }
 
   getDefaultInPorts() {

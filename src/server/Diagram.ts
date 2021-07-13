@@ -3,7 +3,7 @@ import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
 
-type findable = {id: string}
+type findable = { id: string };
 export default class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];
@@ -50,17 +50,23 @@ export default class Diagram {
     });
   }
 
-  find(id: string): Node|Link|Port {
+  find(id: string): Node | Link | Port {
     const searchables = this.nodes
-      .concat(this.nodes.map((node) => node.ports).flat() as any[])
+      .concat(
+        this.nodes
+          .map((node) => node.ports)
+          .flat() as any[],
+      )
       .concat(this.links as any[]);
 
     return searchables.find((entity) => entity.id == id);
   }
 
-  findByName(name: string): Node|Link|Port {
+  findByName(name: string): Node | Link | Port {
     const searchables = this.nodes
-      .concat(this.nodes.map((node) => node.ports).flat() as any)
+      .concat(
+        this.nodes.map((node) => node.ports).flat() as any,
+      )
       .concat(this.links as any);
 
     return searchables.find(
@@ -78,7 +84,7 @@ export default class Diagram {
   }
 
   addLink(sourcePort, targetPort) {
-    this.links.push(new Link({sourcePort, targetPort}))
+    this.links.push(new Link({ sourcePort, targetPort }));
 
     return this;
   }
@@ -89,14 +95,17 @@ export default class Diagram {
       if (this.hasNode(latest)) {
         if (this.canLink(latest, node)) {
           // fromPort: prefer first unused outPort. Otherwise defaults to first
-          const sourcePort = this.getAutomatedFromPort(latest);
+          const sourcePort =
+            this.getAutomatedFromPort(latest);
 
           // toPort: the first inPort
           const targetPort: any = Object.values(
             node.getInPorts(),
           )[0];
 
-          this.links.push(new Link({sourcePort, targetPort}));
+          this.links.push(
+            new Link({ sourcePort, targetPort }),
+          );
 
           return true; // exit find
         }
@@ -105,10 +114,12 @@ export default class Diagram {
   }
 
   getAutomatedFromPort(fromNode): Port {
-		let firstUnused: Node = fromNode.getOutPorts().find(port => port.hasZeroLinks)
-		let first = fromNode.getOutPorts()[0]
+    const firstUnused: Node = fromNode
+      .getOutPorts()
+      .find((port) => port.hasZeroLinks);
+    const first = fromNode.getOutPorts()[0];
 
-    return firstUnused ?? first
+    return firstUnused ?? first;
   }
 
   canLink(from, to) {
@@ -173,8 +184,10 @@ export default class Diagram {
       .map((linkList) => Object.values(linkList))
       .flat();
     const dependencies = links.map((link: any) => {
-      const sourcePort = (this.find(link) as Link).sourcePort;
-      const sourceNode = (this.find(sourcePort.id) as Port).node;
+      const sourcePort = (this.find(link) as Link)
+        .sourcePort;
+      const sourceNode = (this.find(sourcePort.id) as Port)
+        .node;
       return this.find(sourceNode.id);
     });
 
@@ -221,9 +234,11 @@ export default class Diagram {
     const sourcePort: any = this.getAutomatedFromPort(from);
 
     // toPort: the first inPort
-    const targetPort: any = Object.values(to.getInPorts())[0];
+    const targetPort: any = Object.values(
+      to.getInPorts(),
+    )[0];
 
-    const link = new Link({sourcePort, targetPort});
+    const link = new Link({ sourcePort, targetPort });
 
     return link;
   }

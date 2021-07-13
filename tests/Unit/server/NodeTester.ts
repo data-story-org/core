@@ -165,13 +165,15 @@ export class NodeTester {
       let expectedFeatures = (expected as any).map(
         (f) => new Feature(f),
       );
-      expect((port as Port).features).toStrictEqual(expectedFeatures);
+      expect((port as Port).features).toStrictEqual(
+        expectedFeatures,
+      );
     }
 
     // Check that no other ports emits feautures
-    let ports = (Diagram.findByName(
-      this.nodeClass.name,
-    ) as Node).ports;
+    let ports = (
+      Diagram.findByName(this.nodeClass.name) as Node
+    ).ports;
     let outputingPorts = ports
       .filter((p) => p.features && p.features.length)
       .map((p) => p.name);
@@ -199,9 +201,7 @@ export class NodeTester {
     }
 
     // Check that no other ports emits feautures
-		let node = Diagram.findByName(
-      this.nodeClass.name,
-    )
+    let node = Diagram.findByName(this.nodeClass.name);
 
     let ports = (node as Node).ports;
     let outputingPorts = ports

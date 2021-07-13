@@ -23,16 +23,15 @@ export class Port {
   }
 
   getLinks() {
-		
-
-    return this.node.diagram.links.filter(link => {
+    return this.node.diagram.links.filter((link) => {
       return (
-        link.sourcePort.id == this.id || link.targetPort.id == this.id
+        link.sourcePort.id == this.id ||
+        link.targetPort.id == this.id
       );
     });
   }
 
-	hasZeroLinks(): boolean {
-		return this.getLinks().length == 0
-	}
+  hasZeroLinks(): boolean {
+    return this.getLinks().length == 0;
+  }
 }
