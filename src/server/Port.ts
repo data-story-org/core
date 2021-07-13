@@ -1,6 +1,6 @@
 import { Feature } from '../Feature';
 import UID from '../utils/UID';
-import Node from './Node';
+import { Node } from './Node';
 
 export class Port {
   name: string;
@@ -13,22 +13,26 @@ export class Port {
   constructor(options: {
     name: string;
     in: boolean;
-    links?: [];
     id?: string;
     node?: Node;
   }) {
     this.name = options.name;
     this.in = options.in;
-    this.links = options.links ?? [];
     this.id = options.id ?? UID();
     this.node = options.node ?? null;
   }
 
   getLinks() {
-    return this.node.diagram.links.filter((link) => {
+		
+
+    return this.node.diagram.links.filter(link => {
       return (
-        link.from.id == this.id || link.to.id == this.id
+        link.sourcePort.id == this.id || link.targetPort.id == this.id
       );
     });
   }
+
+	hasZeroLinks(): boolean {
+		return this.getLinks().length == 0
+	}
 }

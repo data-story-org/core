@@ -4,6 +4,7 @@ import { Feature } from '../Feature';
 import UID from '../utils/UID';
 import NodeParameter from '../NodeParameter';
 import { Port } from './Port';
+import { Link } from './Link';
 
 type NodeOptions = {
   diagram?: Diagram;
@@ -18,9 +19,9 @@ type NodeOptions = {
   id?: string;
 };
 
-export default abstract class Node {
+export abstract class Node {
   public id: string;
-  public ports: any[];
+  public ports: Port[];
   public diagram: Diagram;
   public category = 'Custom';
   public editableInPorts = false;
@@ -60,16 +61,25 @@ export default abstract class Node {
   }
 
   createPorts(options) {
-    const ports = options.ports ?? [
-      ...this.getDefaultInPorts(),
-      ...this.getDefaultOutPorts(),
-    ];
+		if(!options.ports) {
+			return [
+				...this.getDefaultInPorts(),
+				...this.getDefaultOutPorts(),
+			];
+		}
 
-    // Attach this node as parent node
-    return ports.map((p) => {
-      p.node = this;
-      return p;
-    });
+		let ports = Object.values(options.ports)
+
+		return ports.map((port: any) => {
+			port = port instanceof Port ? port : new Port({
+				id: port.id ?? null,
+				name: port.name,
+				in: port.in,
+			});
+
+			port.node = this
+			return port
+		});
   }
 
   getDefaultInPorts() {
@@ -96,7 +106,7 @@ export default abstract class Node {
     return this.ports.filter((p) => p.in);
   }
 
-  getOutPorts() {
+  getOutPorts(): Port[] {
     return this.ports.filter((p) => !p.in);
   }
 
@@ -178,11 +188,10 @@ export default abstract class Node {
 
   protected getDataAtPortNamed(name = 'Input') {
     const port = this.portNamed(name);
-
     const features = port
       .getLinks()
       .map((link) => {
-        return link.from.features ?? [];
+        return link.sourcePort.features ?? [];
       })
       .flat();
 

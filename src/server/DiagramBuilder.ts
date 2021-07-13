@@ -1,5 +1,5 @@
 import Diagram from './Diagram';
-import Node from './Node';
+import { Node } from './Node';
 
 export class DiagramBuilder {
   currentNode?: Node;

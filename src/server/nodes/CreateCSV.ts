@@ -1,4 +1,4 @@
-import Node from '../Node';
+import { Node } from '../Node';
 import NodeParameter from '../../NodeParameter';
 import { Feature } from '../../Feature';
 

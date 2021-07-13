@@ -1,4 +1,4 @@
-import Node from '../Node';
+import { Node } from '../Node';
 import NodeParameter from '../../NodeParameter';
 
 export default class CreateAttribute extends Node {

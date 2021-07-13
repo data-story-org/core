@@ -1,5 +1,5 @@
 import { Feature } from '../../Feature';
-import Node from '../Node';
+import { Node } from '../Node';
 import NodeParameter from '../../NodeParameter';
 
 export default class Map extends Node {

@@ -1,9 +1,12 @@
 import { SerializedDiagram } from '../types/SerializedDiagram';
-import Node from './Node';
+import { Link } from './Link';
+import { Node } from './Node';
+import { Port } from './Port';
 
+type findable = {id: string}
 export default class Diagram {
-  links: any[] = [];
-  nodes: any[] = [];
+  links: Link[] = [];
+  nodes: Node[] = [];
   cachedNodeDependencyMap: { [T: string]: string[] } = {
     // id1: [d1, d2, ...]
   };
@@ -47,18 +50,18 @@ export default class Diagram {
     });
   }
 
-  find(id: string) {
+  find(id: string): Node|Link|Port {
     const searchables = this.nodes
-      .concat(this.nodes.map((node) => node.ports).flat())
-      .concat(this.links);
+      .concat(this.nodes.map((node) => node.ports).flat() as any[])
+      .concat(this.links as any[]);
 
     return searchables.find((entity) => entity.id == id);
   }
 
-  findByName(name: string) {
+  findByName(name: string): Node|Link|Port {
     const searchables = this.nodes
-      .concat(this.nodes.map((node) => node.ports).flat())
-      .concat(this.links);
+      .concat(this.nodes.map((node) => node.ports).flat() as any)
+      .concat(this.links as any);
 
     return searchables.find(
       (entity) => entity.name == name,
@@ -74,11 +77,8 @@ export default class Diagram {
     return this;
   }
 
-  addLink(fromPort, toPort) {
-    this.links.push({
-      fromPort,
-      toPort,
-    });
+  addLink(sourcePort, targetPort) {
+    this.links.push(new Link({sourcePort, targetPort}))
 
     return this;
   }
@@ -89,18 +89,14 @@ export default class Diagram {
       if (this.hasNode(latest)) {
         if (this.canLink(latest, node)) {
           // fromPort: prefer first unused outPort. Otherwise defaults to first
-          const fromPort: any =
-            this.getAutomatedFromPort(latest);
+          const sourcePort = this.getAutomatedFromPort(latest);
 
           // toPort: the first inPort
-          const toPort: any = Object.values(
+          const targetPort: any = Object.values(
             node.getInPorts(),
           )[0];
 
-          this.links.push({
-            from: fromPort,
-            to: toPort,
-          });
+          this.links.push(new Link({sourcePort, targetPort}));
 
           return true; // exit find
         }
@@ -108,17 +104,11 @@ export default class Diagram {
     });
   }
 
-  getAutomatedFromPort(fromNode) {
-    // fromPort: prefer first unused outPort. Otherwise defaults to first
-    return (
-      Object.values(fromNode.getOutPorts()).find(
-        (candidate: any) => {
-          return (
-            Object.values(candidate.links).length === 0
-          );
-        },
-      ) ?? Object.values(fromNode.getOutPorts())[0]
-    );
+  getAutomatedFromPort(fromNode): Port {
+		let firstUnused: Node = fromNode.getOutPorts().find(port => port.hasZeroLinks)
+		let first = fromNode.getOutPorts()[0]
+
+    return firstUnused ?? first
   }
 
   canLink(from, to) {
@@ -183,13 +173,13 @@ export default class Diagram {
       .map((linkList) => Object.values(linkList))
       .flat();
     const dependencies = links.map((link: any) => {
-      const sourcePort = this.find(link).sourcePort;
-      const sourceNode = this.find(sourcePort).parentNode;
-      return this.find(sourceNode).id;
+      const sourcePort = (this.find(link) as Link).sourcePort;
+      const sourceNode = (this.find(sourcePort.id) as Port).node;
+      return this.find(sourceNode.id);
     });
 
     const deepDependencies = dependencies.map((d) => {
-      return this.dependencies(this.find(d));
+      return this.dependencies(this.find(d as any));
     });
 
     const result = dependencies.concat(
@@ -228,15 +218,12 @@ export default class Diagram {
     if (!this.canLink(from, to)) return;
 
     // fromPort: prefer first unused outPort. Otherwise defaults to first
-    const fromPort: any = this.getAutomatedFromPort(from);
+    const sourcePort: any = this.getAutomatedFromPort(from);
 
     // toPort: the first inPort
-    const toPort: any = Object.values(to.getInPorts())[0];
+    const targetPort: any = Object.values(to.getInPorts())[0];
 
-    const link = {
-      from: fromPort,
-      to: toPort,
-    };
+    const link = new Link({sourcePort, targetPort});
 
     return link;
   }

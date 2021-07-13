@@ -1,4 +1,5 @@
 import Diagram from '../server/Diagram';
+import { Node } from '../server/Node';
 import NodeFactory from '../server/NodeFactory';
 import { nonCircularJsonStringify } from '../utils/nonCircularJsonStringify';
 
@@ -9,7 +10,7 @@ const boot = () => {
   const result = JSON.stringify({
     stories: [],
     availableNodes: NodeFactory.all().map((node) =>
-      new node().serialize(),
+      (new node() as Node).serialize(),
     ),
   });
 

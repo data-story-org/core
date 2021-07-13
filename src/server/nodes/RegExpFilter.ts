@@ -1,4 +1,4 @@
-import Node from '../Node';
+import { Node } from '../Node';
 import { trim } from '../../utils/Str';
 import NodeParameter from '../../NodeParameter';
 

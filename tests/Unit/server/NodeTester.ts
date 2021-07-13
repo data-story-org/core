@@ -4,6 +4,7 @@ import { Feature } from '../../../src/Feature';
 import OutputProvider from '../../../src/server/nodes/OutputProvider';
 import { Server } from '../../../src/server/Server';
 import { Port } from '../../../src/server/Port';
+import { Node } from '../../../src/server/Node';
 
 export class NodeTester {
   diagram: Diagram;
@@ -164,13 +165,13 @@ export class NodeTester {
       let expectedFeatures = (expected as any).map(
         (f) => new Feature(f),
       );
-      expect(port.features).toStrictEqual(expectedFeatures);
+      expect((port as Port).features).toStrictEqual(expectedFeatures);
     }
 
     // Check that no other ports emits feautures
-    let ports = Diagram.findByName(
+    let ports = (Diagram.findByName(
       this.nodeClass.name,
-    ).ports;
+    ) as Node).ports;
     let outputingPorts = ports
       .filter((p) => p.features && p.features.length)
       .map((p) => p.name);
@@ -192,15 +193,17 @@ export class NodeTester {
       this.outputCountMap,
     )) {
       let port = Diagram.findByName(portName);
-      expect(port.features.length).toStrictEqual(
+      expect((port as Port).features.length).toStrictEqual(
         expectedCount,
       );
     }
 
     // Check that no other ports emits feautures
-    let ports = Diagram.findByName(
+		let node = Diagram.findByName(
       this.nodeClass.name,
-    ).ports;
+    )
+
+    let ports = (node as Node).ports;
     let outputingPorts = ports
       .filter((p) => p.features && p.features.length)
       .map((p) => p.name);

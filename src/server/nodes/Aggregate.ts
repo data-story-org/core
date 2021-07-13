@@ -1,4 +1,4 @@
-import Node from '../Node';
+import { Node } from '../Node';
 import NodeParameter from '../../NodeParameter';
 import { groupBy } from '../../utils/Arr';
 import { Feature } from '../../Feature';

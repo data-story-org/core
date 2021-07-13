@@ -1,5 +1,5 @@
 import { Feature } from '../../Feature';
-import Node from '../Node';
+import { Node } from '../Node';
 
 export default class Flatten extends Node {
   constructor(options = {}) {
