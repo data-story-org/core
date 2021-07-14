@@ -1,7 +1,7 @@
 import { get } from './utils/Obj';
 
 export class Feature {
-  constructor(public original: any = null) {}
+  constructor(public original: unknown = null) {}
 
   public get(property: string) {
     return get(this.original, property);
