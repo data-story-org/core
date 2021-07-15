@@ -25,7 +25,7 @@ async function spawnChild(command, arguments_, options) {
 }
 
 async function cli($command, ...$args) {
-	return spawnChild(
+	return await spawnChild(
 		'node',
 		[
 			__dirname + '/../../../lib/src/cli/cli.js',
@@ -46,7 +46,10 @@ it('can boot via cli', async () => {
 		expect(diagram.availableNodes).toBeDefined()
 	}
 
-	const fail = (err) => console.error("async error:\n" + err)
+	const fail = (err) => {
+		console.error("async error:\n" + err)
+		throw 'Failed to run the CLI'
+	}
 
   await cli('boot').then(success, fail)
 });
