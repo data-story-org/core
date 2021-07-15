@@ -6,6 +6,6 @@ module.exports = {
   mode: 'production',
   output: {
     filename: 'cli.js',
-    path: path.resolve(__dirname, 'lib/src/cli'),
+    path: path.resolve(__dirname, 'cli/'),
   },
 };

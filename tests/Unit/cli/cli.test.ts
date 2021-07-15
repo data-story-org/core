@@ -28,7 +28,7 @@ async function cli($command, ...$args) {
 	return await spawnChild(
 		'node',
 		[
-			__dirname + '/../../../lib/src/cli/cli.js',
+			__dirname + '/../../../cli/cli.js',
 			$command,
 			...$args],
 		{ 
