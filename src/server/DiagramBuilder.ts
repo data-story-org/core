@@ -1,9 +1,11 @@
+import { Context } from './Context';
 import Diagram from './Diagram';
 import { Node } from './Node';
 
 export class DiagramBuilder {
   currentNode?: Node;
   diagram?: Diagram;
+	diagramContext: Context;
 
   static begin() {
     return new this();
@@ -26,6 +28,11 @@ export class DiagramBuilder {
     return this.withParameters(parameterKeyValues);
   }
 
+	setContext(context: Context) {
+		this.diagramContext = context
+		return this
+	}
+
   withParameters(parameters: object) {
     for (const [name, value] of Object.entries(
       parameters,
@@ -44,6 +51,8 @@ export class DiagramBuilder {
   }
 
   protected getDiagram() {
-    return this.diagram ?? new Diagram();
+    return this.diagram ?? new Diagram(
+			this.diagramContext ?? new Context({})
+		);
   }
 }
