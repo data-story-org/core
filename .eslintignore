@@ -8,3 +8,5 @@ lib
 coverage
 
 src/cli/*.js
+
+cli
