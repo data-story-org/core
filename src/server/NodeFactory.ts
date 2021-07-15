@@ -20,6 +20,7 @@ import Log from './nodes/Log';
 import Map from './nodes/Map';
 import OutputProvider from './nodes/OutputProvider';
 import RegExpFilter from './nodes/RegExpFilter';
+import ResolveContextFeatures from './nodes/ResolveContextFeatures';
 // import DeleteRepositories from './nodes/github/DeleteRepositories'
 // import Repositories from './nodes/github/Repositories'
 import Sample from './nodes/Sample';
@@ -54,6 +55,7 @@ export default class NodeFactory {
     Map,
     OutputProvider,
     RegExpFilter,
+		ResolveContextFeatures,
     // Repositories,
     Sample,
     Sleep,

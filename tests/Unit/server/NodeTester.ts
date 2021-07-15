@@ -5,9 +5,11 @@ import OutputProvider from '../../../src/server/nodes/OutputProvider';
 import { Server } from '../../../src/server/Server';
 import { Port } from '../../../src/server/Port';
 import { Node } from '../../../src/server/Node';
+import { Context } from '../../../src/server/Context';
 
 export class NodeTester {
   diagram: Diagram;
+	diagramContext: Context;
   runResult: Diagram;
   nodeClass;
   parameterKeyValues: {};
@@ -43,6 +45,11 @@ export class NodeTester {
   hasParameters(parameterKeyValues) {
     return this.parameters(parameterKeyValues);
   }
+
+	diagramHasContext(contextData) {
+		this.diagramContext = new Context(contextData)
+		return this
+	}
 
   and() {
     return this;
@@ -115,7 +122,7 @@ export class NodeTester {
 
   protected setupDiagram() {
     this.diagram = DiagramBuilder.begin()
-
+			.setContext(this.diagramContext ?? new Context({}))
       .add(
         OutputProvider,
         {

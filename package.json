@@ -5,6 +5,7 @@
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
   "scripts": {
+		"add-node": "node scripts/add-node.js",
     "build": "tsc",
     "build-cli": "npx webpack",
     "format": "prettier --write \"./**/*.(js|ts|json|md|css|less|scss)\"",

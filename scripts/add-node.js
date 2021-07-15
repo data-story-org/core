@@ -4,7 +4,7 @@ const nodeName = process.argv[2];
 
 // Create Node file
 fs.writeFile(
-  __dirname + '/../server/nodes/' + nodeName + '.ts',
+  __dirname + '/../src/server/nodes/' + nodeName + '.ts',
   fs
     .readFileSync(__dirname + '/add-node.stub')
     .toString()
@@ -19,7 +19,7 @@ fs.writeFile(
 // Create Test file
 fs.writeFile(
   __dirname +
-    '/../../tests/unit/server/nodes/' +
+    '/../tests/Unit/server/nodes/' +
     nodeName +
     '.test.ts',
   fs
