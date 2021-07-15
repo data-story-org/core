@@ -7,7 +7,7 @@ const type = process.argv[2];
 const args = process.argv.slice(3);
 
 const boot = () => {
-  const result = JSON.stringify({
+  const result = nonCircularJsonStringify({
     stories: [],
     availableNodes: NodeFactory.all().map((node) =>
       (new node() as Node).serialize(),
