@@ -32,4 +32,4 @@ jobs:
           useRollingCache: true
 
       - name: Test
-        run: npm test --passWithNoTests
+        run: tsc && npx webpack && npm test
