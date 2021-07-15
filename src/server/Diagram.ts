@@ -12,11 +12,11 @@ export default class Diagram {
     // id1: [d1, d2, ...]
   };
   history: Node[] = [];
-	context: Context = new Context({})
+  context: Context = new Context({});
 
-	constructor(context?: Context) {
-		this.context = context ?? new Context({})
-	}
+  constructor(context?: Context) {
+    this.context = context ?? new Context({});
+  }
 
   static hydrate(data: SerializedDiagram, factory) {
     const instance = new this();
@@ -42,13 +42,13 @@ export default class Diagram {
     return instance;
   }
 
-	getContext(): Context {
-		return this.context
-	}
+  getContext(): Context {
+    return this.context;
+  }
 
-	setContext(context: Context) {
-		this.context = context
-	}	
+  setContext(context: Context) {
+    this.context = context;
+  }
 
   async run() {
     for await (const node of this.executionOrder()) {

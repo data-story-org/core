@@ -55,7 +55,7 @@ export default class NodeFactory {
     Map,
     OutputProvider,
     RegExpFilter,
-		ResolveContextFeatures,
+    ResolveContextFeatures,
     // Repositories,
     Sample,
     Sleep,
