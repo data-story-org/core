@@ -7,7 +7,7 @@ on:
 
 jobs:
   release_cli:
-    name: "Build and release CLI"
+    name: "Build and release cli"
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
         with:
           useRollingCache: true
 
-      - name: "Build & test"
+      - name: "Build cli"
         run:
           npm run build-cli
 
