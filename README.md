@@ -1,5 +1,6 @@
 # Data Story - Core
 Data Story **core** functionality
+
 See also [data-story-org/gui](https://github.com/data-story-org/gui)
 
 ## Development
