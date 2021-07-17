@@ -22,7 +22,7 @@ jobs:
         uses: battila7/get-version-action@v2
 
       - name: Add version to the filename
-        run: mv lib/cli.js lib/cli-${{ steps.get_version.outputs.version }}.js
+        run: mv cli/cli.js cli/cli-${{ steps.get_version.outputs.version }}.js
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
