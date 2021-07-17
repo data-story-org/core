@@ -1,12 +1,13 @@
-name: Release
+name: Pre-release
 
 on:
   push:
-    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+    branches:
+      - master
 
 jobs:
   release_cli:
-    name: "Build and release CLI"
+    name: "Build and release cli"
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v2
@@ -18,16 +19,11 @@ jobs:
         run:
           npm run build-cli
 
-      - id: get_version
-        uses: battila7/get-version-action@v2
-
-      - name: Add version to the filename
-        run: mv cli/cli.js cli/cli-${{ steps.get_version.outputs.version }}.js
-
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
+          automatic_release_tag: "latest"
+          prerelease: true
           title: "Development Build of cli"
           files: |
-            cli/*.js
+            cli/cli.js
