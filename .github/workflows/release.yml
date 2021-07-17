@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+
+jobs:
+  release_cli:
+    name: "Build and release CLI"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+        with:
+          useRollingCache: true
+
+      - name: "Build cli"
+        run:
+          npm run build-cli
+
+      - id: get_version
+        uses: battila7/get-version-action@v2
+
+      - name: Add version to the filename
+        run: mv lib/cli.js lib/cli-${{ steps.get_version.outputs.version }}.js
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          title: "Development Build of cli"
+          files: |
+            cli/*.js
