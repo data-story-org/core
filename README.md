@@ -1,21 +1,27 @@
-# Data Story - Core (WIP)
+# Data Story - Core
 
-## Description
-
-This repo supplies core functionality to Data Story GUIs and processing servers
+See also [data-story-org/gui](https://github.com/data-story-org/gui)
 
 ## Development
 
-Build web files
-
+### Installation
 ```
 yarn
+# Build web files
 tsc --watch
-```
-
-Build cli
-
-```
-yarn
+# Build CLI
 npx webpack
 ```
+
+### Tests
+Run tests with
+```
+yarn test --watch
+```
+### Add node
+You may run the following command
+```
+yarn add-node YourNodeName
+```
+
+This will create a new `Node` class along with a test stub. Then you need to manually register it in `NodeFactory`.
