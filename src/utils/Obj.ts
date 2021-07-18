@@ -1,4 +1,4 @@
-export const get = (object: any, path = '') => {
+export const get = (object, path = '') => {
   const steps = path ? path.split('.') : [];
   return steps.reduce((traversed, part) => {
     if (typeof traversed !== 'object' || traversed === null)
