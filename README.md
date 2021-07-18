@@ -5,6 +5,7 @@ See also [data-story-org/gui](https://github.com/data-story-org/gui)
 ## Development
 
 ### Installation
+
 ```
 yarn
 # Build web files
@@ -14,12 +15,17 @@ npx webpack
 ```
 
 ### Tests
+
 Run tests with
+
 ```
 yarn test --watch
 ```
+
 ### Add node
+
 You may run the following command
+
 ```
 yarn add-node YourNodeName
 ```
