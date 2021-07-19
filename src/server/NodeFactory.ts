@@ -68,15 +68,12 @@ export default class NodeFactory {
 			ThrowError,		
 		])
 	}
-
-	// apiNodes() {
-	// 	return ApiNodeFactory.make([
-	// 		{'url': 'https://github.com/api/users'},
-	// 		{'url': 'https://github.com/api/comments'},
-	// 		{'url': 'https://github.com/api/posts'},
-	// 		{'url': 'https://github.com/api/issues'},
-	// 	]);
-	// }
+	
+	static apiNodes() {
+		return ApiNodeFactory.make([
+			{url: 'https://jsonplaceholder.cypress.io/todos'},
+		]);
+	}
 
 	// contextNodes() {
 	// 	return ContextNodeFactory.make({})
@@ -85,7 +82,7 @@ export default class NodeFactory {
 	static all() {
 		return {
 			...this.defaultNodes(),
-			// ...this.apiNodes(),
+			...this.apiNodes(),
 			// ...this.contextNodes(),
 		}
 	}
