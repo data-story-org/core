@@ -35,8 +35,4 @@ export class Server {
       (new node() as Node).serialize(),
     );
   }
-
-  public hey() {
-    return 'hiya!';
-  }
 }

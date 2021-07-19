@@ -1,5 +1,4 @@
 import { Context } from './Context';
-import { SerializedDiagram } from '../types/SerializedDiagram';
 import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
@@ -16,30 +15,6 @@ export default class Diagram {
 
   constructor(context?: Context) {
     this.context = context ?? new Context({});
-  }
-
-  static hydrate(data: SerializedDiagram, factory) {
-    const instance = new this();
-
-    for (const [key, value] of Object.entries(data)) {
-      if (key === 'layers') {
-        instance.links = Object.values(
-          data.layers[0].models,
-        );
-
-        instance.nodes = Object.values(
-          data.layers[1].models,
-        ).map((node) => {
-          return factory.hydrate(node, instance);
-        });
-
-        continue;
-      }
-
-      instance[key] = value;
-    }
-
-    return instance;
   }
 
   getContext(): Context {

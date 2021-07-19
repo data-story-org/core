@@ -1,4 +1,4 @@
-import Diagram from '../server/Diagram';
+import { DiagramFactory } from '../server/DiagramFactory';
 import { Node } from '../server/Node';
 import NodeFactory from '../server/NodeFactory';
 import { nonCircularJsonStringify } from '../utils/nonCircularJsonStringify';
@@ -24,7 +24,7 @@ const help = () => {
 };
 
 const run = async (serializedDiagram) => {
-  const result = await Diagram.hydrate(
+  const result = await DiagramFactory.hydrate(
     JSON.parse(serializedDiagram),
     NodeFactory,
   ).run();

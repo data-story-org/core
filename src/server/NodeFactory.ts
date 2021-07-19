@@ -29,6 +29,14 @@ import Sleep from './nodes/Sleep';
 import ThrowError from './nodes/ThrowError';
 
 import { SerializedNodeModel } from '../types/SerializedNodeModel';
+import { ApiNodeFactory } from './nodes/factories/ApiNodeFactory';
+import { DefaultNodeFactory } from './nodes/factories/DefaultNodeFactory';
+import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
+
+
+// CURRENT RESPONSIBILITIES
+// Return all() - a list of Node instances
+// Return a single Node instance based on a serialized Node
 
 export default class NodeFactory {
   protected static nodes = {
@@ -56,12 +64,42 @@ export default class NodeFactory {
     OutputProvider,
     RegExpFilter,
     ResolveContextFeatures,
-    // Repositories,
     Sample,
     Sleep,
     Sort,
     ThrowError,
+		// Expose API resources as nodes via HTTPRequest
   };
+
+	defaultNodes() {
+		return DefaultNodeFactory.make([
+			Aggregate,
+			Clone_,
+			Comment,
+			Create,			
+		])
+	}
+
+	apiNodes() {
+		return ApiNodeFactory.make([
+			{'url': 'https://github.com/api/users'},
+			{'url': 'https://github.com/api/comments'},
+			{'url': 'https://github.com/api/posts'},
+			{'url': 'https://github.com/api/issues'},
+		]);
+	}
+
+	contextNodes() {
+		return ContextNodeFactory.make({})
+	}
+
+	all() {
+		return [
+			...this.defaultNodes(),
+			...this.apiNodes(),
+			...this.contextNodes(),
+		]
+	}
 
   static find(type: string) {
     return this.nodes[type];
@@ -69,10 +107,6 @@ export default class NodeFactory {
 
   static all() {
     return Object.values(this.nodes);
-  }
-
-  static make(type: string) {
-    return new (this.find(type))();
   }
 
   static hydrate(
