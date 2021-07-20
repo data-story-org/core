@@ -40,7 +40,7 @@ import { Node } from './Node';
 // Return a single Node instance based on a serialized Node
 
 export default class NodeFactory {
-	static prototypes = [
+	static prototypes = {
 		Aggregate,
 		Clone_,
 		Comment,
@@ -65,7 +65,7 @@ export default class NodeFactory {
 		Sleep,
 		Sort,
 		ThrowError,
-	]
+	}
 
 	static defaultNodes(): {} {
 		return DefaultNodeFactory.make(this.prototypes)
@@ -97,9 +97,7 @@ export default class NodeFactory {
     return Object.values(this.all()).map((node) => node.serialize());
 	}
 
-	// Lookup. From name to instance
   static hydrate(node: SerializedNodeModel, diagram = null) {
-    // const type = this.find(node.nodeType);
 
 		const type = this.prototypes[node.nodeType]
 
