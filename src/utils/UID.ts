@@ -1,4 +1,4 @@
-export default () => {
+export const UID = () => {
   // Copied from @projectstorm/react-canvas-core/src/Toolkit.ts how to import instead?
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
     /[xy]/g,
