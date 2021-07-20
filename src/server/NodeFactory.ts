@@ -32,6 +32,7 @@ import { SerializedNodeModel } from '../types/SerializedNodeModel';
 import { ApiNodeFactory } from './nodes/factories/ApiNodeFactory';
 import { DefaultNodeFactory } from './nodes/factories/DefaultNodeFactory';
 import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
+import { Node } from './Node';
 
 
 // CURRENT RESPONSIBILITIES
@@ -39,37 +40,38 @@ import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
 // Return a single Node instance based on a serialized Node
 
 export default class NodeFactory {
+	static prototypes = [
+		Aggregate,
+		Clone_,
+		Comment,
+		Create,
+		CreateAttribute,
+		CreateCSV,
+		CreateGrid,
+		CreateJSON,
+		CreateSequence,
+		Evaluate,
+		FilterDuplicates,
+		Flatten,
+		Group,
+		HTTPRequest,
+		Inspect,
+		Log,
+		Map,
+		OutputProvider,
+		RegExpFilter,
+		ResolveContextFeatures,
+		Sample,
+		Sleep,
+		Sort,
+		ThrowError,
+	]
 
-	static defaultNodes() {
-		return DefaultNodeFactory.make([
-			Aggregate,
-			Clone_,
-			Comment,
-			Create,
-			CreateAttribute,
-			CreateCSV,
-			CreateGrid,
-			CreateJSON,
-			CreateSequence,
-			Evaluate,
-			FilterDuplicates,
-			Flatten,
-			Group,
-			HTTPRequest,
-			Inspect,
-			Log,
-			Map,
-			OutputProvider,
-			RegExpFilter,
-			ResolveContextFeatures,
-			Sample,
-			Sleep,
-			Sort,
-			ThrowError,		
-		])
+	static defaultNodes(): {} {
+		return DefaultNodeFactory.make(this.prototypes)
 	}
 	
-	static apiNodes() {
+	static apiNodes(): {} {
 		return ApiNodeFactory.make([
 			{url: 'https://jsonplaceholder.cypress.io/todos'},
 		]);
@@ -79,10 +81,10 @@ export default class NodeFactory {
 	// 	return ContextNodeFactory.make({})
 	// }
 
-	static all() {
+	static all(): object {
 		return {
 			...this.defaultNodes(),
-			...this.apiNodes(),
+			...this.apiNodes(), 
 			// ...this.contextNodes(),
 		}
 	}
@@ -91,8 +93,15 @@ export default class NodeFactory {
 		return this.all()[nodeType]
 	}
 
+	static nodeDescriptions() {
+    return Object.values(this.all()).map((node) => node.serialize());
+	}
+
+	// Lookup. From name to instance
   static hydrate(node: SerializedNodeModel, diagram = null) {
-    const type = this.find(node.nodeType);
+    // const type = this.find(node.nodeType);
+
+		const type = this.prototypes[node.nodeType]
 
     return new type({
       ...node,

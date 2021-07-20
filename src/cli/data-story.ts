@@ -9,7 +9,7 @@ const args = process.argv.slice(3);
 const boot = () => {
   const result = nonCircularJsonStringify({
     stories: [],
-    availableNodes: NodeFactory.all().map((node) =>
+    availableNodes: Object.values(NodeFactory.all()).map((node) =>
       (new node() as Node).serialize(),
     ),
   });

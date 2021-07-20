@@ -11,7 +11,7 @@ export class Server {
       return callback({
         data: {
           stories: [],
-          availableNodes: this.nodeDescriptions(),
+          availableNodes: NodeFactory.nodeDescriptions(),
         },
       });
     });
@@ -30,9 +30,9 @@ export class Server {
     });
   }
 
-  protected nodeDescriptions(): object[] {
-    return NodeFactory.all().map((node) =>
-      (new node() as Node).serialize(),
-    );
-  }
+  // protected nodeDescriptions(): object[] {
+  //   return Object.values(NodeFactory.all()).map((node) =>
+  //     (new node() as Node).serialize(),
+  //   );
+  // }
 }
