@@ -1,7 +1,7 @@
 import Diagram from './Diagram';
 import _ from 'lodash';
 import { Feature } from '../Feature';
-import UID from '../utils/UID';
+import { UID } from '../utils';
 import NodeParameter from '../NodeParameter';
 import { Port } from './Port';
 import { Link } from './Link';

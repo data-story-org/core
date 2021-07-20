@@ -1,4 +1,5 @@
-export default {
+// export default
+export const modalStyle = {
   content: {
     maxWidth: '800px',
     top: '110px',
