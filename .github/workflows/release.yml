@@ -10,13 +10,16 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
+      - uses: actions/setup-node@v2
         with:
-          useRollingCache: true
+          node-version: '16'
+
+      - name: Install dependencies
+        run: yarn --silent
 
       - name: "Build cli"
         run:
-          npm run build-cli
+          yarn build-cli
 
       - id: get_version
         uses: battila7/get-version-action@v2
