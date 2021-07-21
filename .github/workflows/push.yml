@@ -19,15 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
+      - uses: actions/setup-node@v2
         with:
-          useRollingCache: true
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install dependencies
+      - run: yarn --silent
 
       - name: Format with prettier
-        run: npm run format
+        run: yarn format
 
       - name: Fix all fixable eslint warnings
-        run: npm run lint:quiet:fix
+        run: yarn lint:quiet:fix
 
       - name: Get all unfixable eslint errors
         uses: wearerequired/lint-action@v1
