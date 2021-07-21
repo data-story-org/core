@@ -35,11 +35,6 @@ import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
 import { Node } from './Node';
 import { DataStoryContext } from './DataStoryContext';
 
-
-// CURRENT RESPONSIBILITIES
-// Return all() - a list of Node instances
-// Return a single Node instance based on a serialized Node
-
 export default class NodeFactory {
 	context: DataStoryContext
 	prototypes = {
@@ -81,11 +76,9 @@ export default class NodeFactory {
 		return DefaultNodeFactory.make(this.prototypes)
 	}
 	
-	// apiNodes(): {} {
-	// 	return ApiNodeFactory.make([
-	// 		{url: 'https://jsonplaceholder.cypress.io/todos'},
-	// 	]);
-	// }
+	apiNodes(): {} {
+		return ApiNodeFactory.make(this.context);
+	}
 
 	contextNodes() {
 		return ContextNodeFactory.make(this.context)
@@ -94,7 +87,7 @@ export default class NodeFactory {
 	all(): object {
 		return {
 			...this.defaultNodes(),
-			// ...this.apiNodes(), 
+			...this.apiNodes(), 
 			...this.contextNodes(),
 		}
 	}
