@@ -1,8 +1,8 @@
 export class DefaultNodeFactory {
-	static make(nodes): {} {
+	static make(nodes: {}): Record<string, unknown> {
 		let instances = {}
 
-		for (var name in nodes) {
+		for (let name in nodes) {
 			instances[name] = new nodes[name]
 		}
 
