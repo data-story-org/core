@@ -1,4 +1,4 @@
-import UID from '../utils/UID';
+import { UID } from '../utils';
 import { Port } from './Port';
 
 export class Link {

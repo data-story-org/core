@@ -1,5 +1,5 @@
 import { Feature } from '../Feature';
-import UID from '../utils/UID';
+import { UID } from '../utils';
 import { Node } from './Node';
 
 export class Port {
