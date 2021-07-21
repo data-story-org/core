@@ -2,7 +2,6 @@ import Diagram from '../../../src/server/Diagram';
 import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
 import { Feature } from '../../../src/Feature';
 import OutputProvider from '../../../src/server/nodes/OutputProvider';
-import { Server } from '../../../src/server/Server';
 import { Port } from '../../../src/server/Port';
 import { Node } from '../../../src/server/Node';
 import { Context } from '../../../src/server/Context';

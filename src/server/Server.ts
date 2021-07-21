@@ -1,11 +1,17 @@
-import Diagram from './Diagram';
 import NodeFactory from './NodeFactory';
 import { BootPayload } from '../types/BootPayload';
 import { Node } from './Node';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
+import { Context } from './Context';
 
 export class Server {
+	context
+
+	constructor(context = {}) {
+		this.context = context
+	}
+
   public boot() {
     return new Promise<BootPayload>((callback) => {
       return callback({
@@ -19,8 +25,7 @@ export class Server {
 
   public async run(diagram: any) {
     return DiagramFactory.hydrate(
-      diagram as SerializedDiagram,
-      NodeFactory,
+      diagram as SerializedDiagram
     ).run();
   }
 

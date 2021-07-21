@@ -25,8 +25,7 @@ const help = () => {
 
 const run = async (serializedDiagram) => {
   const result = await DiagramFactory.hydrate(
-    JSON.parse(serializedDiagram),
-    NodeFactory,
+    JSON.parse(serializedDiagram)
   ).run();
   console.log(
     nonCircularJsonStringify((result as any).data),

@@ -1,6 +1,8 @@
 import { SerializedDiagram } from '../types/SerializedDiagram';
+import { SerializedNodeModel } from '../types/SerializedNodeModel';
 import Diagram from './Diagram';
 import { Link } from './Link';
+import NodeFactory from './NodeFactory';
 import { Port } from './Port';
 
 export class DiagramFactory {
@@ -8,10 +10,7 @@ export class DiagramFactory {
     return new Diagram();
   }
 
-  static hydrate(
-    payload: string | SerializedDiagram,
-    factory,
-  ): Diagram {
+  static hydrate(payload: string | SerializedDiagram): Diagram {
     const data: SerializedDiagram =
       typeof payload == 'string'
         ? JSON.parse(payload)
@@ -23,8 +22,8 @@ export class DiagramFactory {
     // Add Nodes
     instance.nodes = Object.values(
       data.layers[1].models,
-    ).map((node) => {
-      return factory.hydrate(node, instance);
+    ).map((node: SerializedNodeModel) => {
+      return NodeFactory.hydrate(node, instance);
     });
 
     // Add Links
