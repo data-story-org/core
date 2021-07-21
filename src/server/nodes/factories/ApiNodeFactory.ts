@@ -1,7 +1,7 @@
 import HTTPRequest from "../HTTPRequest";
 
 export class ApiNodeFactory {
-	static make(endpoints: any[]) {
+	static make(endpoints: any[]): {} {
 		return endpoints.reduce((all, endpoint) => {
 			// this is just a test
 			return {

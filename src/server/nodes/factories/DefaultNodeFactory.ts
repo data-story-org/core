@@ -1,5 +1,5 @@
 export class DefaultNodeFactory {
-	static make(nodes) {
+	static make(nodes): {} {
 		let instances = {}
 
 		for (var name in nodes) {

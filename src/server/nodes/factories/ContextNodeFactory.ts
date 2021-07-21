@@ -1,7 +1,7 @@
 import ResolveContextFeatures from "../ResolveContextFeatures"
 
 export class ContextNodeFactory {
-	static make(context: any) {
+	static make(context: any): {} {
 		const models = context.models
 		if(!models) return {}
 
