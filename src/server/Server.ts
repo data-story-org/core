@@ -2,9 +2,10 @@ import NodeFactory from './NodeFactory';
 import { BootPayload } from '../types/BootPayload';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
+import { DataStoryContext } from './DataStoryContext';
 
 export class Server {
-	context
+	context: DataStoryContext
 
 	constructor(context = {}) {
 		this.context = context

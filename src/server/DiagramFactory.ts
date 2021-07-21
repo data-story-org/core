@@ -1,12 +1,13 @@
 import { SerializedDiagram } from '../types/SerializedDiagram';
 import { SerializedNodeModel } from '../types/SerializedNodeModel';
+import { DataStoryContext } from './DataStoryContext';
 import Diagram from './Diagram';
 import { Link } from './Link';
 import NodeFactory from './NodeFactory';
 import { Port } from './Port';
 
 export class DiagramFactory {
-	context
+	context: DataStoryContext
 
 	static withContext(context) {
 		return new this(context)

@@ -33,6 +33,7 @@ import { ApiNodeFactory } from './nodes/factories/ApiNodeFactory';
 import { DefaultNodeFactory } from './nodes/factories/DefaultNodeFactory';
 import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
 import { Node } from './Node';
+import { DataStoryContext } from './DataStoryContext';
 
 
 // CURRENT RESPONSIBILITIES
@@ -40,7 +41,7 @@ import { Node } from './Node';
 // Return a single Node instance based on a serialized Node
 
 export default class NodeFactory {
-	context
+	context: DataStoryContext
 	prototypes = {
 		Aggregate,
 		Clone_,
