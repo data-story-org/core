@@ -20,9 +20,9 @@ export default class FilterDuplicates extends Node {
     this.output(this.uniqueFeatures(this.input()));
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string('attribute').withDescription(
         'attribute to filter on, may use dot notation',
       ),

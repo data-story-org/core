@@ -28,9 +28,9 @@ export default class Clone_ extends Node {
     );
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.number('number_of_clones').withValue(
         10,
       ),

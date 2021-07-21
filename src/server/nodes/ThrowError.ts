@@ -20,9 +20,9 @@ export default class ThrowError extends Node {
       throw Error(this.getParameterValue('error_message'));
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string('error_message').withValue(
         'Something went wrong!',
       ),

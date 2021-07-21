@@ -32,9 +32,9 @@ export default class OutputProvider extends Node {
     }
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.js('outputs').withValue(''),
     ];
   }

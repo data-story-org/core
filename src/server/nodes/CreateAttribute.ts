@@ -26,9 +26,9 @@ export default class CreateAttribute extends Node {
     );
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string('attribute'),
       NodeParameter.string('value'),
     ];

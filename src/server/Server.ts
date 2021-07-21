@@ -1,9 +1,7 @@
 import NodeFactory from './NodeFactory';
 import { BootPayload } from '../types/BootPayload';
-import { Node } from './Node';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
-import { Context } from './Context';
 
 export class Server {
 	context
@@ -17,14 +15,14 @@ export class Server {
       return callback({
         data: {
           stories: [],
-          availableNodes: NodeFactory.nodeDescriptions(),
+          availableNodes: (NodeFactory.withContext(this.context)).nodeDescriptions(),
         },
       });
     });
   }
 
   public async run(diagram: any) {
-    return DiagramFactory.hydrate(
+    return DiagramFactory.withContext(this.context).hydrate(
       diagram as SerializedDiagram
     ).run();
   }
@@ -34,10 +32,4 @@ export class Server {
       return success(true);
     });
   }
-
-  // protected nodeDescriptions(): object[] {
-  //   return Object.values(NodeFactory.all()).map((node) =>
-  //     (new node() as Node).serialize(),
-  //   );
-  // }
 }

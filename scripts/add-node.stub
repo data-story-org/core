@@ -23,9 +23,9 @@ export default class NODE_NAME extends Node {
         )
     }
 
-	getParameters() {
+	getDefaultParameters() {
 		return [
-			...super.getParameters(),
+			...super.getDefaultParameters(),
             NodeParameter.string('p1'),
 		]
 	}     

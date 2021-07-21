@@ -30,9 +30,9 @@ export default class CreateSequence extends Node {
     );
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.number(
         'number_of_features_to_create',
       ).withValue(10),

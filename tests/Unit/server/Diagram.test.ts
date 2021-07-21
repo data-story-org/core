@@ -1,5 +1,5 @@
 import Diagram from '../../../src/server/Diagram';
-import { Context } from '../../../src/server/Context';
+import { DataStoryContext } from '../../../src/server/DataStoryContext';
 
 it('can create a Diagram without a explicit context', () => {
   let diagram = new Diagram();
@@ -7,18 +7,18 @@ it('can create a Diagram without a explicit context', () => {
 });
 
 it('may supply a context at creation', () => {
-  let diagram = new Diagram(new Context({ foo: 'bar' }));
+  let diagram = new Diagram({ foo: 'bar' } as DataStoryContext);
 
   expect(diagram).toBeInstanceOf(Diagram);
-  expect(diagram.context).toBeInstanceOf(Context);
+  expect(diagram.context).toBeInstanceOf(Object);
   expect(diagram.context['foo']).toBe('bar');
 });
 
 it('may supply a context at a later stage', () => {
   let diagram = new Diagram();
-  diagram.setContext(new Context({ foo: 'bar' }));
+  diagram.setContext({ foo: 'bar' } as DataStoryContext);
 
   expect(diagram).toBeInstanceOf(Diagram);
-  expect(diagram.context).toBeInstanceOf(Context);
+  expect(diagram.context).toBeInstanceOf(Object);
   expect(diagram.context['foo']).toBe('bar');
 });

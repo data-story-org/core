@@ -4,11 +4,11 @@ import { Feature } from '../../../src/Feature';
 import OutputProvider from '../../../src/server/nodes/OutputProvider';
 import { Port } from '../../../src/server/Port';
 import { Node } from '../../../src/server/Node';
-import { Context } from '../../../src/server/Context';
+import { DataStoryContext } from '../../../src/server/DataStoryContext';
 
 export class NodeTester {
   diagram: Diagram;
-  diagramContext: Context;
+  diagramContext: DataStoryContext;
   runResult: Diagram;
   nodeClass;
   parameterKeyValues: {};
@@ -46,7 +46,7 @@ export class NodeTester {
   }
 
   diagramHasContext(contextData) {
-    this.diagramContext = new Context(contextData);
+    this.diagramContext = contextData;
     return this;
   }
 
@@ -121,7 +121,7 @@ export class NodeTester {
 
   protected setupDiagram() {
     this.diagram = DiagramBuilder.begin()
-      .setContext(this.diagramContext ?? new Context({}))
+      .setContext(this.diagramContext ?? {})
       .add(
         OutputProvider,
         {

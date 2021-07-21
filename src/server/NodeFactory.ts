@@ -40,7 +40,8 @@ import { Node } from './Node';
 // Return a single Node instance based on a serialized Node
 
 export default class NodeFactory {
-	static prototypes = {
+	context
+	prototypes = {
 		Aggregate,
 		Clone_,
 		Comment,
@@ -65,40 +66,47 @@ export default class NodeFactory {
 		Sleep,
 		Sort,
 		ThrowError,
+	}	
+
+	static withContext(context) {
+		return new this(context)
 	}
 
-	static defaultNodes(): {} {
+	constructor(context = {}) {
+		this.context = context
+	}
+
+	defaultNodes(): {} {
 		return DefaultNodeFactory.make(this.prototypes)
 	}
 	
-	static apiNodes(): {} {
-		return ApiNodeFactory.make([
-			{url: 'https://jsonplaceholder.cypress.io/todos'},
-		]);
-	}
-
-	// contextNodes() {
-	// 	return ContextNodeFactory.make({})
+	// apiNodes(): {} {
+	// 	return ApiNodeFactory.make([
+	// 		{url: 'https://jsonplaceholder.cypress.io/todos'},
+	// 	]);
 	// }
 
-	static all(): object {
+	contextNodes() {
+		return ContextNodeFactory.make(this.context)
+	}
+
+	all(): object {
 		return {
 			...this.defaultNodes(),
-			...this.apiNodes(), 
-			// ...this.contextNodes(),
+			// ...this.apiNodes(), 
+			...this.contextNodes(),
 		}
 	}
 
-	static find(nodeType) {
+	find(nodeType) {
 		return this.all()[nodeType]
 	}
 
-	static nodeDescriptions() {
+	nodeDescriptions() {
     return Object.values(this.all()).map((node) => node.serialize());
 	}
 
-  static hydrate(node: SerializedNodeModel, diagram = null) {
-
+  hydrate(node: SerializedNodeModel, diagram = null) {
 		const type = this.prototypes[node.nodeType]
 
     return new type({
@@ -107,3 +115,5 @@ export default class NodeFactory {
     });
   }
 }
+
+

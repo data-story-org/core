@@ -54,9 +54,9 @@ export default class Evaluate extends Node {
     return this.getParameterValue('expression');
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.select('evaluation_context')
         .withOptions(['per_feature', 'global'])
         .withValue('per_feature'),

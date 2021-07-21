@@ -1,4 +1,4 @@
-import { Context } from './Context';
+import { DataStoryContext } from './DataStoryContext';
 import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
@@ -11,17 +11,17 @@ export default class Diagram {
     // id1: [d1, d2, ...]
   };
   history: Node[] = [];
-  context: Context = new Context({});
+  context: DataStoryContext = {};
 
-  constructor(context?: Context) {
-    this.context = context ?? new Context({});
+  constructor(context?: DataStoryContext) {
+    this.context = context ?? {};
   }
 
-  getContext(): Context {
+  getContext(): DataStoryContext {
     return this.context;
   }
 
-  setContext(context: Context) {
+  setContext(context: DataStoryContext) {
     this.context = context;
   }
 

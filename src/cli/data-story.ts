@@ -9,7 +9,7 @@ const args = process.argv.slice(3);
 const boot = () => {
   const result = nonCircularJsonStringify({
     stories: [],
-    availableNodes: Object.values(NodeFactory.all()).map((node) =>
+    availableNodes: Object.values((new NodeFactory).all()).map((node) =>
       (new node() as Node).serialize(),
     ),
   });
@@ -24,7 +24,7 @@ const help = () => {
 };
 
 const run = async (serializedDiagram) => {
-  const result = await DiagramFactory.hydrate(
+  const result = await (new DiagramFactory).hydrate(
     JSON.parse(serializedDiagram)
   ).run();
   console.log(

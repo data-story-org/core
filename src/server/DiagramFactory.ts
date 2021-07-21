@@ -6,37 +6,43 @@ import NodeFactory from './NodeFactory';
 import { Port } from './Port';
 
 export class DiagramFactory {
-  static make() {
-    return new Diagram();
-  }
+	context
 
-  static hydrate(payload: string | SerializedDiagram): Diagram {
+	static withContext(context) {
+		return new this(context)
+	}
+
+	constructor(context = {}) {
+		this.context = context
+	}
+
+  hydrate(payload: string | SerializedDiagram): Diagram {
     const data: SerializedDiagram =
       typeof payload == 'string'
         ? JSON.parse(payload)
         : payload;
 
     // Create empty diagram
-    const instance = new Diagram();
+    const diagram = new Diagram(this.context);
 
     // Add Nodes
-    instance.nodes = Object.values(
+    diagram.nodes = Object.values(
       data.layers[1].models,
     ).map((node: SerializedNodeModel) => {
-      return NodeFactory.hydrate(node, instance);
+      return (new NodeFactory).hydrate(node, diagram);
     });
 
     // Add Links
-    instance.links = Object.values(
+    diagram.links = Object.values(
       data.layers[0].models,
     ).map((data: any) => {
       return new Link({
         id: data.id,
-        sourcePort: instance.find(data.sourcePort) as Port,
-        targetPort: instance.find(data.targetPort) as Port,
+        sourcePort: diagram.find(data.sourcePort) as Port,
+        targetPort: diagram.find(data.targetPort) as Port,
       });
     });
 
-    return instance;
+    return diagram;
   }
 }
