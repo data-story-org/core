@@ -8,8 +8,8 @@ export class ApiNodeFactory {
 
 		const nodes = {}
 
-		for (let [key, endpoint] of Object.entries(apis)) {			
-			let node = new HTTPRequest({
+		for (const [key, endpoint] of Object.entries(apis)) {			
+			const node = new HTTPRequest({
 				name: (endpoint as any).name,
 				category: 'Workflow',
 				description: 'Get API features',
