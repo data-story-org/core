@@ -33,7 +33,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-      - run: yarn --silent
+        run: yarn --silent
 
       - name: Test
         run: yarn test

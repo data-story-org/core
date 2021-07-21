@@ -24,7 +24,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-      - run: yarn --silent
+        run: yarn --silent
 
       - uses: reviewdog/action-eslint@v1
         with:
