@@ -6,7 +6,7 @@ export class ApiNodeFactory {
 		const apis = context.apis
 		if(!apis) return {}
 
-		let nodes = {}
+		const nodes = {}
 
 		for (let [key, endpoint] of Object.entries(apis)) {			
 			let node = new HTTPRequest({
