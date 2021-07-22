@@ -14,6 +14,7 @@ type NodeOptions = {
   editableInPorts?: boolean;
   editableOutPorts?: boolean;
   name?: string;
+	nodeType?: string;
   summary?: string;
   category?: string;
   id?: string;
@@ -41,6 +42,7 @@ export abstract class Node {
     this.diagram = options.diagram;
     this.id = options.id ?? UID();
     this.name = options.name;
+		this.nodeType = options.nodeType ?? this.name;
     this.summary = options.summary;
     this.category = options.category;
     (this.defaultInPorts = options.defaultInPorts ?? [
@@ -122,13 +124,13 @@ export abstract class Node {
       key: this.key,
       name: this.name,
       nodeReact: this.nodeReact,
-      nodeType: this.name,
-      parameters: this.getParameters(),
+      nodeType: this.nodeType ?? this.name,
+      parameters: this.parameters.length ? this.parameters : this.getDefaultParameters(),
       summary: this.summary,
     };
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
       NodeParameter.string('node_name').withValue(
         this.name,
@@ -150,6 +152,11 @@ export abstract class Node {
 
     return this.interpretParameterValue(value, feature);
   }
+
+	public setParameterValue(name, value) {
+		let found = this.parameters.find((p) => p.name == name);
+		found.value = value
+	}
 
   protected interpretParameterValue(parametric, feature) {
     /* eslint-disable no-useless-escape */

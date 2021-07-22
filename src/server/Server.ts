@@ -1,26 +1,30 @@
-import Diagram from './Diagram';
 import NodeFactory from './NodeFactory';
 import { BootPayload } from '../types/BootPayload';
-import { Node } from './Node';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
+import { DataStoryContext } from './DataStoryContext';
 
 export class Server {
+	context: DataStoryContext
+
+	constructor(context = {}) {
+		this.context = context
+	}
+
   public boot() {
     return new Promise<BootPayload>((callback) => {
       return callback({
         data: {
           stories: [],
-          availableNodes: this.nodeDescriptions(),
+          availableNodes: (NodeFactory.withContext(this.context)).nodeDescriptions(),
         },
       });
     });
   }
 
   public async run(diagram: any) {
-    return DiagramFactory.hydrate(
-      diagram as SerializedDiagram,
-      NodeFactory,
+    return DiagramFactory.withContext(this.context).hydrate(
+      diagram as SerializedDiagram
     ).run();
   }
 
@@ -28,15 +32,5 @@ export class Server {
     return new Promise((success) => {
       return success(true);
     });
-  }
-
-  protected nodeDescriptions(): object[] {
-    return NodeFactory.all().map((node) =>
-      (new node() as Node).serialize(),
-    );
-  }
-
-  public hey() {
-    return 'hiya!';
   }
 }

@@ -1,11 +1,11 @@
-import { Context } from './Context';
+import { DataStoryContext } from './DataStoryContext';
 import Diagram from './Diagram';
 import { Node } from './Node';
 
 export class DiagramBuilder {
   currentNode?: Node;
   diagram?: Diagram;
-  diagramContext: Context;
+  diagramContext: DataStoryContext;
 
   static begin() {
     return new this();
@@ -28,7 +28,7 @@ export class DiagramBuilder {
     return this.withParameters(parameterKeyValues);
   }
 
-  setContext(context: Context) {
+  setContext(context: DataStoryContext) {
     this.diagramContext = context;
     return this;
   }
@@ -53,7 +53,7 @@ export class DiagramBuilder {
   protected getDiagram() {
     return (
       this.diagram ??
-      new Diagram(this.diagramContext ?? new Context({}))
+      new Diagram(this.diagramContext ?? {})
     );
   }
 }

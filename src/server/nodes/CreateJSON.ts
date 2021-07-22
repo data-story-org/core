@@ -24,9 +24,9 @@ export default class CreateJSON extends Node {
     );
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.json('features').withValue(
         '[{ "resource": "todos"}]',
       ),

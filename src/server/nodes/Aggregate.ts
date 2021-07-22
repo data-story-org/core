@@ -42,9 +42,9 @@ export default class Aggregate extends Node {
     this.output(features);
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string('group_by'),
     ];
   }

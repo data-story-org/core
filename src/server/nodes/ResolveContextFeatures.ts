@@ -31,9 +31,9 @@ export default class ResolveContextFeatures extends Node {
     );
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string(
         'path_to_features',
       ).withDescription('you may use dot notated paths'),

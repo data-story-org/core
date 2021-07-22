@@ -17,9 +17,9 @@ export default class RegExpFilter extends Node {
     });
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string('attribute').withValue(''),
       NodeParameter.string('expression').withValue(
         '/test|draft|dummy/',

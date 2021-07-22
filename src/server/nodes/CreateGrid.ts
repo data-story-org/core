@@ -82,9 +82,9 @@ export default class CreateGrid extends Node {
     this.output(features);
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.select('grid_type')
         .withOptions(['points', 'boxes'])
         .withValue('points'),

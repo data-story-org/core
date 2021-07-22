@@ -57,9 +57,9 @@ export default class HTTPRequest extends Node {
     }
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       //NodeParameter.select('client').withOptions(['axios', 'mock']).withValue('axios'),
       NodeParameter.string('url').withValue(
         'https://jsonplaceholder.cypress.io/{{ feature.resource }}',

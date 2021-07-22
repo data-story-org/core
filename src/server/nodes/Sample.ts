@@ -24,9 +24,9 @@ export default class Sample extends Node {
     );
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.number('first_n_features').withValue(
         100,
       ),

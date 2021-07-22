@@ -29,57 +29,79 @@ import Sleep from './nodes/Sleep';
 import ThrowError from './nodes/ThrowError';
 
 import { SerializedNodeModel } from '../types/SerializedNodeModel';
+import { ApiNodeFactory } from './nodes/factories/ApiNodeFactory';
+import { DefaultNodeFactory } from './nodes/factories/DefaultNodeFactory';
+import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
+import { Node } from './Node';
+import { DataStoryContext } from './DataStoryContext';
 
 export default class NodeFactory {
-  protected static nodes = {
-    Aggregate,
-    Clone_,
-    Comment,
-    Create,
-    CreateAttribute,
-    CreateCSV,
-    CreateGrid,
-    CreateJSON,
-    CreateSequence,
-    // DeleteRepositories,
-    // DownloadCSV,
-    // DownloadJSON,
-    // DownloadGeoJSON,
-    Evaluate,
-    FilterDuplicates,
-    Flatten,
-    Group,
-    HTTPRequest,
-    Inspect,
-    Log,
-    Map,
-    OutputProvider,
-    RegExpFilter,
-    ResolveContextFeatures,
-    // Repositories,
-    Sample,
-    Sleep,
-    Sort,
-    ThrowError,
-  };
+	context: DataStoryContext
+	prototypes = {
+		Aggregate,
+		Clone_,
+		Comment,
+		Create,
+		CreateAttribute,
+		CreateCSV,
+		CreateGrid,
+		CreateJSON,
+		CreateSequence,
+		Evaluate,
+		FilterDuplicates,
+		Flatten,
+		Group,
+		HTTPRequest,
+		Inspect,
+		Log,
+		Map,
+		OutputProvider,
+		RegExpFilter,
+		ResolveContextFeatures,
+		Sample,
+		Sleep,
+		Sort,
+		ThrowError,
+	}	
 
-  static find(type: string) {
-    return this.nodes[type];
-  }
+	static withContext(context) {
+		return new this(context)
+	}
 
-  static all() {
-    return Object.values(this.nodes);
-  }
+	constructor(context = {}) {
+		this.context = context
+	}
 
-  static make(type: string) {
-    return new (this.find(type))();
-  }
+	defaultNodes(): {} {
+		return DefaultNodeFactory.make(this.prototypes)
+	}
+	
+	apiNodes(): {} {
+		return ApiNodeFactory.make(this.context);
+	}
 
-  static hydrate(
-    node: SerializedNodeModel,
-    diagram = null,
-  ) {
-    const type = this.find(node.nodeType);
+	contextNodes() {
+		return ContextNodeFactory.make(this.context)
+	}
+
+	all(): object {
+		return {
+			...this.defaultNodes(),
+			...this.apiNodes(), 
+			...this.contextNodes(),
+		}
+	}
+
+	find(nodeType) {
+		return this.all()[nodeType]
+	}
+
+	nodeDescriptions() {
+    return Object.values(this.all()).map((node) => node.serialize());
+	}
+
+  hydrate(node: SerializedNodeModel, diagram = null) {
+		const type = this.prototypes[node.nodeType]
 
     return new type({
       ...node,
@@ -87,3 +109,5 @@ export default class NodeFactory {
     });
   }
 }
+
+

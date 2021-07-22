@@ -19,9 +19,9 @@ export default class Comment extends Node {
     return null;
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string('text').withValue(
         'This is a comment',
       ),

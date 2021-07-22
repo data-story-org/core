@@ -1,4 +1,4 @@
-import Diagram from '../server/Diagram';
+import { DiagramFactory } from '../server/DiagramFactory';
 import { Node } from '../server/Node';
 import NodeFactory from '../server/NodeFactory';
 import { nonCircularJsonStringify } from '../utils/nonCircularJsonStringify';
@@ -9,7 +9,7 @@ const args = process.argv.slice(3);
 const boot = () => {
   const result = nonCircularJsonStringify({
     stories: [],
-    availableNodes: NodeFactory.all().map((node) =>
+    availableNodes: Object.values((new NodeFactory).all()).map((node) =>
       (new node() as Node).serialize(),
     ),
   });
@@ -24,9 +24,8 @@ const help = () => {
 };
 
 const run = async (serializedDiagram) => {
-  const result = await Diagram.hydrate(
-    JSON.parse(serializedDiagram),
-    NodeFactory,
+  const result = await (new DiagramFactory).hydrate(
+    JSON.parse(serializedDiagram)
   ).run();
   console.log(
     nonCircularJsonStringify((result as any).data),

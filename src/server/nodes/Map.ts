@@ -31,9 +31,9 @@ export default class Map extends Node {
     );
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.string('property').withValue('data'),
     ];
   }

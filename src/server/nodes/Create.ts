@@ -42,9 +42,9 @@ export default class Create extends Node {
     }
   }
 
-  getParameters() {
+  getDefaultParameters() {
     return [
-      ...super.getParameters(),
+      ...super.getDefaultParameters(),
       NodeParameter.select('feature_type')
         .withOptions([
           'null',
