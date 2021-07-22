@@ -1,3 +1,1 @@
-export class NodeCollectionFactory {
-		
-}
+export class NodeCollectionFactory {}

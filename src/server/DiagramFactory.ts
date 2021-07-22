@@ -7,15 +7,15 @@ import NodeFactory from './NodeFactory';
 import { Port } from './Port';
 
 export class DiagramFactory {
-	context: DataStoryContext
+  context: DataStoryContext;
 
-	static withContext(context: DataStoryContext) {
-		return new this(context)
-	}
+  static withContext(context: DataStoryContext) {
+    return new this(context);
+  }
 
-	constructor(context: DataStoryContext = {}) {
-		this.context = context
-	}
+  constructor(context: DataStoryContext = {}) {
+    this.context = context;
+  }
 
   hydrate(payload: string | SerializedDiagram): Diagram {
     const data: SerializedDiagram =
@@ -30,7 +30,7 @@ export class DiagramFactory {
     diagram.nodes = Object.values(
       data.layers[1].models,
     ).map((node: SerializedNodeModel) => {
-      return (new NodeFactory).hydrate(node, diagram);
+      return new NodeFactory().hydrate(node, diagram);
     });
 
     // Add Links

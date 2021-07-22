@@ -7,7 +7,9 @@ it('can create a Diagram without a explicit context', () => {
 });
 
 it('may supply a context at creation', () => {
-  let diagram = new Diagram({ foo: 'bar' } as DataStoryContext);
+  let diagram = new Diagram({
+    foo: 'bar',
+  } as DataStoryContext);
 
   expect(diagram).toBeInstanceOf(Diagram);
   expect(diagram.context).toBeInstanceOf(Object);

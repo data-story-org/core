@@ -17,17 +17,23 @@ test('the JS server can boot', async () => {
 
 test('it will provide custom nodes when given a context with models', async () => {
   let server = new Server({
-		models: {
-			cars: ['Volvo', 'Saab', 'Koenigsegg']
-		}
-	});
+    models: {
+      cars: ['Volvo', 'Saab', 'Koenigsegg'],
+    },
+  });
 
-	let { data } = await server.boot()
-	let carsNode = data.availableNodes.find(node => (node as SerializedNodeModel).name == 'cars')
+  let { data } = await server.boot();
+  let carsNode = data.availableNodes.find(
+    (node) => (node as SerializedNodeModel).name == 'cars',
+  );
 
-  expect((carsNode as SerializedNodeModel).name).toBe('cars');
-	expect((carsNode as SerializedNodeModel).nodeType).toBe('ResolveContextFeatures');
-})
+  expect((carsNode as SerializedNodeModel).name).toBe(
+    'cars',
+  );
+  expect((carsNode as SerializedNodeModel).nodeType).toBe(
+    'ResolveContextFeatures',
+  );
+});
 
 test('the JS server can run', async () => {
   let diagram = DiagramBuilder.begin()
@@ -41,7 +47,7 @@ test('the JS server can run', async () => {
 });
 
 test('the GUI can run', async () => {
-  let diagram = (new DiagramFactory).hydrate(
+  let diagram = new DiagramFactory().hydrate(
     sample as SerializedDiagram,
   );
 

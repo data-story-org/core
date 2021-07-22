@@ -52,8 +52,7 @@ export class DiagramBuilder {
 
   protected getDiagram() {
     return (
-      this.diagram ??
-      new Diagram(this.diagramContext ?? {})
+      this.diagram ?? new Diagram(this.diagramContext ?? {})
     );
   }
 }
