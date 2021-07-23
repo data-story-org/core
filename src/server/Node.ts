@@ -156,7 +156,9 @@ export abstract class Node {
   }
 
   public setParameterValue(name, value) {
-    const found = this.parameters.find((p) => p.name == name);
+    const found = this.parameters.find(
+      (p) => p.name == name,
+    );
     found.value = value;
   }
 
