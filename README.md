@@ -31,4 +31,3 @@ yarn add-node YourNodeName
 ```
 
 This will create a new `Node` class along with a test stub. Then you need to manually register it in `NodeFactory`.
- 
