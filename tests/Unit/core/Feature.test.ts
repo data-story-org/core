@@ -7,7 +7,7 @@ test('a Feature can be instantiate from various types', () => {
 });
 
 test('a Feature can hold attributes', () => {
-  let feature = new Feature({
+  const feature = new Feature({
     foo: 'bar',
   });
 
@@ -15,7 +15,7 @@ test('a Feature can hold attributes', () => {
 });
 
 test('it can get dot notated attributes', () => {
-  let feature = new Feature({
+  const feature = new Feature({
     user: {
       name: 'ajthinking',
     },
