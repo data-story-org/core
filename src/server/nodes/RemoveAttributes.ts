@@ -1,4 +1,5 @@
 import NodeParameter from '../../NodeParameter';
+import { Feature } from '../../Feature';
 import { Node } from '../Node';
 
 export default class RemoveAttributes extends Node {
@@ -21,23 +22,26 @@ export default class RemoveAttributes extends Node {
     ).split(',');
 
     this.output(
-      this.input().map((feature) => {
-        const { original } = feature;
+      this.input()
+        .map((feature) => {
+          const { original } = feature;
 
-        const filtered = Object.keys(original)
-          .filter((key) => !toRemove.includes(key))
-          .reduce(
-            (obj, key) => ({
-              ...obj,
-              [key]: original[key],
-            }),
-            {},
-          );
+          const filtered = Object.keys(original)
+            .filter((key) => !toRemove.includes(key))
+            .reduce(
+              (obj, key) => ({
+                ...obj,
+                [key]: original[key],
+              }),
+              {},
+            );
 
-        return {
-          original: filtered,
-        };
-      }),
+          if (Object.keys(filtered).length === 0) {
+            return undefined;
+          }
+          return feature.set(filtered);
+        })
+        .filter((feature) => feature !== undefined),
     );
   }
 
