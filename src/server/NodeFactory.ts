@@ -27,6 +27,7 @@ import Sample from './nodes/Sample';
 import Sort from './nodes/Sort';
 import Sleep from './nodes/Sleep';
 import ThrowError from './nodes/ThrowError';
+import RemoveAttributes from './nodes/RemoveAttributes'
 
 import { SerializedNodeModel } from '../types/SerializedNodeModel';
 import { ApiNodeFactory } from './nodes/factories/ApiNodeFactory';
@@ -58,6 +59,7 @@ export default class NodeFactory {
     OutputProvider,
     RegExpFilter,
     ResolveContextFeatures,
+    RemoveAttributes,
     Sample,
     Sleep,
     Sort,
