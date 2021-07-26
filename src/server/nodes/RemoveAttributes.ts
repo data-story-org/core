@@ -39,7 +39,7 @@ export default class RemoveAttributes extends Node {
           if (Object.keys(filtered).length === 0) {
             return undefined;
           }
-          return feature.set(filtered);
+          return new Feature(filtered);
         })
         .filter((feature) => feature !== undefined),
     );
