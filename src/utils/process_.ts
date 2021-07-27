@@ -1,7 +1,7 @@
-import { spawn } from 'child_process';
+import { spawn, SpawnOptions } from 'child_process';
 
 /** SPAWN A CHILD PROCESS AND CAPTURE STDOUT AND STDERR */
-export const spawnChild = async (command, arguments_, options) => {
+export const spawnChild = async (command: string, arguments_: string[], options: SpawnOptions): Promise<string> => {
 	const child = spawn(command, arguments_, options);
 
 	let data = "";
