@@ -16,6 +16,8 @@ describe('RemoveAttributes node', () => {
         'attributes to remove': 'resource,os',
       })
       .assertOutput([
+        {},
+        {},
         { browser: 'firefox' },
         { shell: 'zsh' },
       ])
@@ -39,7 +41,7 @@ describe('RemoveAttributes node', () => {
       .parameters({
         'attributes to remove': `${attribute1},${attribute2}`,
       })
-      .assertOutput([wantedFeature])
+      .assertOutput([{}, {}, wantedFeature])
       .finish();
   });
 });

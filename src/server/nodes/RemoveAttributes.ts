@@ -36,12 +36,12 @@ export default class RemoveAttributes extends Node {
               {},
             );
 
-          if (Object.keys(filtered).length === 0) {
-            return undefined;
-          }
+          // if (Object.keys(filtered).length === 0) {
+          //   return undefined;
+          // }
           return new Feature(filtered);
         })
-        .filter((feature) => feature !== undefined),
+        // .filter((feature) => feature !== undefined),
     );
   }
 
