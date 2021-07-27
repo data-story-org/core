@@ -46,7 +46,7 @@ test('the JS server can run', async () => {
   expect(result).toBeInstanceOf(Object);
 });
 
-test.skip('the GUI can run', async () => {
+test.skip('the CLI can run', async () => {
   // let diagram = new DiagramFactory().hydrate(
   //   sample as SerializedDiagram,
   // );
