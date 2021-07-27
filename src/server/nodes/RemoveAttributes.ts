@@ -22,26 +22,25 @@ export default class RemoveAttributes extends Node {
     ).split(',');
 
     this.output(
-      this.input()
-        .map((feature) => {
-          const { original } = feature;
+      this.input().map((feature) => {
+        const { original } = feature;
 
-          const filtered = Object.keys(original)
-            .filter((key) => !toRemove.includes(key))
-            .reduce(
-              (obj, key) => ({
-                ...obj,
-                [key]: original[key],
-              }),
-              {},
-            );
+        const filtered = Object.keys(original)
+          .filter((key) => !toRemove.includes(key))
+          .reduce(
+            (obj, key) => ({
+              ...obj,
+              [key]: original[key],
+            }),
+            {},
+          );
 
-          // if (Object.keys(filtered).length === 0) {
-          //   return undefined;
-          // }
-          return new Feature(filtered);
-        })
-        // .filter((feature) => feature !== undefined),
+        // if (Object.keys(filtered).length === 0) {
+        //   return undefined;
+        // }
+        return new Feature(filtered);
+      }),
+      // .filter((feature) => feature !== undefined),
     );
   }
 
