@@ -6,6 +6,8 @@ import { nonCircularJsonStringify } from '../../../src/utils/nonCircularJsonStri
 import { addSlashes } from '../../../src/utils/Str'
 import { spawnChild } from '../../../src/utils/process_'
 import { DiagramFactory } from '../../../src/server/DiagramFactory';
+import NodeFactory from '../../../src/server/NodeFactory';
+import { Node } from '../../../src/server/Node';
 
 async function cli($command, ...$args) {
 	return await spawnChild(
@@ -22,6 +24,7 @@ async function cli($command, ...$args) {
 }
 
 it('can boot via cli', async () => {
+
 	const success = (data) => {
 		const diagram = JSON.parse(data)
 

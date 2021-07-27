@@ -6,14 +6,14 @@ import { nonCircularJsonStringify } from '../utils/nonCircularJsonStringify';
 const type = process.argv[2];
 const args = process.argv.slice(3);
 
-const boot = (serializedContext = '{}') => {
+const boot = async (serializedContext = '{}') => {
 	const context = JSON.parse(serializedContext)
 	const factory = new NodeFactory(context)
 
   const result = nonCircularJsonStringify({
     stories: [],
     availableNodes: Object.values(factory.all()).map((node) =>
-      (new node() as Node).serialize(),
+      node.serialize(),
     ),
   });
 
