@@ -26,9 +26,9 @@ const help = () => {
   );
 };
 
-const run = async (serializedDiagram, serializedContext = '{}') => {
+const run = async (diagramJson, serializedContext = '{}') => {
 	let diagram = (new DiagramFactory).hydrate(
-    JSON.parse(serializedDiagram)
+    JSON.parse(diagramJson)
   )
 
 	diagram.setContext(
@@ -38,7 +38,7 @@ const run = async (serializedDiagram, serializedContext = '{}') => {
   const result = await diagram.run();
 	
 	console.log(
-    nonCircularJsonStringify((result as any).data),
+    nonCircularJsonStringify((result as any).data.diagram.serialize()),
   );
 };
 

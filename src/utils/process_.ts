@@ -14,12 +14,15 @@ export const spawnChild = async (command: string, arguments_: string[], options:
 			console.error('stderr chunk: '+chunk);
 			error += chunk;
 	}
-	const exitCode = await new Promise( (resolve) => {
-			child.on('close', resolve);
+	const exitCode = await new Promise( (resolve, reject) => {
+		child.on('close', resolve);
+		// child.on('error', reject);
 	});
 
-	if( exitCode) {
-			throw new Error( `subprocess error exit ${exitCode}, ${error}`);
+	if(exitCode) {
+		throw 'throwing from process_ ' + exitCode + ' ' + error
 	}
+
+
 	return data;
 }

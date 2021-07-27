@@ -32,8 +32,8 @@ export class DiagramFactory {
 			.map((data: any) => {
       	return new Link({
         	id: data.id,
-        	sourcePort: diagram.find(data.sourcePort) as Port,
-        	targetPort: diagram.find(data.targetPort) as Port,
+        	sourcePort: diagram.find(data.sourcePortId) as Port,
+        	targetPort: diagram.find(data.targetPortId) as Port,
       	});
     	});
 
