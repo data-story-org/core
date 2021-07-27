@@ -17,32 +17,25 @@ export class DiagramFactory {
     this.context = context;
   }
 
-  hydrate(payload: string | SerializedDiagram): Diagram {
-    const data: SerializedDiagram =
-      typeof payload == 'string'
-        ? JSON.parse(payload)
-        : payload;
-
+  hydrate(data: SerializedDiagram): Diagram {
     // Create empty diagram
     const diagram = new Diagram(this.context);
 
     // Add Nodes
-    diagram.nodes = Object.values(
-      data.layers[1].models,
-    ).map((node: SerializedNodeModel) => {
-      return new NodeFactory().hydrate(node, diagram);
-    });
+    diagram.nodes = Object.values(data.nodes)
+			.map((node: SerializedNodeModel) => {
+      	return new NodeFactory().hydrate(node, diagram);
+    	});
 
     // Add Links
-    diagram.links = Object.values(
-      data.layers[0].models,
-    ).map((data: any) => {
-      return new Link({
-        id: data.id,
-        sourcePort: diagram.find(data.sourcePort) as Port,
-        targetPort: diagram.find(data.targetPort) as Port,
-      });
-    });
+    diagram.links = Object.values(data.links)
+			.map((data: any) => {
+      	return new Link({
+        	id: data.id,
+        	sourcePort: diagram.find(data.sourcePort) as Port,
+        	targetPort: diagram.find(data.targetPort) as Port,
+      	});
+    	});
 
     return diagram;
   }

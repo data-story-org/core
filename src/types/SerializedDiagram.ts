@@ -1,10 +1,5 @@
 export type SerializedDiagram = {
-  id: string;
-  offsetX: number;
-  offsetY: number;
-  zoom: number;
-  gridSize: number;
-  layers: any[];
-  locked: boolean;
+  links: any[];
+	nodes: any[];
   version: string;
 };

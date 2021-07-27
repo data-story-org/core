@@ -1,6 +1,4 @@
 import { SerializedDiagram } from '../types/SerializedDiagram';
-import { SerializedHeadlessDiagram } from '../types/SerializedHeadlessDiagram';
-import { UID } from '../utils';
 import version from '../utils/version';
 import { DataStoryContext } from './DataStoryContext';
 import { Link } from './Link';
@@ -240,7 +238,7 @@ export default class Diagram {
     return Boolean(node.id && this.find(node.id));
   }
 
-	serialize(): SerializedHeadlessDiagram {
+	serialize(): SerializedDiagram {
 		return {
 			links: this.links.map(link => link.serialize()),
 			nodes: this.nodes.map(node => node.serialize()),
