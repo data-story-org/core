@@ -27,7 +27,7 @@ export default class ResolveContextFeatures extends Node {
     }, this.diagram.context);
 
     this.output(
-      featureData.map((data) => new Feature(data)),
+      (featureData as unknown[]).map((data) => new Feature(data)),
     );
   }
 

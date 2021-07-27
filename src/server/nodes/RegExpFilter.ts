@@ -61,6 +61,6 @@ export default class RegExpFilter extends Node {
       this.getParameterValue('expression'),
       '/',
     );
-    return RegExp(cleaned);
+    return RegExp(cleaned as string);
   }
 }
