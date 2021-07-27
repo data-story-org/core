@@ -242,8 +242,8 @@ export default class Diagram {
 
 	serialize(): SerializedHeadlessDiagram {
 		return {
-			links: this.links,
-			nodes: this.nodes,
+			links: this.links.map(link => link.serialize()),
+			nodes: this.nodes.map(node => node.serialize()),
 			version
 		}
 	}

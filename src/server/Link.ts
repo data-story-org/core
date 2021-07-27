@@ -11,8 +11,16 @@ export class Link {
     sourcePort: Port;
     targetPort: Port;
   }) {
-    this.id = options.id ?? 'bajs'; //UID();
+    this.id = options.id ?? UID();
     this.sourcePort = options.sourcePort;
     this.targetPort = options.targetPort;
   }
+
+	serialize() {
+		return {
+			id: this.id,
+			sourcePortId: this.sourcePort.id,
+			targetPortId: this.targetPort.id,			
+		}
+	}
 }

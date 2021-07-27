@@ -39,6 +39,8 @@ describe('Diagram lifecycle', () => {
 			.finish()
 	
 		let serialized = diagram.serialize()
+
+		console.log(serialized.links)
 	
 		expect(serialized.version).toBe(version)
 	})

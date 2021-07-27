@@ -34,4 +34,12 @@ export class Port {
   hasZeroLinks(): boolean {
     return this.getLinks().length == 0;
   }
+
+	serialize() {
+		return {
+			id: this.id,
+			name: this.name,
+			in: this.in,
+		}
+	}
 }
