@@ -1,4 +1,4 @@
-export const trim = (s: String, c: String): String => {
+export const trim = (s: string, c: string): string => {
   if (c === ']') c = '\\]';
   if (c === '^') c = '\\^';
   if (c === '\\') c = '\\\\';
@@ -8,7 +8,7 @@ export const trim = (s: String, c: String): String => {
   );
 };
 
-export const addSlashes = (string: String): String => {
+export const addSlashes = (string: string): string => {
 	return string.replace(/\\/g, '\\\\').
 			replace(/\u0008/g, '\\b').
 			replace(/\t/g, '\\t').
