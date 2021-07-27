@@ -14,7 +14,7 @@ export const spawnChild = async (command: string, arguments_: string[], options:
 			console.error('stderr chunk: '+chunk);
 			error += chunk;
 	}
-	const exitCode = await new Promise( (resolve, reject) => {
+	const exitCode = await new Promise( (resolve) => {
 			child.on('close', resolve);
 	});
 
