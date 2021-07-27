@@ -7,7 +7,7 @@ import { Server } from '../../../src/server/Server';
 import { SerializedDiagram } from '../../../src/types/SerializedDiagram';
 import sample from '../../sampleDiagram.json';
 import { DiagramFactory } from '../../../src/server/DiagramFactory';
-import { SerializedNodeModel } from '../../../src/types/SerializedNodeModel';
+import { SerializedNode } from '../../../src/types/SerializedNode';
 
 test('the JS server can boot', async () => {
   let server = new Server();
@@ -24,13 +24,13 @@ test('it will provide custom nodes when given a context with models', async () =
 
   let { data } = await server.boot();
   let carsNode = data.availableNodes.find(
-    (node) => (node as SerializedNodeModel).name == 'cars',
+    (node) => (node as SerializedNode).name == 'cars',
   );
 
-  expect((carsNode as SerializedNodeModel).name).toBe(
+  expect((carsNode as SerializedNode).name).toBe(
     'cars',
   );
-  expect((carsNode as SerializedNodeModel).nodeType).toBe(
+  expect((carsNode as SerializedNode).nodeType).toBe(
     'ResolveContextFeatures',
   );
 });

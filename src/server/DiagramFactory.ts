@@ -1,5 +1,5 @@
 import { SerializedDiagram } from '../types/SerializedDiagram';
-import { SerializedNodeModel } from '../types/SerializedNodeModel';
+import { SerializedNode } from '../types/SerializedNode';
 import { DataStoryContext } from './DataStoryContext';
 import Diagram from './Diagram';
 import { Link } from './Link';
@@ -23,7 +23,7 @@ export class DiagramFactory {
 
     // Add Nodes
     diagram.nodes = Object.values(data.nodes)
-			.map((node: SerializedNodeModel) => {
+			.map((node: SerializedNode) => {
       	return new NodeFactory().hydrate(node, diagram);
     	});
 

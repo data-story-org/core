@@ -29,7 +29,7 @@ import Sleep from './nodes/Sleep';
 import ThrowError from './nodes/ThrowError';
 import RemoveAttributes from './nodes/RemoveAttributes';
 
-import { SerializedNodeModel } from '../types/SerializedNodeModel';
+import { SerializedNode } from '../types/SerializedNode';
 import { ApiNodeFactory } from './nodes/factories/ApiNodeFactory';
 import { DefaultNodeFactory } from './nodes/factories/DefaultNodeFactory';
 import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
@@ -104,7 +104,7 @@ export default class NodeFactory {
     );
   }
 
-  hydrate(node: SerializedNodeModel, diagram = null) {
+  hydrate(node: SerializedNode, diagram = null) {
     const type = this.prototypes[node.nodeType];
 
     return new type({

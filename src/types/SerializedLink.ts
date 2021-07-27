@@ -1,4 +1,4 @@
-export type SerializedLinkModel = {
+export type SerializedLink = {
   id: string;
   type: string;
   source: string;

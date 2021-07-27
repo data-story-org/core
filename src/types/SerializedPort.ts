@@ -1,4 +1,4 @@
-export type SerializedPortModel = {
+export type SerializedPort = {
   id: string;
   type: string;
   x: number;

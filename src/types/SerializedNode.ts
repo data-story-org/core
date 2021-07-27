@@ -1,11 +1,11 @@
-import { SerializedPortModel } from './SerializedPortModel';
+import { SerializedPort } from './SerializedPort';
 
-export type SerializedNodeModel = {
+export type SerializedNode = {
   id: string;
   type: string;
   x: number;
   y: number;
-  ports: any[]; //SerializedPortModel
+  ports: any[]; //SerializedPort
   category: string;
   editableInPorts: boolean;
   editableOutPorts: boolean;
