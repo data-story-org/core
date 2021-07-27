@@ -73,7 +73,6 @@ it('can run via cli', async () => {
 			JSON.parse(results)
 		)
 
-		console.log(recreatedDiagram)
 		expect(recreatedDiagram.nodes[1].features[0].original.resource).toBe('todos')
 	}
 

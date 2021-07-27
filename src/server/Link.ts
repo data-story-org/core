@@ -19,8 +19,8 @@ export class Link {
 	serialize() {
 		return {
 			id: this.id,
-			sourcePortId: this.sourcePort.id,
-			targetPortId: this.targetPort.id,			
+			sourcePort: this.sourcePort.id,
+			targetPort: this.targetPort.id,			
 		}
 	}
 }
