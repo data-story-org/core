@@ -1,6 +1,11 @@
 export { Feature } from './Feature';
 export { Server } from './server/Server';
-export { SerializedDiagram } from './types/SerializedDiagram';
+export {
+  SerializedDiagram,
+  SerializedLink,
+  SerializedNode,
+  SerializedPort,
+} from './types';
 export {
   UID,
   modalStyle,
