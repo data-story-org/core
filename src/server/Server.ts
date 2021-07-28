@@ -24,7 +24,7 @@ export class Server {
     });
   }
 
-  public async run(diagram: any) {
+  public async run(diagram: SerializedDiagram): Promise<{}> {
     return DiagramFactory.withContext(this.context)
       .hydrate(diagram as SerializedDiagram)
       .run();

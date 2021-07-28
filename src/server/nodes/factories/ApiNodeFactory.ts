@@ -20,8 +20,6 @@ export class ApiNodeFactory {
       node.setParameterValue('url', (endpoint as any).url);
 
       nodes[(endpoint as any).name] = node;
-
-      console.log('HI', (endpoint as any).name, endpoint);
     }
 
     return nodes;

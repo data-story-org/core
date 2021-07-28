@@ -1,4 +1,5 @@
 import { Feature } from '../Feature';
+import { SerializedPort } from '../types/SerializedPort';
 import { UID } from '../utils';
 import { Node } from './Node';
 
@@ -34,4 +35,12 @@ export class Port {
   hasZeroLinks(): boolean {
     return this.getLinks().length == 0;
   }
+
+	serialize(): SerializedPort {
+		return {
+			id: this.id,
+			name: this.name,
+			in: this.in,
+		}
+	}
 }

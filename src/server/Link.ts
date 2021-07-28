@@ -1,3 +1,4 @@
+import { SerializedLink } from '../types/SerializedLink';
 import { UID } from '../utils';
 import { Port } from './Port';
 
@@ -11,8 +12,16 @@ export class Link {
     sourcePort: Port;
     targetPort: Port;
   }) {
-    this.id = options.id ?? 'bajs'; //UID();
+    this.id = options.id ?? UID();
     this.sourcePort = options.sourcePort;
     this.targetPort = options.targetPort;
   }
+
+	serialize(): SerializedLink {
+		return {
+			id: this.id,
+			sourcePort: this.sourcePort.id,
+			targetPort: this.targetPort.id,			
+		}
+	}
 }

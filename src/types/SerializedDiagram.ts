@@ -1,10 +1,8 @@
-export type SerializedDiagram = {
-  id: string;
-  offsetX: number;
-  offsetY: number;
-  zoom: number;
-  gridSize: number;
-  layers: any[];
-  locked: boolean;
+import { SerializedLink } from "./SerializedLink";
+import { SerializedNode } from "./SerializedNode";
+
+export interface SerializedDiagram {
+  links: SerializedLink[];
+	nodes: SerializedNode[];
   version: string;
-};
+}

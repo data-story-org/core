@@ -1,4 +1,11 @@
-export type SerializedPortModel = {
+export type SerializedPort = {
+	id: string,
+	name: string,
+	in: boolean,
+};
+
+
+export type SerializedReactPort = {
   id: string;
   type: string;
   x: number;

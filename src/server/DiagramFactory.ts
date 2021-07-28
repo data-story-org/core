@@ -1,5 +1,6 @@
 import { SerializedDiagram } from '../types/SerializedDiagram';
-import { SerializedNodeModel } from '../types/SerializedNodeModel';
+import { SerializedLink } from '../types/SerializedLink';
+import { SerializedNode } from '../types/SerializedNode';
 import { DataStoryContext } from './DataStoryContext';
 import Diagram from './Diagram';
 import { Link } from './Link';
@@ -7,43 +8,36 @@ import NodeFactory from './NodeFactory';
 import { Port } from './Port';
 
 export class DiagramFactory {
-  context: DataStoryContext;
+	context: DataStoryContext;
 
-  static withContext(context: DataStoryContext) {
-    return new this(context);
-  }
+	static withContext(context: DataStoryContext): DiagramFactory {
+		return new this(context);
+	}
 
-  constructor(context: DataStoryContext = {}) {
-    this.context = context;
-  }
+	constructor(context: DataStoryContext = {}) {
+		this.context = context;
+	}
 
-  hydrate(payload: string | SerializedDiagram): Diagram {
-    const data: SerializedDiagram =
-      typeof payload == 'string'
-        ? JSON.parse(payload)
-        : payload;
+	hydrate(data: SerializedDiagram): Diagram {
+		// Create empty diagram
+		const diagram = new Diagram(this.context);
 
-    // Create empty diagram
-    const diagram = new Diagram(this.context);
+		// Add Nodes
+		diagram.nodes = Object.values(data.nodes)
+			.map((node: SerializedNode) => {
+				return new NodeFactory().hydrate(node, diagram);
+			});
 
-    // Add Nodes
-    diagram.nodes = Object.values(
-      data.layers[1].models,
-    ).map((node: SerializedNodeModel) => {
-      return new NodeFactory().hydrate(node, diagram);
-    });
+		// Add Links
+		diagram.links = Object.values(data.links)
+			.map((data: SerializedLink) => {
+				return new Link({
+					id: data.id,
+					sourcePort: diagram.find(data.sourcePort) as Port,
+					targetPort: diagram.find(data.targetPort) as Port,
+				});
+			});
 
-    // Add Links
-    diagram.links = Object.values(
-      data.layers[0].models,
-    ).map((data: any) => {
-      return new Link({
-        id: data.id,
-        sourcePort: diagram.find(data.sourcePort) as Port,
-        targetPort: diagram.find(data.targetPort) as Port,
-      });
-    });
-
-    return diagram;
-  }
+		return diagram;
+	}
 }

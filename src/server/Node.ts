@@ -4,7 +4,6 @@ import { Feature } from '../Feature';
 import { UID } from '../utils';
 import NodeParameter from '../NodeParameter';
 import { Port } from './Port';
-import { Link } from './Link';
 
 type NodeOptions = {
   diagram?: Diagram;
@@ -18,6 +17,7 @@ type NodeOptions = {
   summary?: string;
   category?: string;
   id?: string;
+	features?: Feature[];
 };
 
 export abstract class Node {
@@ -35,6 +35,7 @@ export abstract class Node {
   public summary = 'No summary provided.';
   public defaultInPorts: string[];
   public defaultOutPorts: string[];
+	public features: any[];
 
   abstract run(): any;
 
@@ -60,6 +61,7 @@ export abstract class Node {
       : [];
 
     this.ports = this.createPorts(options);
+		this.features = options.features ?? []
   }
 
   createPorts(options) {
@@ -117,10 +119,11 @@ export abstract class Node {
 
   serialize() {
     return {
+			id: this.id,
       category: this.category,
       editableInPorts: this.editableInPorts,
       editableOutPorts: this.editableOutPorts,
-      ports: this.ports,
+      ports: this.ports.map(port => port.serialize()),
       key: this.key,
       name: this.name,
       nodeReact: this.nodeReact,
@@ -129,6 +132,7 @@ export abstract class Node {
         ? this.parameters
         : this.getDefaultParameters(),
       summary: this.summary,
+			features: this.features,
     };
   }
 
@@ -147,7 +151,7 @@ export abstract class Node {
   protected getParameterValue(
     name: string,
     feature: Feature = null,
-  ) {
+  ): string {
     const value = this.getParameter(name).value;
 
     if (!feature) return value;

@@ -1,36 +1,17 @@
-import { spawn } from 'child_process';
 import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
+import Diagram from '../../../src/server/Diagram';
 import CreateJSON from '../../../src/server/nodes/CreateJSON'
 import Inspect from '../../../src/server/nodes/Inspect'
 import { nonCircularJsonStringify } from '../../../src/utils/nonCircularJsonStringify';
-
-/** SPAWN A CHILD PROCESS AND CAPTURE STDOUT AND STDERR */
-async function spawnChild(command, arguments_, options) {
-	const child = spawn(command, arguments_, options);
-
-	let data = "";
-	for await (const chunk of child.stdout) {
-			console.log('stdout chunk: '+chunk);
-			data += chunk;
-	}
-	let error = "";
-	for await (const chunk of child.stderr) {
-			console.error('stderr chunk: '+chunk);
-			error += chunk;
-	}
-	const exitCode = await new Promise( (resolve, reject) => {
-			child.on('close', resolve);
-	});
-
-	if( exitCode) {
-			throw new Error( `subprocess error exit ${exitCode}, ${error}`);
-	}
-	return data;
-}
+import { addSlashes } from '../../../src/utils/Str'
+import { spawnChild } from '../../../src/utils/process_'
+import { DiagramFactory } from '../../../src/server/DiagramFactory';
+import NodeFactory from '../../../src/server/NodeFactory';
+import { Node } from '../../../src/server/Node';
 
 async function cli($command, ...$args) {
 	return await spawnChild(
-		'node',
+		'node --trace-warnings',
 		[
 			__dirname + '/../../../cli/cli.js',
 			$command,
@@ -42,18 +23,8 @@ async function cli($command, ...$args) {
 	)
 }
 
-function addslashes(string) {
-	return string.replace(/\\/g, '\\\\').
-			replace(/\u0008/g, '\\b').
-			replace(/\t/g, '\\t').
-			replace(/\n/g, '\\n').
-			replace(/\f/g, '\\f').
-			replace(/\r/g, '\\r').
-			replace(/'/g, '\\\'').
-			replace(/"/g, '\\"');
-}
-
 it('can boot via cli', async () => {
+
 	const success = (data) => {
 		const diagram = JSON.parse(data)
 
@@ -69,15 +40,40 @@ it('can boot via cli', async () => {
   await cli('boot').then(success, fail)
 });
 
-it.skip('can run via cli', async () => {
+test('simulate using the cli', async () => {
+	let originalDiagram = DiagramBuilder.begin()
+		.add(CreateJSON)
+		.add(Inspect)
+		.finish()
+
+	let json = nonCircularJsonStringify(originalDiagram.serialize(), null, 4)
+
+	let restoredDiagram = (new DiagramFactory).hydrate(
+		JSON.parse(json)
+	)
+
+	const result: any = await restoredDiagram.run();
+
+	// It returns a diagram
+	expect(result.data.diagram).toBeInstanceOf(Diagram)
+
+	let returnToJson = nonCircularJsonStringify(result.data.diagram.serialize())
+	// It attaches features
+	expect(result.data.diagram.nodes[1].features[0].original.resource).toBe('todos')
+})
+
+it('can run via cli', async () => {
 	let diagram = DiagramBuilder.begin()
 		.add(CreateJSON)
 		.add(Inspect)
 		.finish()
 
-	const success = (data) => {
-		// const diagram: any = JSON.parse(data)
-		// expect(diagram.nodes[1].features .......).toBe(true)
+	const success = (results) => {
+		let recreatedDiagram: any = (new DiagramFactory).hydrate(
+			JSON.parse(results)
+		)
+
+		expect(recreatedDiagram.nodes[1].features[0].original.resource).toBe('todos')
 	}
 
 	const fail = (err) => {
@@ -85,8 +81,7 @@ it.skip('can run via cli', async () => {
 		throw 'Failed to run the CLI'
 	}
 
-	let json = nonCircularJsonStringify(diagram)
-	json = addslashes(json)
+	let json = nonCircularJsonStringify(diagram.serialize())
 
-  await cli('run "' + json + '"').then(success, fail)
+  await cli('run "' + addSlashes(json) + '"').then(success, fail)
 });

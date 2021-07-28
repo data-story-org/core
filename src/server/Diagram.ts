@@ -1,9 +1,10 @@
+import { SerializedDiagram } from '../types/SerializedDiagram';
+import version from '../utils/version';
 import { DataStoryContext } from './DataStoryContext';
 import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
 
-type findable = { id: string };
 export default class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];
@@ -235,4 +236,12 @@ export default class Diagram {
   hasNode(node) {
     return Boolean(node.id && this.find(node.id));
   }
+
+	serialize(): SerializedDiagram {
+		return {
+			links: this.links.map(link => link.serialize()),
+			nodes: this.nodes.map(node => node.serialize()),
+			version
+		}
+	}
 }

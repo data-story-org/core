@@ -6,14 +6,14 @@ import { nonCircularJsonStringify } from '../utils/nonCircularJsonStringify';
 const type = process.argv[2];
 const args = process.argv.slice(3);
 
-const boot = (serializedContext = '{}') => {
+const boot = async (serializedContext = '{}') => {
 	const context = JSON.parse(serializedContext)
 	const factory = new NodeFactory(context)
 
   const result = nonCircularJsonStringify({
     stories: [],
     availableNodes: Object.values(factory.all()).map((node) =>
-      (new node() as Node).serialize(),
+      node.serialize(),
     ),
   });
 
@@ -26,9 +26,9 @@ const help = () => {
   );
 };
 
-const run = async (serializedDiagram, serializedContext = '{}') => {
+const run = async (diagramJson, serializedContext = '{}') => {
 	let diagram = (new DiagramFactory).hydrate(
-    JSON.parse(serializedDiagram)
+    JSON.parse(diagramJson)
   )
 
 	diagram.setContext(
@@ -38,7 +38,7 @@ const run = async (serializedDiagram, serializedContext = '{}') => {
   const result = await diagram.run();
 	
 	console.log(
-    nonCircularJsonStringify((result as any).data),
+    nonCircularJsonStringify((result as any).data.diagram.serialize()),
   );
 };
 
