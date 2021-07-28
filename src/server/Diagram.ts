@@ -5,7 +5,6 @@ import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
 
-type findable = { id: string };
 export default class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];

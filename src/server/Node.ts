@@ -4,7 +4,6 @@ import { Feature } from '../Feature';
 import { UID } from '../utils';
 import NodeParameter from '../NodeParameter';
 import { Port } from './Port';
-import { Link } from './Link';
 
 type NodeOptions = {
   diagram?: Diagram;
@@ -18,7 +17,7 @@ type NodeOptions = {
   summary?: string;
   category?: string;
   id?: string;
-	features?: any[];
+	features?: Feature[];
 };
 
 export abstract class Node {
@@ -120,6 +119,7 @@ export abstract class Node {
 
   serialize() {
     return {
+			id: this.id,
       category: this.category,
       editableInPorts: this.editableInPorts,
       editableOutPorts: this.editableOutPorts,

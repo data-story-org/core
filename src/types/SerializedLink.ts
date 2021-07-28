@@ -1,5 +1,12 @@
 export type SerializedLink = {
   id: string;
+  sourcePort: string;
+  targetPort: string;
+};
+
+// TO BE MOVED
+export type SerializedReactLink = {
+  id: string;
   type: string;
   source: string;
   sourcePort: string;

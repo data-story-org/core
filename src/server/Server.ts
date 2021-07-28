@@ -3,6 +3,7 @@ import { BootPayload } from '../types/BootPayload';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
 import { DataStoryContext } from './DataStoryContext';
+import Diagram from './Diagram';
 
 export class Server {
   context: DataStoryContext;
@@ -24,7 +25,7 @@ export class Server {
     });
   }
 
-  public async run(diagram: SerializedDiagram) {
+  public async run(diagram: SerializedDiagram): Promise<{}> {
     return DiagramFactory.withContext(this.context)
       .hydrate(diagram as SerializedDiagram)
       .run();

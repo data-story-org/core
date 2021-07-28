@@ -104,7 +104,7 @@ export default class NodeFactory {
     );
   }
 
-  hydrate(node: SerializedNode, diagram = null) {
+  hydrate(node: SerializedNode, diagram = null): Node {
     const type = this.prototypes[node.nodeType];
 
     return new type({
