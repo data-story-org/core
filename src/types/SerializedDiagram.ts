@@ -5,4 +5,4 @@ export interface SerializedDiagram {
   links: SerializedLink[];
 	nodes: SerializedNode[];
   version: string;
-};
+}

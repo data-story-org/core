@@ -10,7 +10,7 @@ import { Port } from './Port';
 export class DiagramFactory {
 	context: DataStoryContext;
 
-	static withContext(context: DataStoryContext) {
+	static withContext(context: DataStoryContext): DiagramFactory {
 		return new this(context);
 	}
 

@@ -25,7 +25,7 @@ export type SerializedReactNode = {
   type: string;
   x: number;
   y: number;
-  ports: any[]; //SerializedPort
+  ports: unknown[]; //SerializedPort
   category: string;
   editableInPorts: boolean;
   editableOutPorts: boolean;
@@ -39,7 +39,7 @@ export type SerializedReactNode = {
   }[];
   summary: string; // what?
   nodeType: string;
-  selected: any;
-  extras: any;
-  locked: any;
+  selected: unknown;
+  extras: unknown;
+  locked: unknown;
 };
