@@ -19,7 +19,7 @@ export default class RemoveAttributes extends Node {
   async run() {
     const toRemove = this.getParameterValue(
       'attributes to remove',
-    ).split(',');
+    );
 
     this.output(
       this.input().map((feature) => {
@@ -35,21 +35,17 @@ export default class RemoveAttributes extends Node {
             {},
           );
 
-        // if (Object.keys(filtered).length === 0) {
-        //   return undefined;
-        // }
         return new Feature(filtered);
       }),
-      // .filter((feature) => feature !== undefined),
     );
   }
 
   getDefaultParameters() {
     return [
       ...super.getDefaultParameters(),
-      NodeParameter.string(
-        'attributes to remove',
-      ).withValue('resource,name'),
+      NodeParameter.string('attributes to remove')
+        .withValue('resource')
+        .repeatable(),
     ];
   }
 }
