@@ -1,3 +1,18 @@
+type Repeatables = {
+  [k: number]: any;
+};
+
+type RepeatableConverter = (
+  repeatables: Repeatables,
+) => any[];
+
+// Return an array of values by default
+const defaultRepeatableConverter = (
+  repeatables: Repeatables,
+) => {
+  return Object.values(repeatables);
+};
+
 export default class NodeParameter {
   name: string;
   description = '';
@@ -5,6 +20,8 @@ export default class NodeParameter {
   placeholder?: string;
   value: any = '';
   options?: string[];
+  isRepeatable = false;
+  repeatableConverter: () => any;
 
   constructor(name: string) {
     this.name = name;
@@ -60,6 +77,18 @@ export default class NodeParameter {
 
   withDescription(description: string) {
     this.description = description;
+    return this;
+  }
+
+  repeatable(
+    converter: RepeatableConverter = defaultRepeatableConverter,
+  ) {
+    this.value = [this.value];
+    this.isRepeatable = true;
+    this.repeatableConverter = function () {
+      this.value = converter(this.value);
+    };
+
     return this;
   }
 }
