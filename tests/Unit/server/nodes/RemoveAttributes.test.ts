@@ -13,7 +13,7 @@ describe('RemoveAttributes node', () => {
       ])
       .and()
       .parameters({
-        'attributes to remove': 'resource,os',
+        'attributes to remove': ['resource', 'os'],
       })
       .assertOutput([
         {},
@@ -39,7 +39,10 @@ describe('RemoveAttributes node', () => {
       ])
       .and()
       .parameters({
-        'attributes to remove': `${attribute1},${attribute2}`,
+        'attributes to remove': [
+          `${attribute1}`,
+          `${attribute2}`,
+        ],
       })
       .assertOutput([{}, {}, wantedFeature])
       .finish();
