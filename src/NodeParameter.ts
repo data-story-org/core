@@ -4,7 +4,7 @@ type Repeatables = {
 
 type RepeatableConverter = (
   repeatables: Repeatables,
-) => any[];
+) => any;
 
 // Return an array of values by default
 const defaultRepeatableConverter = (
@@ -23,12 +23,13 @@ export default class NodeParameter {
   isRepeatable = false;
   repeatableConverter: () => any;
 
-  constructor(name: string) {
+  constructor(name: string, value: any = '') {
     this.name = name;
+    this.value = value;
   }
 
-  static make(name: string) {
-    return new this(name);
+  static make(name: string, value: any = '') {
+    return new this(name, value);
   }
 
   static json(name: string) {
@@ -53,6 +54,13 @@ export default class NodeParameter {
 
   static textarea(name: string) {
     return this.make(name).withFieldType('Textarea');
+  }
+
+  static row(name: string, params: NodeParameter[]) {
+    const value = Object.fromEntries(
+      params.map((p) => [p.name, p]),
+    );
+    return this.make(name, value).withFieldType('Row');
   }
 
   withFieldType(type: string) {
