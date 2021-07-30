@@ -151,7 +151,7 @@ export abstract class Node {
   protected getParameterValue(
     name: string,
     feature: Feature = null,
-  ): string {
+  ): any {
     const value = this.getParameter(name).value;
 
     if (!feature) return value;
