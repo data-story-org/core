@@ -19,6 +19,7 @@ export default class NodeParameter {
   fieldType = 'String_';
   placeholder?: string;
   value: any = '';
+  defaultValue: any = '';
   options?: string[];
   isRepeatable = false;
   repeatableConverter: () => any;
@@ -91,7 +92,9 @@ export default class NodeParameter {
   repeatable(
     converter: RepeatableConverter = defaultRepeatableConverter,
   ) {
+    this.defaultValue = this.value;
     this.value = [this.value];
+
     this.isRepeatable = true;
     this.repeatableConverter = function () {
       this.value = converter(this.value);

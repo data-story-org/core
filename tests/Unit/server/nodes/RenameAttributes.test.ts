@@ -16,11 +16,20 @@ describe('RenameAttributes node', () => {
       ])
       .and()
       .parameters({
-        'Attributes to rename': new Map([
-          ['globalID', 'GLOBALID'],
-          ['PSTLCITY', 'CITY'],
-          ['resource', 'RESOURCE'],
-        ]),
+        'Attributes to rename': [
+          {
+            input: { value: 'globalID' },
+            output: { value: 'GLOBALID' },
+          },
+          {
+            input: { value: 'PSTLCITY' },
+            output: { value: 'CITY' },
+          },
+          {
+            input: { value: 'resource' },
+            output: { value: 'RESOURCE' },
+          },
+        ],
       })
       .assertOutput([
         { GLOBALID: id },

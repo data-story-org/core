@@ -33,6 +33,27 @@ export default class RenameAttributes extends Node {
       'Attributes to rename',
     );
 
+    // const values = Object.values(toRename);
+
+    // Convert our results from frontend into
+    // an extremely fast and usefull map in format of
+    // previousAttributeName => nextAttributeName
+    //
+    // Map {
+    //     "resource" => "globalResource",
+    //     'globalId' => "GLOBALID",
+    //     ...,
+    //     "n"        => "N"
+    // }
+    const renameMap = new Map();
+
+    toRename.map((result) => {
+      renameMap.set(
+        result['input']['value'],
+        result['output']['value'],
+      );
+    });
+
     this.output(
       this.input().map((feature) => {
         const { original } = feature;
@@ -40,11 +61,11 @@ export default class RenameAttributes extends Node {
         let filtered = original;
 
         Object.keys(filtered).forEach((key) => {
-          toRename.has(key)
+          renameMap.has(key)
             ? (filtered = renameKey(
                 filtered,
                 key,
-                toRename.get(key),
+                renameMap.get(key),
               ))
             : null;
         });
@@ -58,36 +79,13 @@ export default class RenameAttributes extends Node {
     return [
       ...super.getDefaultParameters(),
       NodeParameter.row('Attributes to rename', [
-        NodeParameter.string('input').withValue('resource'),
-        NodeParameter.string('output').withValue(
-          'globarlResource',
+        NodeParameter.string('input').withValue(
+          'Attribute',
         ),
-      ]).repeatable((result) => {
-        const values = Object.values(result);
-
-        // Convert our result object from frontend into
-        // an extremely fast and usefull map in format of
-        // previousAttributeName => nextAttributeName
-        //
-        // Map {
-        //     "resource" => "globalResource",
-        //     'globalId' => "GLOBALID",
-        //     ...,
-        //     "n"        => "N"
-        // }
-        const renameMap = new Map();
-
-        values.map((result) => {
-          Object.values(result).forEach((param) => {
-            renameMap.set(
-              param['value']['input'],
-              param['value']['output'],
-            );
-          });
-        });
-
-        return renameMap;
-      }),
+        NodeParameter.string('output').withValue(
+          'New name',
+        ),
+      ]).repeatable(),
     ];
   }
 }
