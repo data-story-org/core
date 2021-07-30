@@ -33,8 +33,6 @@ export default class RenameAttributes extends Node {
       'Attributes to rename',
     );
 
-    // const values = Object.values(toRename);
-
     // Convert our results from frontend into
     // an extremely fast and usefull map in format of
     // previousAttributeName => nextAttributeName
