@@ -29,8 +29,11 @@ export default class CreateAttribute extends Node {
   getDefaultParameters() {
     return [
       ...super.getDefaultParameters(),
-      NodeParameter.string('attribute'),
-      NodeParameter.string('value'),
-    ];
+
+			NodeParameter.row('attributes_to_create').withChildren([
+					NodeParameter.string('attribute_name'),
+					NodeParameter.string('attribute_value'),
+			]).repeatable()
+		]
   }
 }

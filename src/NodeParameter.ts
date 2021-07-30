@@ -15,6 +15,7 @@ const defaultRepeatableConverter = (
 
 export default class NodeParameter {
   name: string;
+	children: NodeParameter[];
   description = '';
   fieldType = 'String_';
   placeholder?: string;
@@ -39,6 +40,10 @@ export default class NodeParameter {
     return this.make(name).withFieldType('Number');
   }
 
+	static row(name: string) {
+		return this.make(name).withFieldType('Row')
+	}
+
   static select(name: string) {
     return this.make(name).withFieldType('Select');
   }
@@ -59,6 +64,11 @@ export default class NodeParameter {
     this.fieldType = type;
     return this;
   }
+
+	withChildren(children: NodeParameter[]) {
+		this.children = children;
+		return this;
+	}
 
   withOptions(options: string[]) {
     this.options = options;
