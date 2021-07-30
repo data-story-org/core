@@ -1,4 +1,5 @@
 import { Node } from '../Node';
+import { Feature } from '../../Feature';
 import NodeParameter from '../../NodeParameter';
 
 export default class CreateAttribute extends Node {
@@ -16,21 +17,42 @@ export default class CreateAttribute extends Node {
   }
 
   async run() {
-    const attribute = this.getParameterValue('attribute');
-    const value = this.getParameterValue('value');
+    const toCreate = this.getParameterValue(
+      'Atrribute & value to create',
+    );
+
+    const valuesMap = new Map();
+
+    toCreate.map((result) => {
+      valuesMap.set(
+        result['attribute']['value'],
+        result['value']['value'],
+      );
+    });
 
     this.output(
-      this.input().map((feature) =>
-        feature.set(attribute, value),
-      ),
+      this.input().map((feature) => {
+        const { original } = feature;
+
+        let filtered = original;
+        for (const [attr, v] of valuesMap) {
+          filtered = Object.assign(filtered, { [attr]: v });
+        }
+
+        return new Feature(filtered);
+      }),
     );
   }
 
   getDefaultParameters() {
     return [
       ...super.getDefaultParameters(),
-      NodeParameter.string('attribute'),
-      NodeParameter.string('value'),
+      NodeParameter.row('Atrribute & value to create', [
+        NodeParameter.string('attribute').withValue(
+          'Attribute',
+        ),
+        NodeParameter.string('value').withValue('Value'),
+      ]).repeatable(),
     ];
   }
 }
