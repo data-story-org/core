@@ -6,8 +6,12 @@ it('can add a attribute value to an object feature', async () => {
     .hasInput([{}])
     .and()
     .parameters({
-      attribute: 'foo',
-      value: 'bar',
+      'Atrribute & value to create': [
+        {
+          attribute: { value: 'foo' },
+          value: { value: 'bar' },
+        },
+      ],
     })
     .assertOutput([{ foo: 'bar' }])
     .finish();
@@ -18,8 +22,12 @@ it('can add a attribute with object value to an object feature', async () => {
     .hasInput([{}])
     .and()
     .parameters({
-      attribute: 'foo',
-      value: {},
+      'Atrribute & value to create': [
+        {
+          attribute: { value: 'foo' },
+          value: { value: {} },
+        },
+      ],
     })
     .assertOutput([{ foo: {} }])
     .finish();
