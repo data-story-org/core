@@ -1,5 +1,5 @@
 import { Node } from '../Node';
-import NodeParameter from '../../NodeParameter';
+import { NodeParameter } from '../../NodeParameter';
 
 export default class Sleep extends Node {
   constructor(options = {}) {
