@@ -1,4 +1,4 @@
-import { SerializedPort } from "./SerializedPort";
+import { SerializedPort } from './SerializedPort';
 
 export type SerializedNode = {
   id: string;
@@ -17,7 +17,6 @@ export type SerializedNode = {
   summary: string; // what?
   nodeType: string;
 };
-
 
 // TO BE MOVED TO GUI
 export type SerializedReactNode = {

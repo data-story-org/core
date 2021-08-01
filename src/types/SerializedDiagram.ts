@@ -1,8 +1,8 @@
-import { SerializedLink } from "./SerializedLink";
-import { SerializedNode } from "./SerializedNode";
+import { SerializedLink } from './SerializedLink';
+import { SerializedNode } from './SerializedNode';
 
 export interface SerializedDiagram {
   links: SerializedLink[];
-	nodes: SerializedNode[];
+  nodes: SerializedNode[];
   version: string;
 }

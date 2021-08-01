@@ -17,7 +17,7 @@ type NodeOptions = {
   summary?: string;
   category?: string;
   id?: string;
-	features?: Feature[];
+  features?: Feature[];
 };
 
 export abstract class Node {
@@ -35,7 +35,7 @@ export abstract class Node {
   public summary = 'No summary provided.';
   public defaultInPorts: string[];
   public defaultOutPorts: string[];
-	public features: any[];
+  public features: any[];
 
   abstract run(): any;
 
@@ -61,7 +61,7 @@ export abstract class Node {
       : [];
 
     this.ports = this.createPorts(options);
-		this.features = options.features ?? []
+    this.features = options.features ?? [];
   }
 
   createPorts(options) {
@@ -119,11 +119,11 @@ export abstract class Node {
 
   serialize() {
     return {
-			id: this.id,
+      id: this.id,
       category: this.category,
       editableInPorts: this.editableInPorts,
       editableOutPorts: this.editableOutPorts,
-      ports: this.ports.map(port => port.serialize()),
+      ports: this.ports.map((port) => port.serialize()),
       key: this.key,
       name: this.name,
       nodeReact: this.nodeReact,
@@ -132,7 +132,7 @@ export abstract class Node {
         ? this.parameters
         : this.getDefaultParameters(),
       summary: this.summary,
-			features: this.features,
+      features: this.features,
     };
   }
 

@@ -36,11 +36,11 @@ export class Port {
     return this.getLinks().length == 0;
   }
 
-	serialize(): SerializedPort {
-		return {
-			id: this.id,
-			name: this.name,
-			in: this.in,
-		}
-	}
+  serialize(): SerializedPort {
+    return {
+      id: this.id,
+      name: this.name,
+      in: this.in,
+    };
+  }
 }

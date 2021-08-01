@@ -1,9 +1,8 @@
 export type SerializedPort = {
-	id: string,
-	name: string,
-	in: boolean,
+  id: string;
+  name: string;
+  in: boolean;
 };
-
 
 export type SerializedReactPort = {
   id: string;

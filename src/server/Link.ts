@@ -17,11 +17,11 @@ export class Link {
     this.targetPort = options.targetPort;
   }
 
-	serialize(): SerializedLink {
-		return {
-			id: this.id,
-			sourcePort: this.sourcePort.id,
-			targetPort: this.targetPort.id,			
-		}
-	}
+  serialize(): SerializedLink {
+    return {
+      id: this.id,
+      sourcePort: this.sourcePort.id,
+      targetPort: this.targetPort.id,
+    };
+  }
 }

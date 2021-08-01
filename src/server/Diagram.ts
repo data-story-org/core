@@ -237,11 +237,11 @@ export default class Diagram {
     return Boolean(node.id && this.find(node.id));
   }
 
-	serialize(): SerializedDiagram {
-		return {
-			links: this.links.map(link => link.serialize()),
-			nodes: this.nodes.map(node => node.serialize()),
-			version
-		}
-	}
+  serialize(): SerializedDiagram {
+    return {
+      links: this.links.map((link) => link.serialize()),
+      nodes: this.nodes.map((node) => node.serialize()),
+      version,
+    };
+  }
 }
