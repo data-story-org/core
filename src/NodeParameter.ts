@@ -13,7 +13,7 @@ const defaultRepeatableConverter = (
   return Object.values(repeatables);
 };
 
-export default class NodeParameter {
+export class NodeParameter {
   name: string;
   description = '';
   fieldType = 'String_';

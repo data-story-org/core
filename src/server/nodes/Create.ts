@@ -1,6 +1,6 @@
 import { Node } from '../Node';
 import { Feature } from '../../Feature';
-import NodeParameter from '../../NodeParameter';
+import { NodeParameter } from '../../NodeParameter';
 
 export default class Create extends Node {
   constructor(options = {}) {

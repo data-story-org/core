@@ -1,5 +1,6 @@
 export { Feature } from './Feature';
 export { Server } from './server/Server';
+export { NodeParameter } from './NodeParameter';
 export {
   SerializedDiagram,
   SerializedLink,
