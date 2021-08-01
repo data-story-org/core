@@ -10,8 +10,6 @@ See also [data-story-org/gui](https://github.com/data-story-org/gui)
 yarn
 # Build web files
 tsc --watch
-# Build CLI
-npx webpack
 ```
 
 ### Tests
