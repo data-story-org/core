@@ -2,7 +2,7 @@ import { SerializedDiagram } from '../types/SerializedDiagram';
 import { SerializedLink } from '../types/SerializedLink';
 import { SerializedNode } from '../types/SerializedNode';
 import { DataStoryContext } from './DataStoryContext';
-import Diagram from './Diagram';
+import { Diagram } from './Diagram';
 import { Link } from './Link';
 import NodeFactory from './NodeFactory';
 import { Port } from './Port';

@@ -1,4 +1,4 @@
-import Diagram from './Diagram';
+import { Diagram } from './Diagram';
 import _ from 'lodash';
 import { Feature } from '../Feature';
 import { UID } from '../utils';

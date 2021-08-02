@@ -1,4 +1,4 @@
-import Diagram from '../../../src/server/Diagram';
+import { Diagram } from '../../../src/server/Diagram';
 import { DataStoryContext } from '../../../src/server/DataStoryContext';
 import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
 import CreateJSON from '../../../src/server/nodes/CreateJSON';
