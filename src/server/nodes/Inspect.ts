@@ -1,8 +1,6 @@
 import { Node } from '../Node';
 
 export default class Inspect extends Node {
-  public features: any[];
-
   constructor(options = {}) {
     super({
       // Defaults
