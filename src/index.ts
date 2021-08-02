@@ -13,7 +13,6 @@ export {
   SerializedPort,
 } from './types';
 
-
 export {
   UID,
   modalStyle,
