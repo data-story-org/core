@@ -5,7 +5,7 @@ import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
 
-export default class Diagram {
+export class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];
   cachedNodeDependencyMap: { [T: string]: string[] } = {

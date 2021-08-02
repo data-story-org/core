@@ -1,5 +1,5 @@
 import { DataStoryContext } from './DataStoryContext';
-import Diagram from './Diagram';
+import { Diagram } from './Diagram';
 import { Node } from './Node';
 
 export class DiagramBuilder {
