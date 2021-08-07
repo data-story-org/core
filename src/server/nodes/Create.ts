@@ -7,7 +7,7 @@ export default class Create extends Node {
     super({
       // Defaults
       name: 'Create',
-      summary: 'Create a null feature',
+      summary: 'Create a feature',
       category: 'Workflow',
       defaultInPorts: [],
       defaultOutPorts: ['Output'],
@@ -54,7 +54,7 @@ export default class Create extends Node {
           'string',
         ])
         .withValue('object'),
-      NodeParameter.json('contents').withValue('{}'),
+      NodeParameter.json('contents').withValue('{"resource": "todos"}'),
     ];
   }
 }
