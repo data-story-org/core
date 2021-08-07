@@ -4,7 +4,7 @@ import { when } from '../NodeTester';
 it('creates an object with a single key by default', async () => {
   await when(Create)
     .hasDefaultParameters()
-    .assertOutput([{resource: 'todos'}])
+    .assertOutput([{ resource: 'todos' }])
     .finish();
 });
 

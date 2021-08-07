@@ -54,7 +54,9 @@ export default class Create extends Node {
           'string',
         ])
         .withValue('object'),
-      NodeParameter.json('contents').withValue('{"resource": "todos"}'),
+      NodeParameter.json('contents').withValue(
+        '{"resource": "todos"}',
+      ),
     ];
   }
 }
