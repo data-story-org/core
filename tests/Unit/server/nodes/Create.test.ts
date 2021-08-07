@@ -1,17 +1,10 @@
 import Create from '../../../../src/server/nodes/Create';
 import { when } from '../NodeTester';
 
-it('creates an empty object by default', async () => {
+it('creates an object with a single key by default', async () => {
   await when(Create)
     .hasDefaultParameters()
-    .assertOutput([{}])
-    .finish();
-});
-
-it('creates an empty object by default', async () => {
-  await when(Create)
-    .hasDefaultParameters()
-    .assertOutput([{}])
+    .assertOutput([{resource: 'todos'}])
     .finish();
 });
 
