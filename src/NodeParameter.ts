@@ -22,6 +22,7 @@ export class NodeParameter {
   defaultValue: any = '';
   options?: string[];
   isRepeatable = false;
+  isPort = false;
   repeatableConverter: () => any;
 
   constructor(name: string, value: any = '') {
@@ -101,5 +102,11 @@ export class NodeParameter {
     };
 
     return this;
+  }
+
+  asPort() {
+    this.isPort = true;
+
+    return this
   }
 }
