@@ -27,7 +27,7 @@ export default class Filter extends Node {
       NodeParameter.string('attribute')
         .withValue('name')
         .withDescription('attribute to match against'),
-      NodeParameter.string('port')
+      NodeParameter.string('Output ports')
         .withValue('port')
         .asPort()
         .repeatable(),
