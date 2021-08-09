@@ -1,12 +1,28 @@
-import Filter from '../../../../src/server/nodes/Filter'
-import { when } from "../NodeTester";
+import Filter from '../../../../src/server/nodes/Filter';
+import { when } from '../NodeTester';
 
-it('DESCRIPTION', async () => {
-	throw 'Please finish tests for node Filter'
-	
-    await when(Filter).hasDefaultParameters()
-		.assertCanRun()
-		.finish()
-	
-
+describe('Filter node', () => {
+  it('Filters based on given attribute and output ports', async () => {
+    await when(Filter)
+      .hasInput([
+        {
+          status: 'for-sale',
+        },
+        {
+          status: 'upcoming',
+        },
+        {
+          status: 'sold',
+        },
+      ])
+      .and()
+      .parameters({
+        'Output ports': ['upcoming', 'sold'],
+        attribute: '',
+      })
+      // Doesn't work because our test diagram don't create needed output ports
+      // .assertOutput([{ status: 'for-sale' }])
+      // .assertOutputCount(3)
+      .finish();
+  });
 });
