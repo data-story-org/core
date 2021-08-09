@@ -9,16 +9,43 @@ export default class Filter extends Node {
       summary: 'Filter nodes by attribute name',
       category: 'Workflow',
       defaultInPorts: ['Input'],
-      defaultOutPorts: ['Output'],
+      defaultOutPorts: ['Output', 'Unmatched'],
       // Explicitly configured
       ...options,
     });
   }
 
   async run() {
-    const p1 = this.getParameterValue('name');
+    const toMatchAgainst =
+      this.getParameterValue('attribute');
+    const ports = this.getParameterValue('Output ports');
+
+    const isMatchAgainst = (port) => (feature) => {
+      const { original } = feature;
+
+      return toMatchAgainst in original
+        ? original[toMatchAgainst] === port
+        : false;
+    };
+
+    const unmatched = this.input().filter((feature) => {
+      const { original } = feature;
+
+      return !(toMatchAgainst in original
+        ? ports.includes(original[toMatchAgainst])
+        : false);
+    });
+
+    ports.forEach((p) => {
+      const allMatched = this.input().filter((feature) =>
+        isMatchAgainst(p)(feature),
+      );
+
+      this.output(allMatched, p);
+    });
 
     this.output(this.input());
+    this.output(unmatched, 'Unmatched');
   }
 
   getDefaultParameters() {
