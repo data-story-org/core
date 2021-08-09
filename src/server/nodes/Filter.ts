@@ -9,7 +9,7 @@ export default class Filter extends Node {
       summary: 'Filter nodes by attribute name',
       category: 'Workflow',
       defaultInPorts: ['Input'],
-      defaultOutPorts: ['Output', 'Unmatched'],
+      defaultOutPorts: ['Output'],
       // Explicitly configured
       ...options,
     });
@@ -44,8 +44,7 @@ export default class Filter extends Node {
       this.output(allMatched, p);
     });
 
-    this.output(this.input());
-    this.output(unmatched, 'Unmatched');
+    this.output(unmatched);
   }
 
   getDefaultParameters() {
@@ -56,6 +55,7 @@ export default class Filter extends Node {
         .withDescription('attribute to match against'),
       NodeParameter.string('Output ports')
         .withValue('port')
+        .withDescription('')
         .asPort()
         .repeatable(),
       // NodeParameter.select('operator').withOptions(['==']).withValue('=='),
