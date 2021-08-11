@@ -13,16 +13,28 @@ const defaultRepeatableConverter = (
   return Object.values(repeatables);
 };
 
+type SimpleFieldType =
+  | 'String_'
+  | 'Number'
+  | 'Select'
+  | 'JS'
+  | 'JSON_'
+  | 'Textarea';
+
+type ComplexFieldType = 'Row' | 'Port';
+
+type FieldType = SimpleFieldType | ComplexFieldType;
+
 export class NodeParameter {
   name: string;
   description = '';
-  fieldType = 'String_';
+  fieldType: FieldType = 'String_';
   placeholder?: string;
   value: any = '';
   defaultValue: any = '';
   options?: string[];
   isRepeatable = false;
-  isPort = false;
+  wrappedPortType: SimpleFieldType = 'String_';
   repeatableConverter: () => any;
 
   constructor(name: string, value: any = '') {
@@ -58,6 +70,15 @@ export class NodeParameter {
     return this.make(name).withFieldType('Textarea');
   }
 
+  static port(
+    name: string,
+    wrappedFieldType: SimpleFieldType,
+  ) {
+    return this.make(name)
+      .withFieldType('Port')
+      .withWrappedPortType(wrappedFieldType);
+  }
+
   static row(name: string, params: NodeParameter[]) {
     const value = Object.fromEntries(
       params.map((p) => [p.name, p]),
@@ -65,8 +86,13 @@ export class NodeParameter {
     return this.make(name, value).withFieldType('Row');
   }
 
-  withFieldType(type: string) {
+  withFieldType(type: FieldType) {
     this.fieldType = type;
+    return this;
+  }
+
+  withWrappedPortType(type: SimpleFieldType) {
+    this.wrappedPortType = type;
     return this;
   }
 
@@ -102,11 +128,5 @@ export class NodeParameter {
     };
 
     return this;
-  }
-
-  asPort() {
-    this.isPort = true;
-
-    return this
   }
 }

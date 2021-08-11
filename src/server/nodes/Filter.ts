@@ -53,12 +53,9 @@ export default class Filter extends Node {
       NodeParameter.string('attribute')
         .withValue('name')
         .withDescription('attribute to match against'),
-      NodeParameter.string('Output ports')
+      NodeParameter.port('Output ports', 'String_')
         .withValue('port')
-        .withDescription('')
-        .asPort()
         .repeatable(),
-      // NodeParameter.select('operator').withOptions(['==']).withValue('=='),
     ];
   }
 }
