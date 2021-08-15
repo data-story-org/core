@@ -17,9 +17,12 @@ describe('Filter node', () => {
       ])
       .and()
       .parameters({
+        'attribute to match against': 'status',
         'Output ports': ['upcoming', 'sold'],
-        attribute: '',
       })
+      // .assertOutput({
+      //   Unfiltered: [{ status: 'for-sale' }],
+      // })
       // Doesn't work because our test diagram don't create needed output ports
       // .assertOutput([{ status: 'for-sale' }])
       // .assertOutputCount(3)
