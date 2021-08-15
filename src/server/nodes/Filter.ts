@@ -20,6 +20,10 @@ export default class Filter extends Node {
       this.getParameterValue('attribute');
     const ports = this.getParameterValue('Output ports');
 
+    const isPortsConfigured = !(
+      ports.length === 1 && ports[0] === 'port'
+    );
+
     const isMatchAgainst = (port) => (feature) => {
       const { original } = feature;
 
@@ -28,13 +32,15 @@ export default class Filter extends Node {
         : false;
     };
 
-    ports.forEach((p) => {
-      const allMatched = this.input().filter((feature) =>
-        isMatchAgainst(p)(feature),
-      );
+    if (isPortsConfigured) {
+      ports.forEach((p) => {
+        const allMatched = this.input().filter((feature) =>
+          isMatchAgainst(p)(feature),
+        );
 
-      this.output(allMatched, p);
-    });
+        this.output(allMatched, p);
+      });
+    }
 
     const unmatched = this.input().filter((feature) => {
       const { original } = feature;
