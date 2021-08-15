@@ -17,7 +17,7 @@ export default class Filter extends Node {
 
   async run() {
     const toMatchAgainst =
-      this.getParameterValue('attribute');
+      this.getParameterValue('attribute').split('.');
     const ports = this.getParameterValue('Output ports');
 
     const isPortsConfigured = !(
@@ -26,6 +26,16 @@ export default class Filter extends Node {
 
     const isMatchAgainst = (port) => (feature) => {
       const { original } = feature;
+
+      if (toMatchAgainst.length > 1) {
+        const data = toMatchAgainst.reduce((obj, path) => {
+          return obj && obj[path] === undefined
+            ? {}
+            : obj[path];
+        }, original);
+
+        return data === port;
+      }
 
       return toMatchAgainst in original
         ? original[toMatchAgainst] === port
@@ -45,6 +55,18 @@ export default class Filter extends Node {
     const unmatched = this.input().filter((feature) => {
       const { original } = feature;
 
+      if (toMatchAgainst.length > 1) {
+        const data = toMatchAgainst.reduce((obj, path) => {
+          return obj && obj[path] === undefined
+            ? {}
+            : obj[path];
+        }, original);
+
+        return !(data !== undefined
+          ? ports.includes(data)
+          : false);
+      }
+
       return !(toMatchAgainst in original
         ? ports.includes(original[toMatchAgainst])
         : false);
@@ -57,8 +79,8 @@ export default class Filter extends Node {
     return [
       ...super.getDefaultParameters(),
       NodeParameter.string('attribute')
-        .withValue('name')
-        .withDescription('attribute to match against'),
+        .withValue('attribute to match against')
+        .withDescription('you may use dot notated paths'),
       NodeParameter.port('Output ports', 'String_')
         .withValue('port')
         .repeatable(),
