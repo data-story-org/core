@@ -49,7 +49,7 @@ export default class NodeFactory {
     CreateJSON,
     CreateSequence,
     Evaluate,
-		Filter,
+    Filter,
     FilterDuplicates,
     Flatten,
     Group,
