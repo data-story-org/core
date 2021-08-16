@@ -35,7 +35,7 @@ export default class Filter extends Node {
       const { original } = feature;
 
       if (isAttributePrimitive) {
-        return original === port;
+        return original == port;
       }
 
       if (toMatchAgainst.length > 1) {
@@ -45,11 +45,11 @@ export default class Filter extends Node {
             : obj[path];
         }, original);
 
-        return data === port;
+        return String(data) == port;
       }
 
       return toMatchAgainst[0] in original
-        ? original[toMatchAgainst[0]] === port
+        ? String(original[toMatchAgainst[0]]) == port
         : false;
     };
 
@@ -78,13 +78,15 @@ export default class Filter extends Node {
         }, original);
 
         return !(data !== undefined
-          ? ports.includes(data)
+          ? ports.includes(String(data))
           : false);
       }
 
-      return !(toMatchAgainst[0] in original
-        ? ports.includes(original[toMatchAgainst[0]])
-        : false);
+      return toMatchAgainst[0] in original
+        ? !ports.includes(
+            String(original[toMatchAgainst[0]]),
+          )
+        : true;
     });
 
     this.output(unmatched, 'Unfiltered');
