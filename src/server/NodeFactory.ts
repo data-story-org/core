@@ -12,6 +12,7 @@ import CreateSequence from './nodes/CreateSequence';
 // import DownloadGeoJSON from './nodes/DownloadGeoJSON'
 import Evaluate from './nodes/Evaluate';
 import FilterDuplicates from './nodes/FilterDuplicates';
+import Filter from './nodes/Filter';
 import Flatten from './nodes/Flatten';
 import Group from './nodes/Group';
 import HTTPRequest from './nodes/HTTPRequest';
@@ -48,6 +49,7 @@ export default class NodeFactory {
     CreateJSON,
     CreateSequence,
     Evaluate,
+		Filter,
     FilterDuplicates,
     Flatten,
     Group,
