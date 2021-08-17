@@ -22,3 +22,5 @@ export {
   groupBy,
   nonCircularJsonStringify,
 } from './utils';
+
+export { repeatableConverter } from './NodeParameter';
