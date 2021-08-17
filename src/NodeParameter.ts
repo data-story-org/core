@@ -7,7 +7,7 @@ type RepeatableConverter = (
 ) => any;
 
 // Return an array of values by default
-const defaultRepeatableConverter = (
+export const repeatableConverter: RepeatableConverter = (
   repeatables: Repeatables,
 ) => {
   return Object.values(repeatables);
@@ -35,7 +35,6 @@ export class NodeParameter {
   options?: string[];
   isRepeatable = false;
   wrappedPortType: SimpleFieldType = 'String_';
-  repeatableConverter: () => any;
 
   constructor(name: string, value: any = '') {
     this.name = name;
@@ -116,16 +115,11 @@ export class NodeParameter {
     return this;
   }
 
-  repeatable(
-    converter: RepeatableConverter = defaultRepeatableConverter,
-  ) {
+  repeatable() {
     this.defaultValue = this.value;
     this.value = [this.value];
 
     this.isRepeatable = true;
-    this.repeatableConverter = function () {
-      this.value = converter(this.value);
-    };
 
     return this;
   }
