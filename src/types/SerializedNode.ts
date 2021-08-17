@@ -1,3 +1,4 @@
+import { NodeParameter } from '../NodeParameter';
 import { SerializedPort } from './SerializedPort';
 
 export type SerializedNode = {
@@ -9,11 +10,7 @@ export type SerializedNode = {
   key?: string; // what?
   name: string;
   nodeReact: string; // what?
-  parameters: {
-    fieldType: string;
-    value: string;
-    name: string;
-  }[];
+  parameters: NodeParameter[];
   summary: string; // what?
   nodeType: string;
 };
@@ -31,11 +28,7 @@ export type SerializedReactNode = {
   key?: string; // what?
   name: string;
   nodeReact: string; // what?
-  parameters: {
-    fieldType: string;
-    value: string;
-    name: string;
-  }[];
+  parameters: NodeParameter[];
   summary: string; // what?
   nodeType: string;
   selected: unknown;
