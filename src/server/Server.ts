@@ -1,4 +1,4 @@
-import NodeFactory from './NodeFactory';
+import { NodeFactory } from './NodeFactory';
 import { BootPayload } from '../types/BootPayload';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';

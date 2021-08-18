@@ -1,6 +1,6 @@
 import { Diagram } from '../../../src/server/Diagram';
 import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
-import NodeFactory from '../../../src/server/NodeFactory';
+import { NodeFactory } from '../../../src/server';
 import Clone_ from '../../../src/server/nodes/Clone_';
 import Create from '../../../src/server/nodes/Create';
 import { Server } from '../../../src/server/Server';

@@ -36,7 +36,7 @@ import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
 import { Node } from './Node';
 import { DataStoryContext } from './DataStoryContext';
 
-export default class NodeFactory {
+export class NodeFactory {
   context: DataStoryContext;
   prototypes = {
     Aggregate,
