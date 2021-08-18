@@ -1,18 +1,7 @@
 import { NodeParameter } from '../../NodeParameter';
 import { Feature } from '../../Feature';
 import { Node } from '../Node';
-
-const clone = (obj) => Object.assign({}, obj);
-
-const renameKey = (object, key, newKey) => {
-  const clonedObj = clone(object);
-  const targetKey = clonedObj[key];
-
-  delete clonedObj[key];
-  clonedObj[newKey] = targetKey;
-
-  return clonedObj;
-};
+import { renameKey } from '../../utils';
 
 export class RenameAttributes extends Node {
   constructor(options = {}) {
