@@ -10,7 +10,9 @@
   },
   "typesVersions": {
     "*": {
-      "utils": ["lib/src/utils/index.d.ts"]
+      "utils": [
+        "lib/src/utils/index.d.ts"
+      ]
     }
   },
   "scripts": {
@@ -33,7 +35,9 @@
     "type": "git",
     "url": ""
   },
-  "keywords": ["typescript"],
+  "keywords": [
+    "typescript"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -54,7 +58,9 @@
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0"
   },
-  "files": ["lib/**/*"],
+  "files": [
+    "lib/**/*"
+  ],
   "dependencies": {
     "axios": "^0.21.1",
     "laravel-mix": "^6.0.27"
