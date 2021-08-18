@@ -31,14 +31,12 @@ import {
   RenameAttributes,
 } from './nodes';
 
-// import DownloadCSV from './nodes/DownloadCSV'
-// import DownloadJSON from './nodes/DownloadJSON'
-// import DownloadGeoJSON from './nodes/DownloadGeoJSON'
-
 import { SerializedNode } from '../types/SerializedNode';
-import { ApiNodeFactory } from './nodes/factories/ApiNodeFactory';
-import { DefaultNodeFactory } from './nodes/factories/DefaultNodeFactory';
-import { ContextNodeFactory } from './nodes/factories/ContextNodeFactory';
+import {
+  ApiNodeFactory,
+  DefaultNodeFactory,
+  ContextNodeFactory,
+} from './nodes/factories';
 import { Node } from './Node';
 import { DataStoryContext } from './DataStoryContext';
 
