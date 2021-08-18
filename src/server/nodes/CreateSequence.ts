@@ -2,7 +2,7 @@ import { Feature } from '../../Feature';
 import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
 
-export default class CreateSequence extends Node {
+export class CreateSequence extends Node {
   constructor(options = {}) {
     super({
       // Defaults

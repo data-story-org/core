@@ -2,7 +2,7 @@ import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
 import { Feature } from '../../Feature';
 
-export default class Sort extends Node {
+export class Sort extends Node {
   constructor(options = {}) {
     super({
       // Defaults

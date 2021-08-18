@@ -1,5 +1,5 @@
 import { DataStoryContext } from '../../DataStoryContext';
-import ResolveContextFeatures from '../ResolveContextFeatures';
+import { ResolveContextFeatures } from '../ResolveContextFeatures';
 
 export class ContextNodeFactory {
   static make(context: DataStoryContext): {} {

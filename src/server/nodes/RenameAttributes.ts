@@ -14,7 +14,7 @@ const renameKey = (object, key, newKey) => {
   return clonedObj;
 };
 
-export default class RenameAttributes extends Node {
+export class RenameAttributes extends Node {
   constructor(options = {}) {
     super({
       // Defaults

@@ -1,7 +1,7 @@
 import { NodeParameter } from '../../NodeParameter';
 import { Node } from '../Node';
 
-export default class Clone_ extends Node {
+export class Clone_ extends Node {
   constructor(options = {}) {
     super({
       // Defaults

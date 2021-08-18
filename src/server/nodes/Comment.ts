@@ -1,7 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
 
-export default class Comment extends Node {
+export class Comment extends Node {
   constructor(options = {}) {
     super({
       // Defaults

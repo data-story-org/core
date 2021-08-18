@@ -1,6 +1,6 @@
 import { Node } from '../Node';
 
-export default class Log extends Node {
+export class Log extends Node {
   logger = console;
 
   constructor(options = {}) {

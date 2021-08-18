@@ -1,7 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
 
-export default class Filter extends Node {
+export class Filter extends Node {
   constructor(options = {}) {
     super({
       // Defaults
