@@ -6,8 +6,6 @@ export {
   Server,
 } from './server';
 
-export { Feature } from './Feature';
-export { NodeParameter } from './NodeParameter';
 export {
   SerializedDiagram,
   SerializedLink,
@@ -15,4 +13,6 @@ export {
   SerializedPort,
 } from './types';
 
+export { Feature } from './Feature';
+export { NodeParameter } from './NodeParameter';
 export { repeatableConverter } from './NodeParameter';
