@@ -1,4 +1,4 @@
-import Flatten from '../../../../src/server/nodes/Flatten';
+import { Flatten } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('does not break non flattable features', async () => {

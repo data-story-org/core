@@ -1,4 +1,4 @@
-import RegExpFilter from '../../../../src/server/nodes/RegExpFilter';
+import { RegExpFilter } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can filter features based on property regex match', async () => {

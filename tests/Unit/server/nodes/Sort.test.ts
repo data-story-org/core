@@ -1,4 +1,4 @@
-import Sort from '../../../../src/server/nodes/Sort';
+import { Sort } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can sort shallow objects', async () => {

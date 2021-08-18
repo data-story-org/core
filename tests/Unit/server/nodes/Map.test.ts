@@ -1,4 +1,4 @@
-import Map from '../../../../src/server/nodes/Map';
+import { Map } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can map into properties', async () => {

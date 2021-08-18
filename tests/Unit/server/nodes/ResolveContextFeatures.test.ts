@@ -1,4 +1,4 @@
-import ResolveContextFeatures from '../../../../src/server/nodes/ResolveContextFeatures';
+import { ResolveContextFeatures } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can resolve values from context', async () => {

@@ -1,8 +1,10 @@
 import { Diagram } from '../../../src/server/Diagram';
 import { DataStoryContext } from '../../../src/server/DataStoryContext';
 import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
-import CreateJSON from '../../../src/server/nodes/CreateJSON';
-import Inspect from '../../../src/server/nodes/Inspect';
+import {
+  CreateJSON,
+  Inspect,
+} from '../../../src/server/nodes';
 import version from '../../../src/utils/version';
 
 describe('Diagram context', () => {

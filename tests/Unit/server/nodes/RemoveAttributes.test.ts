@@ -1,4 +1,4 @@
-import RemoveAttributes from '../../../../src/server/nodes/RemoveAttributes';
+import { RemoveAttributes } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 import { generateRandomString } from '../../../helpers';
 

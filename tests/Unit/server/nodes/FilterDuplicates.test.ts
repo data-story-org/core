@@ -1,4 +1,4 @@
-import FilterDuplicates from '../../../../src/server/nodes/FilterDuplicates';
+import { FilterDuplicates } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can filter out primitive duplicates', async () => {

@@ -1,4 +1,4 @@
-import CreateCSV from '../../../../src/server/nodes/CreateCSV';
+import { CreateCSV } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 let content = `date	user	score

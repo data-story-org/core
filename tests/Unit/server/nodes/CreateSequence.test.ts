@@ -1,4 +1,4 @@
-import CreateSequence from '../../../../src/server/nodes/CreateSequence';
+import { CreateSequence } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('creates 10 objects by default', async () => {

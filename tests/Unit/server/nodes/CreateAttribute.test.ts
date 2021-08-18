@@ -1,4 +1,4 @@
-import CreateAttribute from '../../../../src/server/nodes/CreateAttribute';
+import { CreateAttribute } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can add a attribute value to an object feature', async () => {

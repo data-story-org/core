@@ -1,4 +1,4 @@
-import Sample from '../../../../src/server/nodes/Sample';
+import { Sample } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can sample first N features', async () => {

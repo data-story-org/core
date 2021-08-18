@@ -1,5 +1,5 @@
 import axios from 'axios';
-import HTTPRequest from '../../../../src/server/nodes/HTTPRequest';
+import { HTTPRequest } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it.skip('can make requests', async () => {

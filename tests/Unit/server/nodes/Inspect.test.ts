@@ -1,4 +1,4 @@
-import Inspect from '../../../../src/server/nodes/Inspect';
+import { Inspect } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can run', async () => {

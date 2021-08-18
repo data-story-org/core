@@ -1,4 +1,4 @@
-import OutputProvider from '../../../../src/server/nodes/OutputProvider';
+import { OutputProvider } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it.skip('can provide outputs', async () => {

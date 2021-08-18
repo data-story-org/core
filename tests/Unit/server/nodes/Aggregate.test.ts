@@ -1,4 +1,4 @@
-import Aggregate from '../../../../src/server/nodes/Aggregate';
+import { Aggregate } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 const dates = [

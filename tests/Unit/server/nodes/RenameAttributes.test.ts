@@ -1,4 +1,4 @@
-import RenameAttributes from '../../../../src/server/nodes/RenameAttributes';
+import { RenameAttributes } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 import { generateRandomString } from '../../../helpers';
 

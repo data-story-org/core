@@ -1,4 +1,4 @@
-import CreateGrid from '../../../../src/server/nodes/CreateGrid';
+import { CreateGrid } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('creates a 10 x 10 grid with default parameters', async () => {
