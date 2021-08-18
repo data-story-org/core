@@ -4,6 +4,15 @@
   "description": "",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
+  "exports": {
+    ".": "./lib/src/index.js",
+    "./utils": "./lib/src/utils/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "utils": ["lib/src/utils/index.d.ts"]
+    }
+  },
   "scripts": {
     "add-node": "node scripts/add-node.js",
     "build": "tsc",
@@ -24,9 +33,7 @@
     "type": "git",
     "url": ""
   },
-  "keywords": [
-    "typescript"
-  ],
+  "keywords": ["typescript"],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -47,9 +54,7 @@
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0"
   },
-  "files": [
-    "lib/**/*"
-  ],
+  "files": ["lib/**/*"],
   "dependencies": {
     "axios": "^0.21.1",
     "laravel-mix": "^6.0.27"
