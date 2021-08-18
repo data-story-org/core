@@ -4,7 +4,7 @@ import { SerializedNode } from '../types/SerializedNode';
 import { DataStoryContext } from './DataStoryContext';
 import { Diagram } from './Diagram';
 import { Link } from './Link';
-import NodeFactory from './NodeFactory';
+import { NodeFactory } from './NodeFactory';
 import { Port } from './Port';
 
 export class DiagramFactory {

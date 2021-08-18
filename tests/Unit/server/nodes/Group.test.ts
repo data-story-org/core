@@ -1,4 +1,4 @@
-import Group from '../../../../src/server/nodes/Group';
+import { Group } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can group features', async () => {

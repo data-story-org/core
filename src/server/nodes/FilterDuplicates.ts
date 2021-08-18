@@ -2,7 +2,7 @@ import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
 import { Feature } from '../../Feature';
 
-export default class FilterDuplicates extends Node {
+export class FilterDuplicates extends Node {
   constructor(options = {}) {
     super({
       // Defaults

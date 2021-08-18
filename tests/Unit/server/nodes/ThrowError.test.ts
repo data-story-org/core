@@ -1,4 +1,4 @@
-import ThrowError from '../../../../src/server/nodes/ThrowError';
+import { ThrowError } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it.skip('will throw an error', async () => {

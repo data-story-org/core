@@ -3,7 +3,7 @@ import { NodeParameter } from '../../NodeParameter';
 import { groupBy } from '../../utils/Arr';
 import { Feature } from '../../Feature';
 
-export default class Aggregate extends Node {
+export class Aggregate extends Node {
   constructor(options = {}) {
     super({
       // Defaults

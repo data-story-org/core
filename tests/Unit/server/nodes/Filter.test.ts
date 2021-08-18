@@ -1,4 +1,4 @@
-import Filter from '../../../../src/server/nodes/Filter';
+import { Filter } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 describe('Filter node', () => {

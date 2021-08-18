@@ -10,7 +10,7 @@ const placeholder = `// PER FEATURE mode gives you access to variables: previous
 // use this.input() and this.output()
 `;
 
-export default class Evaluate extends Node {
+export class Evaluate extends Node {
   constructor(options = {}) {
     super({
       // Defaults

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Feature } from '../../Feature';
 import { NodeParameter } from '../../NodeParameter';
 
-export default class HTTPRequest extends Node {
+export class HTTPRequest extends Node {
   client = axios;
 
   constructor(options = {}) {

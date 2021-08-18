@@ -2,7 +2,7 @@ import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
 import { Feature } from '../../Feature';
 
-export default class OutputProvider extends Node {
+export class OutputProvider extends Node {
   constructor(options = {}) {
     super({
       // Defaults

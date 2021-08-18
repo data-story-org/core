@@ -1,8 +1,7 @@
 import { Diagram } from '../../../src/server/Diagram';
 import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
-import NodeFactory from '../../../src/server/NodeFactory';
-import Clone_ from '../../../src/server/nodes/Clone_';
-import Create from '../../../src/server/nodes/Create';
+import { NodeFactory } from '../../../src/server';
+import { Clone_, Create } from '../../../src/server/nodes';
 import { Server } from '../../../src/server/Server';
 import { SerializedDiagram } from '../../../src/types/SerializedDiagram';
 import sample from '../../sampleDiagram.json';

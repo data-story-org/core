@@ -1,7 +1,6 @@
 import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
 import { Diagram } from '../../../src/server/Diagram';
-import Create from '../../../src/server/nodes/Create';
-import Inspect from '../../../src/server/nodes/Inspect';
+import { Create, Inspect } from '../../../src/server/nodes';
 
 it('can build diagrams programatically', () => {
   expect(

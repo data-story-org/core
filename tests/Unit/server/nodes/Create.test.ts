@@ -1,4 +1,4 @@
-import Create from '../../../../src/server/nodes/Create';
+import { Create } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('creates an object with a single key by default', async () => {

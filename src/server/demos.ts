@@ -1,19 +1,23 @@
 // import { DiagramBuilder } from "./../DiagramBuilder";
-import CreateAttribute from './nodes/CreateAttribute';
-import Clone_ from './nodes/Clone_';
-import Create from './nodes/Create';
-import CreateGrid from './nodes/CreateGrid';
-import CreateJSON from './nodes/CreateJSON';
-// import DownloadJSON from "./nodes/DownloadJSON";
-// import DownloadGeoJSON from "./nodes/DownloadGeoJSON";
-import Evaluate from './nodes/Evaluate';
-import Flatten from './nodes/Flatten';
-// import HTTPRequest from "./nodes/HTTPRequest";
-import Inspect from './nodes/Inspect';
-import Map from './nodes/Map';
-import Log from './nodes/Log';
-import FilterDuplicates from './nodes/FilterDuplicates';
-import CreateSequence from './nodes/CreateSequence';
+import {
+  CreateAttribute,
+  Clone_,
+  Create,
+  CreateGrid,
+  CreateJSON,
+  // DownloadJSON,
+  // DownloadGeoJSON,
+  Evaluate,
+  Flatten,
+  // HTTPRequest,
+  Inspect,
+  Map,
+  Log,
+  FilterDuplicates,
+  CreateSequence,
+  // Aggregate,
+} from './nodes';
+
 // import Aggregate from "./nodes/Aggregate";
 
 // export const playing_with_json = DiagramBuilder.begin()

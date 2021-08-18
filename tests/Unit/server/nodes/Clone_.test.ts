@@ -1,4 +1,4 @@
-import Clone_ from '../../../../src/server/nodes/Clone_';
+import { Clone_ } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('makes ten clones by default', async () => {

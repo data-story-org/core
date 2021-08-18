@@ -4,6 +4,17 @@
   "description": "",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
+  "exports": {
+    ".": "./lib/src/index.js",
+    "./utils": "./lib/src/utils/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "utils": [
+        "lib/src/utils/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "add-node": "node scripts/add-node.js",
     "build": "tsc",

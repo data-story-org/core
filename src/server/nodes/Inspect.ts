@@ -1,6 +1,6 @@
 import { Node } from '../Node';
 
-export default class Inspect extends Node {
+export class Inspect extends Node {
   constructor(options = {}) {
     super({
       // Defaults

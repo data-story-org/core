@@ -1,4 +1,4 @@
-import Evaluate from '../../../../src/server/nodes/Evaluate';
+import { Evaluate } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('can execute javascript per feature', async () => {

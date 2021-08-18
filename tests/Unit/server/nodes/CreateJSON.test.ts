@@ -1,4 +1,4 @@
-import CreateJSON from '../../../../src/server/nodes/CreateJSON';
+import { CreateJSON } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it('has a default key value pair', async () => {

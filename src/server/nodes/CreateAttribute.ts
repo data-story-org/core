@@ -2,7 +2,7 @@ import { Node } from '../Node';
 import { Feature } from '../../Feature';
 import { NodeParameter } from '../../NodeParameter';
 
-export default class CreateAttribute extends Node {
+export class CreateAttribute extends Node {
   constructor(options = {}) {
     super({
       // Defaults

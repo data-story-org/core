@@ -1,4 +1,4 @@
-import Sleep from '../../../../src/server/nodes/Sleep';
+import { Sleep } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it.skip('can run', async () => {

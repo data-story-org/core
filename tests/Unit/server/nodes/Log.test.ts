@@ -1,4 +1,4 @@
-import Log from '../../../../src/server/nodes/Log';
+import { Log } from '../../../../src/server/nodes';
 import { when } from '../NodeTester';
 
 it.skip('can run', async () => {

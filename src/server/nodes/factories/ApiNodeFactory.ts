@@ -1,5 +1,5 @@
 import { DataStoryContext } from '../../DataStoryContext';
-import HTTPRequest from '../HTTPRequest';
+import { HTTPRequest } from '../HTTPRequest';
 
 export class ApiNodeFactory {
   static make(context: DataStoryContext): {} {
