@@ -102,6 +102,7 @@ export class Filter extends Node {
         ),
       NodeParameter.port('Output ports', 'String_')
         .withValue('port')
+        .withPlaceholder('port')
         .repeatable(),
     ];
   }
