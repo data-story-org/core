@@ -99,7 +99,7 @@ describe('Filter node', () => {
         'attribute to match against': sample([
           'none',
           '',
-          'attribute to match against',
+          'attribute to match',
         ]),
         'Output ports': [needed],
       })
