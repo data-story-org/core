@@ -40,6 +40,7 @@ jobs:
           eslint_extensions: js,ts
           neutral_check_on_warning: true
 
+
       - name: Commit formatting changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
