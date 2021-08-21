@@ -5,13 +5,15 @@ import { OutputProvider } from '../../../src/server/nodes/OutputProvider';
 import { Port } from '../../../src/server/Port';
 import { Node } from '../../../src/server/Node';
 import { DataStoryContext } from '../../../src/server/DataStoryContext';
+import uniq from 'lodash/uniq';
 
 export class NodeTester {
   diagram: Diagram;
   diagramContext: DataStoryContext;
   runResult: Diagram;
-  nodeClass;
+  nodeClass: { name: string };
   parameterKeyValues: {};
+  dynamicPortsList: string[] = [];
   configurations = {};
   shouldDoAssertCanRun = false;
   shouldDoAssertCantRun = false;
@@ -38,6 +40,11 @@ export class NodeTester {
 
   parameters(parameterKeyValues) {
     this.parameterKeyValues = parameterKeyValues;
+    return this;
+  }
+
+  dynamicPorts(dynamicPortsList: string[]) {
+    this.dynamicPortsList = dynamicPortsList;
     return this;
   }
 
@@ -83,9 +90,9 @@ export class NodeTester {
     return this;
   }
 
-  assertOutput(features: any) {
+  assertOutput(features: any, portName = 'Output') {
     return this.assertOutputs({
-      Output: [features].flat(),
+      [portName]: [features].flat(),
     });
   }
 
@@ -95,9 +102,9 @@ export class NodeTester {
     return this;
   }
 
-  assertOutputCount(count: number) {
+  assertOutputCount(count: number, portName = 'Output') {
     return this.assertOutputCounts({
-      Output: count,
+      [portName]: count,
     });
   }
 
@@ -142,6 +149,7 @@ export class NodeTester {
         this.nodeClass,
         this.parameterKeyValues,
         this.configurations,
+        this.dynamicPortsList,
       )
       .finish();
   }
@@ -187,8 +195,11 @@ export class NodeTester {
       'There was a port outputting features that was not listed!';
     expect({
       msg,
-      keys: Object.keys(this.outputMap),
-    }).toEqual({ msg, keys: outputingPorts });
+      keys: uniq([
+        ...Object.keys(this.outputMap),
+        ...this.dynamicPortsList,
+      ]).sort(),
+    }).toEqual({ msg, keys: outputingPorts.sort() });
   }
 
   protected async doAssertOutputCounts() {
@@ -218,8 +229,11 @@ export class NodeTester {
 
     expect({
       msg,
-      keys: Object.keys(this.outputCountMap),
-    }).toEqual({ msg, keys: outputingPorts });
+      keys: uniq([
+        ...Object.keys(this.outputCountMap),
+        ...this.dynamicPortsList,
+      ]).sort(),
+    }).toEqual({ msg, keys: outputingPorts.sort() });
   }
 
   protected async runOnce() {

@@ -82,7 +82,8 @@ export class Filter extends Node {
           : false);
       }
 
-      return toMatchAgainst[0] in original
+      return typeof original === 'object' &&
+        toMatchAgainst[0] in original
         ? !ports.includes(
             String(original[toMatchAgainst[0]]),
           )

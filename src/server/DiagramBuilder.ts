@@ -11,13 +11,22 @@ export class DiagramBuilder {
     return new this();
   }
 
-  add(nodeClass, parameterKeyValues = {}, config = {}) {
+  add(
+    nodeClass,
+    parameterKeyValues = {},
+    config = {},
+    dynamicPorts = null,
+  ) {
     const diagram = this.getDiagram();
 
     const node = new nodeClass({
       ...new nodeClass().serialize(),
       ...config,
     });
+
+    if (dynamicPorts != null) {
+      node.addDynamicPorts(dynamicPorts);
+    }
 
     diagram.addNode(node);
 

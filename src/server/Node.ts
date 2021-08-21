@@ -1,9 +1,10 @@
 import { Diagram } from './Diagram';
-import _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { Feature } from '../Feature';
 import { UID } from '../utils';
 import { NodeParameter } from '../NodeParameter';
 import { Port } from './Port';
+import { SerializedPort } from '../types';
 
 type NodeOptions = {
   diagram?: Diagram;
@@ -16,6 +17,7 @@ type NodeOptions = {
   nodeType?: string;
   summary?: string;
   category?: string;
+  ports?: SerializedPort[];
   id?: string;
   features?: Feature[];
 };
@@ -60,21 +62,32 @@ export abstract class Node {
       ? options.parameters
       : [];
 
-    this.ports = this.createPorts(options);
+    this.ports = this.createPorts(options.ports);
     this.features = options.features ?? [];
   }
 
-  createPorts(options) {
-    if (!options.ports) {
+  addDynamicPorts(dynamicPorts) {
+    this.ports = this.createPorts([
+      ...this.ports,
+      ...dynamicPorts.map((name) => {
+        return new Port({
+          name,
+          in: false,
+          node: this,
+        });
+      }),
+    ]);
+  }
+
+  createPorts(ports) {
+    if (!ports) {
       return [
         ...this.getDefaultInPorts(),
         ...this.getDefaultOutPorts(),
       ];
     }
 
-    const ports = Object.values(options.ports);
-
-    return ports.map((port: any) => {
+    return Object.values(ports).map((port: any) => {
       port =
         port instanceof Port
           ? port
@@ -213,7 +226,7 @@ export abstract class Node {
       })
       .flat();
 
-    return _.cloneDeep(features);
+    return cloneDeep(features);
   }
 
   protected output(features: any[], port = 'Output') {
