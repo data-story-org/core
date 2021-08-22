@@ -7,7 +7,6 @@ export class Port {
   name: string;
   features: Feature[];
   in: boolean;
-  links: any[] = [];
   id: string;
   node: Node;
 
