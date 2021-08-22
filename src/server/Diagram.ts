@@ -166,8 +166,8 @@ export class Diagram {
       node.ports.filter((p) => p.in == true),
     );
 
-    const linkLists = inPorts.map(
-      (port: any) => port.getLinks()
+    const linkLists = inPorts.map((port: any) =>
+      port.getLinks(),
     );
 
     const links = linkLists
