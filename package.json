@@ -23,7 +23,7 @@
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "lint:quiet:fix": "eslint src --quiet --fix --ext .js,.ts",
-    "test": "jest --config jest.config.js",
+    "test": "jest --config tests/jest.config.js",
     "prepare": "npm run build",
     "postinstall": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
