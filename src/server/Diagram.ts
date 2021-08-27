@@ -166,23 +166,23 @@ export class Diagram {
       node.ports.filter((p) => p.in == true),
     );
 
-    const linkLists = inPorts.map(
-      (port: any) => port.links,
+    const linkLists = inPorts.map((port: any) =>
+      port.getLinks(),
     );
 
     const links = linkLists
       .map((linkList) => Object.values(linkList))
       .flat();
+
     const dependencies = links.map((link: any) => {
-      const sourcePort = (this.find(link) as Link)
-        .sourcePort;
+      const sourcePort = link.sourcePort;
       const sourceNode = (this.find(sourcePort.id) as Port)
         .node;
       return this.find(sourceNode.id);
     });
 
     const deepDependencies = dependencies.map((d) => {
-      return this.dependencies(this.find(d as any));
+      return this.dependencies(d);
     });
 
     const result = dependencies.concat(
