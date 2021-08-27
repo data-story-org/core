@@ -6,6 +6,21 @@ on:
     tags-ignore: ["v[0-9]+.[0-9]+.[0-9]+*"]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --silent
+
+      - name: Build core
+        run: yarn build
+
   check_new_dependencies:
     runs-on: ubuntu-latest
     steps:
