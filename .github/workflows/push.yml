@@ -33,14 +33,13 @@ jobs:
       - name: Fix all fixable eslint warnings
         run: yarn lint:quiet:fix
 
-      - name: Get all unfixable eslint errors
-        uses: wearerequired/lint-action@v1
-        with:
-          eslint: true
-          eslint_extensions: js,ts
-          eslint_args: '-c ./configs/.eslintrc --ignore-path ./configs/.eslintignore'
-          neutral_check_on_warning: true
-
+      # - name: Get all unfixable eslint errors
+      #   uses: wearerequired/lint-action@v1
+      #   with:
+      #     eslint: true
+      #     eslint_extensions: js,ts
+      #     eslint_args: '-c ./configs/.eslintrc --ignore-path ./configs/.eslintignore'
+      #     neutral_check_on_warning: true
 
       - name: Commit formatting changes
         uses: stefanzweifel/git-auto-commit-action@v4
