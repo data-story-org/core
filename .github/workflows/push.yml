@@ -38,6 +38,7 @@ jobs:
         with:
           eslint: true
           eslint_extensions: js,ts
+          eslint_args: '-c ./configs/.eslintrc --ignore-path ./configs/.eslintignore'
           neutral_check_on_warning: true
 
 
