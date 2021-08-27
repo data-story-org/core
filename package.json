@@ -19,7 +19,7 @@
     "add-node": "node scripts/add-node.js",
     "build": "tsc",
     "watch": "tsc --watch",
-    "format": "prettier --write \"./**/*.(js|ts|json|md|css|less|scss)\"",
+    "format": "prettier --write \"./**/*.(js|ts|json|md|css|less|scss)\" --ignore-path ./configs/.prettierignore",
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "lint:quiet:fix": "eslint src --quiet --fix --ext .js,.ts",
@@ -64,5 +64,10 @@
   "dependencies": {
     "axios": "^0.21.1",
     "laravel-mix": "^6.0.27"
+  },
+  "prettier": {
+    "printWidth": 60,
+    "trailingComma": "all",
+    "singleQuote": true
   }
 }
