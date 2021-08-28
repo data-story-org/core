@@ -9,7 +9,7 @@ import {
   CreateJSON,
   CreateSequence,
   // DownloadCSV,
-  // DownloadJSON,
+  DownloadJSON,
   // DownloadGeoJSON,
   Evaluate,
   FilterDuplicates,
@@ -70,6 +70,7 @@ export class NodeFactory {
     Sleep,
     Sort,
     ThrowError,
+    DownloadJSON,
   };
 
   static withContext(context) {

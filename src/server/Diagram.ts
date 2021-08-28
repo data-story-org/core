@@ -29,6 +29,9 @@ export class Diagram {
   async run() {
     for await (const node of this.executionOrder()) {
       await node.run();
+      if (node.category === 'Downloader') {
+        await node.download();
+      }
     }
 
     return new Promise((callback) => {
