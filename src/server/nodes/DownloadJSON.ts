@@ -26,13 +26,11 @@ export class DownloadJSON extends DownloaderNode {
       toDownload.length === 1 && toDownload[0] === ''
     );
 
-    console.log(this.getParameterValue('node_name'));
-
-    const fileName = `data-story ${
-      this.parameters['name']
-    } ${new Date().toLocaleString('en-US', {
       hour12: false,
     })}`;
+    const fileName = `${this.getParameterValue(
+      'node_name',
+    )} ${new Date()
 
     this.downloadData = new DownloadData<any>({
       data: [],
