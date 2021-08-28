@@ -34,7 +34,7 @@ export class Diagram {
         node.category === 'Downloader' &&
         (isBrowser || isJsDom)
       ) {
-        await node.download();
+        await node.downloadData.download();
       }
     }
 

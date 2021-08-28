@@ -4,7 +4,11 @@ import { Feature } from '../Feature';
 import { UID } from '../utils';
 import { NodeParameter } from '../NodeParameter';
 import { Port } from './Port';
-import { DownloadData, SerializedPort } from '../types';
+import {
+  DownloadData,
+  DownloadDataI,
+  SerializedPort,
+} from '../types';
 
 type NodeOptions = {
   diagram?: Diagram;
@@ -38,35 +42,9 @@ export abstract class Node {
   public defaultInPorts: string[];
   public defaultOutPorts: string[];
   public features: any[];
-  public downloadData: DownloadData = {
-    data: [],
-    mimeType: 'application/json',
-    fileName: 'data-story-download',
-  };
+  public downloadData: DownloadData<any>;
 
   abstract run(): any;
-
-  public async download() {
-    const fileExtension = this.downloadData.mimeType
-      .split('/')
-      .pop();
-
-    const blob = new Blob([this.downloadData.data], {
-      type: this.downloadData.mimeType,
-    });
-
-    const href = await URL.createObjectURL(blob);
-    const link = document.createElement('a');
-
-    link.href = href;
-    link.download =
-      this.downloadData.fileName + `.${fileExtension}`;
-    // '.json';
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
 
   constructor(options: NodeOptions = {}) {
     this.diagram = options.diagram;

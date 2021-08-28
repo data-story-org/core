@@ -1,5 +1,6 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
+import { DownloadData } from '../../types';
 
 export class DownloadJSON extends Node {
   constructor(options = {}) {
@@ -25,10 +26,20 @@ export class DownloadJSON extends Node {
       toDownload.length === 1 && toDownload[0] === ''
     );
 
-    const fileName = `data-story-download ${new Date().toLocaleString(
-      'en-US',
-      { hour12: false },
-    )}`;
+    console.log(this.getParameterValue('node_name'));
+
+    const fileName = `data-story ${
+      this.parameters['name']
+    } ${new Date().toLocaleString('en-US', {
+      hour12: false,
+    })}`;
+
+    this.downloadData = new DownloadData<any>({
+      data: [],
+      mimeType: 'application/json',
+      fileName: fileName,
+      fileExtension: 'json',
+    });
 
     const latestAttribute = isToDownloadConfigured
       ? toDownload[toDownload.length - 1]
@@ -45,26 +56,17 @@ export class DownloadJSON extends Node {
           }, original);
 
           if (data !== undefined || data !== {}) {
-            this.downloadData = {
-              data: [
-                ...(this.downloadData.data ?? []),
-                {
-                  [latestAttribute]: data,
-                },
-              ],
-              mimeType: 'application/json',
-              fileName: fileName,
-            };
+            this.downloadData.data = [
+              ...this.downloadData.data,
+              {
+                [latestAttribute]: data,
+              },
+            ];
           }
         })
-      : (this.downloadData = {
-          data: this.input().map(
-            (feature) => feature.original,
-          ),
-
-          mimeType: 'application/json',
-          fileName: fileName,
-        });
+      : (this.downloadData.data = this.input().map(
+          (feature) => feature.original,
+        ));
 
     this.downloadData.data = JSON.stringify(
       this.downloadData.data,
