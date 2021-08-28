@@ -4,6 +4,7 @@ import { DataStoryContext } from './DataStoryContext';
 import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
+import { isBrowser, isJsDom } from 'browser-or-node';
 
 export class Diagram {
   links: Link[] = [];
@@ -29,7 +30,10 @@ export class Diagram {
   async run() {
     for await (const node of this.executionOrder()) {
       await node.run();
-      if (node.category === 'Downloader') {
+      if (
+        node.category === 'Downloader' &&
+        (isBrowser || isJsDom)
+      ) {
         await node.download();
       }
     }
