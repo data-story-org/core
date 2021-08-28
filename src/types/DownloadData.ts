@@ -12,9 +12,12 @@ export class DownloadData<T> {
   fileExtension: string;
 
   public async download() {
-    const blob = new Blob([this.data], {
-      type: this.mimeType,
-    });
+    const blob = new Blob(
+      [this.data as unknown as BlobPart],
+      {
+        type: this.mimeType,
+      },
+    );
 
     const href = await URL.createObjectURL(blob);
     const link = document.createElement('a');
