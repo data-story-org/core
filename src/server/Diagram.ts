@@ -5,6 +5,7 @@ import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
 import { isBrowser, isJsDom } from 'browser-or-node';
+import { DownloaderNode } from './DownloaderNode';
 
 export class Diagram {
   links: Link[] = [];
@@ -31,7 +32,7 @@ export class Diagram {
     for await (const node of this.executionOrder()) {
       await node.run();
       if (
-        node.category === 'Downloader' &&
+        node instanceof DownloaderNode &&
         (isBrowser || isJsDom)
       ) {
         await node.downloadData.download();

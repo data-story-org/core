@@ -4,11 +4,7 @@ import { Feature } from '../Feature';
 import { UID } from '../utils';
 import { NodeParameter } from '../NodeParameter';
 import { Port } from './Port';
-import {
-  DownloadData,
-  DownloadDataI,
-  SerializedPort,
-} from '../types';
+import { SerializedPort } from '../types';
 
 type NodeOptions = {
   diagram?: Diagram;
@@ -42,7 +38,6 @@ export abstract class Node {
   public defaultInPorts: string[];
   public defaultOutPorts: string[];
   public features: any[];
-  public downloadData: DownloadData<any>;
 
   abstract run(): any;
 

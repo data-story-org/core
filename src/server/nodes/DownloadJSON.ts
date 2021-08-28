@@ -1,8 +1,8 @@
-import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
 import { DownloadData } from '../../types';
+import { DownloaderNode } from '../DownloaderNode';
 
-export class DownloadJSON extends Node {
+export class DownloadJSON extends DownloaderNode {
   constructor(options = {}) {
     super({
       // Defaults
