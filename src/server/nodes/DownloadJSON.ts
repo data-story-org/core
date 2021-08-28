@@ -26,11 +26,13 @@ export class DownloadJSON extends DownloaderNode {
       toDownload.length === 1 && toDownload[0] === ''
     );
 
-      hour12: false,
-    })}`;
     const fileName = `${this.getParameterValue(
       'node_name',
     )} ${new Date()
+      .toLocaleString('en-US', {
+        hour12: false,
+      })
+      .replace(/:/gi, '_')}`;
 
     this.downloadData = new DownloadData<any>({
       data: [],
