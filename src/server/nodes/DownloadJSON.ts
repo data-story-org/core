@@ -1,5 +1,6 @@
 import { NodeParameter } from '../../NodeParameter';
 import { DownloadData } from '../../types';
+import { get } from '../../utils';
 import { DownloaderNode } from '../DownloaderNode';
 
 export class DownloadJSON extends DownloaderNode {
@@ -20,11 +21,9 @@ export class DownloadJSON extends DownloaderNode {
   async run() {
     const toDownload = this.getParameterValue(
       'attribute to download',
-    ).split('.');
-
-    const isToDownloadConfigured = !(
-      toDownload.length === 1 && toDownload[0] === ''
     );
+
+    const isToDownloadConfigured = !(toDownload === '');
 
     const fileName = `${this.getParameterValue(
       'node_name',
@@ -41,21 +40,17 @@ export class DownloadJSON extends DownloaderNode {
       fileExtension: 'json',
     });
 
-    const latestAttribute = isToDownloadConfigured
-      ? toDownload[toDownload.length - 1]
-      : toDownload[0];
+    const toDownloadAttrs = toDownload.split('.');
+    const latestAttribute =
+      toDownloadAttrs[toDownloadAttrs.length - 1];
 
     isToDownloadConfigured
       ? this.input().forEach((feature) => {
           const { original } = feature;
 
-          const data = toDownload.reduce((obj, path) => {
-            return obj && obj[path] !== undefined
-              ? obj[path]
-              : {};
-          }, original);
+          const data = get(original, toDownload);
 
-          if (data !== undefined || data !== {}) {
+          if (data !== null) {
             this.downloadData.data = [
               ...this.downloadData.data,
               {
