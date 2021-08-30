@@ -23,6 +23,10 @@ export class DownloadJSON extends DownloaderNode {
       'attribute to download',
     );
 
+    const toStringify = this.getParameterValue(
+      'pretty print json',
+    );
+
     const isToDownloadConfigured = !(toDownload === '');
 
     const fileName = `${this.getParameterValue(
@@ -63,9 +67,15 @@ export class DownloadJSON extends DownloaderNode {
           (feature) => feature.original,
         ));
 
-    this.downloadData.data = JSON.stringify(
-      this.downloadData.data,
-    );
+    toStringify == String('true')
+      ? (this.downloadData.data = JSON.stringify(
+          this.downloadData,
+          null,
+          4,
+        ))
+      : (this.downloadData.data = JSON.stringify(
+          this.downloadData.data,
+        ));
 
     // this.output(this.input());
   }
@@ -78,6 +88,9 @@ export class DownloadJSON extends DownloaderNode {
         .withDescription(
           'you may use dot notated paths, or ignore this field to download whole feature',
         ),
+      NodeParameter.select('pretty print json')
+        .withOptions(['true', 'false'])
+        .withValue('true'),
     ];
   }
 }
