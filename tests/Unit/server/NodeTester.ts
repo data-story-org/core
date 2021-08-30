@@ -6,6 +6,7 @@ import { Port } from '../../../src/server/Port';
 import { Node } from '../../../src/server/Node';
 import { DataStoryContext } from '../../../src/server/DataStoryContext';
 import uniq from 'lodash/uniq';
+import { DownloaderNode } from '../../../src/server/DownloaderNode';
 
 export class NodeTester {
   diagram: Diagram;
@@ -19,9 +20,11 @@ export class NodeTester {
   shouldDoAssertCantRun = false;
   shouldDoAssertOutputs = false;
   shouldDoAssertOutputCounts = false;
+  shouldDoAssertDownloads = false;
   outputMap = {};
   outputCountMap = {};
   inputMap = {};
+  downloadsMap = {};
   hasRun = false;
   ranSuccessfully: boolean;
 
@@ -114,6 +117,14 @@ export class NodeTester {
     return this;
   }
 
+  assertDownloads(downloadsMap: {}, prettyPrint = false) {
+    this.shouldDoAssertDownloads = true;
+    this.downloadsMap = prettyPrint
+      ? JSON.stringify(downloadsMap, null, 4)
+      : JSON.stringify(downloadsMap);
+    return this;
+  }
+
   async finish() {
     this.setupDiagram();
     if (this.shouldDoAssertCanRun)
@@ -124,6 +135,8 @@ export class NodeTester {
       await this.doAssertOutputs();
     if (this.shouldDoAssertOutputCounts)
       await this.doAssertOutputCounts();
+    if (this.shouldDoAssertDownloads)
+      await this.doAssertDownloads();
   }
 
   protected setupDiagram() {
@@ -200,6 +213,20 @@ export class NodeTester {
         ...this.dynamicPortsList,
       ]).sort(),
     }).toEqual({ msg, keys: outputingPorts.sort() });
+  }
+
+  protected async doAssertDownloads() {
+    await this.runOnce();
+
+    const Diagram = this.runResult;
+
+    const node = Diagram.findByName(
+      this.nodeClass.name,
+    ) as DownloaderNode;
+
+    expect(node.downloadData.data).toEqual(
+      this.downloadsMap,
+    );
   }
 
   protected async doAssertOutputCounts() {
