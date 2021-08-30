@@ -20,14 +20,16 @@ export class DownloadJSON extends DownloaderNode {
 
   async run() {
     const toDownload = this.getParameterValue(
-      'attribute to download',
+      'attributes to download',
     );
 
     const toStringify = this.getParameterValue(
       'pretty print json',
     );
 
-    const isToDownloadConfigured = !(toDownload === '');
+    const isToDownloadConfigured = !(
+      toDownload.length === 1 && toDownload[0] === ''
+    );
 
     const fileName = `${this.getParameterValue(
       'node_name',
@@ -44,24 +46,27 @@ export class DownloadJSON extends DownloaderNode {
       fileExtension: 'json',
     });
 
-    const toDownloadAttrs = toDownload.split('.');
-    const latestAttribute =
-      toDownloadAttrs[toDownloadAttrs.length - 1];
+    const latestAttribute = (downloadIndex: number) => {
+      const toDownloadAttrs =
+        toDownload[downloadIndex].split('.');
+      return toDownloadAttrs[toDownloadAttrs.length - 1];
+    };
 
     isToDownloadConfigured
-      ? this.input().forEach((feature) => {
+      ? this.input().forEach((feature, featureIndex) => {
           const { original } = feature;
 
-          const data = get(original, toDownload);
+          toDownload.forEach((path, i) => {
+            const data = get(original, path);
 
-          if (data !== null) {
-            this.downloadData.data = [
-              ...this.downloadData.data,
-              {
-                [latestAttribute]: data,
-              },
-            ];
-          }
+            if (data !== null) {
+              this.downloadData.data[featureIndex] = {
+                ...(this.downloadData.data[featureIndex] ??
+                  []),
+                [latestAttribute(i)]: data,
+              };
+            }
+          });
         })
       : (this.downloadData.data = this.input().map(
           (feature) => feature.original,
@@ -69,7 +74,7 @@ export class DownloadJSON extends DownloaderNode {
 
     toStringify == String('true')
       ? (this.downloadData.data = JSON.stringify(
-          this.downloadData,
+          this.downloadData.data,
           null,
           4,
         ))
@@ -83,11 +88,12 @@ export class DownloadJSON extends DownloaderNode {
   getDefaultParameters() {
     return [
       ...super.getDefaultParameters(),
-      NodeParameter.string('attribute to download')
+      NodeParameter.string('attributes to download')
         .withValue('')
         .withDescription(
           'you may use dot notated paths, or ignore this field to download whole feature',
-        ),
+        )
+        .repeatable(),
       NodeParameter.select('pretty print json')
         .withOptions(['true', 'false'])
         .withValue('true'),
