@@ -30,6 +30,34 @@ describe('DownloadJSON node', () => {
       .finish();
   });
 
+  it('Pretty prints when enabled', async () => {
+    const randomData1 = generateRandomString();
+    const randomData2 = generateRandomString();
+
+    await when(DownloadJSON)
+      .hasInput([
+        {
+          value1: randomData1,
+          value2: randomData2,
+        },
+      ])
+      .and()
+      .parameters({
+        'attributes to download': [''],
+        'pretty print json': 'true',
+      })
+      .assertDownloads(
+        [
+          {
+            value1: randomData1,
+            value2: randomData2,
+          },
+        ],
+        true,
+      )
+      .finish();
+  });
+
   it('Supports dot-notated paths', async () => {
     const randomData1 = generateRandomString();
     const randomData2 = generateRandomString();
