@@ -4,7 +4,7 @@ import { DataStoryContext } from './DataStoryContext';
 import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
-import { isBrowser, isJsDom } from 'browser-or-node';
+import { isBrowser, isNode } from 'browser-or-node';
 import { DownloaderNode } from './DownloaderNode';
 
 export class Diagram {
@@ -33,7 +33,8 @@ export class Diagram {
       await node.run();
       if (
         node instanceof DownloaderNode &&
-        (isBrowser || isJsDom)
+        !isNode &&
+        isBrowser
       ) {
         await node.downloadData.download();
       }
