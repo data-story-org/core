@@ -4,6 +4,8 @@ import { DataStoryContext } from './DataStoryContext';
 import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
+import { isBrowser, isNode } from 'browser-or-node';
+import { DownloaderNode } from './DownloaderNode';
 
 export class Diagram {
   links: Link[] = [];
@@ -29,6 +31,13 @@ export class Diagram {
   async run() {
     for await (const node of this.executionOrder()) {
       await node.run();
+      if (
+        node instanceof DownloaderNode &&
+        !isNode &&
+        isBrowser
+      ) {
+        await node.downloadData.download();
+      }
     }
 
     return new Promise((callback) => {

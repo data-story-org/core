@@ -25,3 +25,4 @@ export * from './Sleep';
 export * from './ThrowError';
 export * from './RemoveAttributes';
 export * from './RenameAttributes';
+export * from './DownloadJSON';

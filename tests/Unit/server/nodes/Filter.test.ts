@@ -18,7 +18,6 @@ describe('Filter node', () => {
       })
       .and()
       .dynamicPorts(['upcoming', 'sold'])
-      .and()
       .assertOutputs({
         Unfiltered: [{ status: 'for-sale' }],
         upcoming: [{ status: 'upcoming' }],
