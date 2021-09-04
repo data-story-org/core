@@ -16,6 +16,7 @@ export * from './HTTPRequest';
 export * from './Inspect';
 export * from './Log';
 export * from './Map';
+export * from './Output';
 export * from './OutputProvider';
 export * from './RegExpFilter';
 export * from './ResolveContextFeatures';

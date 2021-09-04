@@ -6,6 +6,7 @@ import { Node } from './Node';
 import { Port } from './Port';
 import { isBrowser, isNode } from 'browser-or-node';
 import { DownloaderNode } from './DownloaderNode';
+import { Output } from './nodes';
 
 export class Diagram {
   links: Link[] = [];
@@ -111,6 +112,18 @@ export class Diagram {
       }
     });
   }
+
+	getOutputFeatures(name:string = 'Output') {
+		const outputtingNode = this.nodes.find(n => {
+			return n instanceof Output && name == n.getParameterValue('node_name')
+		})
+
+		return outputtingNode.features
+	}
+	
+	getOutput(name:string = 'Output') {
+		return this.getOutputFeatures(name).map(f => f.original)
+	}	
 
   getAutomatedFromPort(fromNode): Port {
     const firstUnused: Node = fromNode

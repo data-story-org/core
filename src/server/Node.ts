@@ -157,11 +157,11 @@ export abstract class Node {
     ];
   }
 
-  protected getParameter(name: string) {
+  getParameter(name: string) {
     return this.parameters.find((p) => p.name == name);
   }
 
-  protected getParameterValue(
+  getParameterValue(
     name: string,
     feature: Feature = null,
   ): any {
