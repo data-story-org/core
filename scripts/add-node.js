@@ -32,5 +32,5 @@ fs.writeFile(
 
 console.info(
   nodeName +
-    ' NodeFile and test created. Remember to add your node in NodeFactory.',
+    ' NodeFile and test created. Remember to add your node in server/nodes/index.ts',
 );
