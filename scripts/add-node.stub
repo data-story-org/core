@@ -15,13 +15,13 @@ export class NODE_NAME extends Node {
 		})
 	}
 
-    async run() {
-        const p1 = this.getParameterValue('p1')
-        
-        this.output(
-            this.input()
-        )
-    }
+	async run() {
+			const p1 = this.getParameterValue('p1')
+			
+			this.output(
+					this.input()
+			)
+	}
 
 	getDefaultParameters() {
 		return [

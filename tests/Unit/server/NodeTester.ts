@@ -222,23 +222,6 @@ export class NodeTester {
         expectedFeatures,
       );
     }
-
-    // Check that no other ports emits feautures
-    let ports = (
-      Diagram.findByName(this.nodeClass.name) as Node
-    ).ports;
-    let outputingPorts = ports
-      .filter((p) => p.features && p.features.length)
-      .map((p) => p.name);
-    const msg =
-      'There was a port outputting features that was not listed!';
-    expect({
-      msg,
-      keys: uniq([
-        ...Object.keys(this.outputMap),
-        ...this.dynamicPortsList,
-      ]).sort(),
-    }).toEqual({ msg, keys: outputingPorts.sort() });
   }
 
   protected async doAssertDownloads() {

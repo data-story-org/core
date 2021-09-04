@@ -15,16 +15,16 @@ export class Multiply extends Node {
 		})
 	}
 
-    async run() {
-        const factor = this.getParameterValue('factor')
-        
-        this.output(
-            this.input().map(feature => {
-							feature.original *= factor
-							return feature
-						})
-        )
-    }
+	async run() {
+		const factor = this.getParameterValue('factor')
+
+		this.output(
+			this.input().map(feature => {
+				feature.original *= factor
+				return feature
+			})
+		)
+	}
 
 	getDefaultParameters() {
 		return [

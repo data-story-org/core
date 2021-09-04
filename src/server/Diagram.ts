@@ -30,7 +30,16 @@ export class Diagram {
     this.context = context;
   }
 
-  async run() {
+	populateInputs(inputMap) {
+		Object.keys(inputMap).forEach(name => {
+			let inputNode: Node = this.findByName(name) as Node
+			inputNode.features = inputMap[name]
+		})		
+	}
+
+  async run(inputMap = {}) {
+		this.populateInputs(inputMap)
+
     for await (const node of this.executionOrder()) {
       await node.run();
       if (
@@ -92,25 +101,22 @@ export class Diagram {
 
   linkToLatest(node) {
     // Try to link to latest nodes
-    this.history.find((latest) => {
-      if (this.hasNode(latest)) {
-        if (this.canLink(latest, node)) {
-          // fromPort: prefer first unused outPort. Otherwise defaults to first
-          const sourcePort =
-            this.getAutomatedFromPort(latest);
+    [...this.history].reverse().find((latest) => {
+			if (this.canLink(latest, node)) {
+				// fromPort: prefer first unused outPort. Otherwise defaults to first
+				const sourcePort =
+					this.getAutomatedFromPort(latest);
 
-          // toPort: the first inPort
-          const targetPort: any = Object.values(
-            node.getInPorts(),
-          )[0];
+				// toPort: the first inPort
+				const targetPort: any = Object.values(
+					node.getInPorts(),
+				)[0];
+				this.links.push(
+					new Link({ sourcePort, targetPort }),
+				);
 
-          this.links.push(
-            new Link({ sourcePort, targetPort }),
-          );
-
-          return true; // exit find
-        }
-      }
+				return true; // exit find
+			}
     });
   }
 
@@ -136,6 +142,12 @@ export class Diagram {
   }
 
   canLink(from, to) {
+		// Still exists?
+		if(!this.hasNode(from) || !this.hasNode(to)) return;
+
+		// ensure not linking to itself
+		if(from == to) return;
+
     // Has from node?
     if (!from) return;
 

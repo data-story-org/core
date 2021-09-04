@@ -15,6 +15,7 @@ export * from './FilterDuplicates';
 export * from './Flatten';
 export * from './Group';
 export * from './HTTPRequest';
+export * from './Input';
 export * from './Inspect';
 export * from './Log';
 export * from './Map';
