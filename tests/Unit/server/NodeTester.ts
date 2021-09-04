@@ -16,12 +16,15 @@ export class NodeTester {
   parameterKeyValues: {};
   dynamicPortsList: string[] = [];
   configurations = {};
+	shouldDoAssertAttachedFeatures = false
   shouldDoAssertCanRun = false;
   shouldDoAssertCantRun = false;
   shouldDoAssertOutputs = false;
   shouldDoAssertOutputCounts = false;
   shouldDoAssertDownloads = false;
-  outputMap = {};
+  
+	attachedFeatures = []
+	outputMap = {};
   outputCountMap = {};
   inputMap = {};
   downloadsMap = {};
@@ -83,6 +86,12 @@ export class NodeTester {
     return this;
   }
 
+  assertAttachedFeatures(features) {
+    this.shouldDoAssertAttachedFeatures = true;
+		this.attachedFeatures = features
+    return this;
+  }
+
   assertCanRun() {
     this.shouldDoAssertCanRun = true;
     return this;
@@ -131,6 +140,8 @@ export class NodeTester {
       await this.doAssertCanRun();
     if (this.shouldDoAssertCantRun)
       await this.doAssertCantRun();
+		if (this.shouldDoAssertAttachedFeatures)
+      await this.doAssertAttachedFeatures();			
     if (this.shouldDoAssertOutputs)
       await this.doAssertOutputs();
     if (this.shouldDoAssertOutputCounts)
@@ -178,6 +189,21 @@ export class NodeTester {
 
     expect(this.ranSuccessfully).toBe(false);
   }
+
+  protected async doAssertAttachedFeatures() {
+    await this.runOnce();
+
+		let Diagram = this.runResult;
+		let node = Diagram.findByName(this.nodeClass.name) as Node
+
+		let expectedFeatures = (this.attachedFeatures as any).map(
+			(f) => new Feature(f),
+		);
+		expect(node.features).toStrictEqual(
+			expectedFeatures,
+		);
+	}
+		
 
   protected async doAssertOutputs() {
     await this.runOnce();
