@@ -11,7 +11,8 @@ import { DataStoryContext } from './DataStoryContext';
 export class NodeFactory {
   context: DataStoryContext;
   prototypes = Object.keys(nodes).reduce((all, name) => {
-		return all[name] = nodes[name]
+		all[name] = nodes[name]
+		return all
 	}, {})
 
   static withContext(context) {
