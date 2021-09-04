@@ -1,4 +1,3 @@
-import { Feature } from "../../Feature";
 import { Node } from "../Node";
 
 export class Input extends Node {

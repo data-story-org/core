@@ -30,9 +30,9 @@ export class Diagram {
     this.context = context;
   }
 
-	populateInputs(inputMap) {
+	populateInputs(inputMap = {}): void {
 		Object.keys(inputMap).forEach(name => {
-			let inputNode: Node = this.findByName(name) as Node
+			const inputNode: Node = this.findByName(name) as Node
 			inputNode.features = inputMap[name]
 		})		
 	}
