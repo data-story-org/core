@@ -157,7 +157,7 @@ export abstract class Node {
     ];
   }
 
-  getParameter(name: string) {
+  getParameter(name: string): NodeParameter {
     return this.parameters.find((p) => p.name == name);
   }
 

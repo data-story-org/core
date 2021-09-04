@@ -7,6 +7,7 @@ import { Port } from './Port';
 import { isBrowser, isNode } from 'browser-or-node';
 import { DownloaderNode } from './DownloaderNode';
 import { Output } from './nodes';
+import { Feature } from '../Feature';
 
 export class Diagram {
   links: Link[] = [];
@@ -113,7 +114,7 @@ export class Diagram {
     });
   }
 
-	getOutputFeatures(name:string = 'Output') {
+	getOutputFeatures(name = 'Output'): Feature[] {
 		const outputtingNode = this.nodes.find(n => {
 			return n instanceof Output && name == n.getParameterValue('node_name')
 		})
@@ -121,7 +122,7 @@ export class Diagram {
 		return outputtingNode.features
 	}
 	
-	getOutput(name:string = 'Output') {
+	getOutput(name = 'Output'): unknown[] {
 		return this.getOutputFeatures(name).map(f => f.original)
 	}	
 
