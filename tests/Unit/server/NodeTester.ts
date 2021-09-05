@@ -17,22 +17,22 @@ export class NodeTester {
   parameterKeyValues: {};
   dynamicPortsList: string[] = [];
   configurations = {};
-	attachedFeatures = []
-	outputMap = {};
+  attachedFeatures = [];
+  outputMap = {};
   outputCountMap = {};
   inputMap = {};
   downloadsMap = {};
   hasRun = false;
   ranSuccessfully: boolean;
 
-	asserts = {
-		assertAttachedFeatures: false,
-		assertCanRun: false,
-		assertCantRun: false,
-		assertDownloads: false,		
-		assertOutputs: false,
-		assertOutputCounts: false,
-	}
+  asserts = {
+    assertAttachedFeatures: false,
+    assertCanRun: false,
+    assertCantRun: false,
+    assertDownloads: false,
+    assertOutputs: false,
+    assertOutputCounts: false,
+  };
 
   constructor(nodeClass) {
     this.nodeClass = nodeClass;
@@ -91,7 +91,7 @@ export class NodeTester {
 
   assertAttachedFeatures(features) {
     this.asserts.assertAttachedFeatures = true;
-		this.attachedFeatures = features
+    this.attachedFeatures = features;
     return this;
   }
 
@@ -139,10 +139,12 @@ export class NodeTester {
 
   async finish() {
     this.setupDiagram();
-		for (const [assertion, active] of Object.entries(this.asserts)) {
-			const method = camelCasePrepend('do', assertion)
-			if(active) await this[method]();
-		}
+    for (const [assertion, active] of Object.entries(
+      this.asserts,
+    )) {
+      const method = camelCasePrepend('do', assertion);
+      if (active) await this[method]();
+    }
   }
 
   protected setupDiagram() {
@@ -191,13 +193,11 @@ export class NodeTester {
     let Diagram = this.runResult;
     let node = Diagram.findNodeByName(this.nodeClass.name);
 
-		let expectedFeatures = this.attachedFeatures.map(
-			(f) => new Feature(f),
-		);
-		expect(node.features).toStrictEqual(
-			expectedFeatures,
-		);
-	}
+    let expectedFeatures = this.attachedFeatures.map(
+      (f) => new Feature(f),
+    );
+    expect(node.features).toStrictEqual(expectedFeatures);
+  }
 
   protected async doAssertOutputs() {
     await this.runOnce();

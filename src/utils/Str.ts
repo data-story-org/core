@@ -8,6 +8,13 @@ export const trim = (s: string, c: string): string => {
   );
 };
 
-export function camelCasePrepend(prepend: string, original: string): string {
-  return prepend + original.charAt(0).toUpperCase() + original.slice(1);
+export function camelCasePrepend(
+  prepend: string,
+  original: string,
+): string {
+  return (
+    prepend +
+    original.charAt(0).toUpperCase() +
+    original.slice(1)
+  );
 }
