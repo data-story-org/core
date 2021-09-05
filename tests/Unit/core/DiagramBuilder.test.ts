@@ -29,9 +29,9 @@ it('the created diagrams are chained properly', async () => {
 		.add(Output)
 		.finish()
 
-  let n1 = diagram.findByName('Input')
-	let n2 = diagram.findByName('Multiply')
-	let n3 = diagram.findByName('Output')
+  let n1 = diagram.findNodeByName('Input')
+	let n2 = diagram.findNodeByName('Multiply')
+	let n3 = diagram.findNodeByName('Output')
 
 	// expect to see n1--->n2--->n3 in dependency graph
 	expect(diagram.dependsOn(n1,n2)).toBe(false)
