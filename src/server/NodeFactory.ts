@@ -1,36 +1,4 @@
-import {
-  Aggregate,
-  Clone_,
-  Comment,
-  Create,
-  CreateGrid,
-  CreateAttribute,
-  CreateCSV,
-  CreateJSON,
-  CreateSequence,
-  // DownloadCSV,
-  DownloadJSON,
-  // DownloadGeoJSON,
-  Evaluate,
-  FilterDuplicates,
-  Filter,
-  Flatten,
-  Group,
-  HTTPRequest,
-  Inspect,
-  Log,
-  Map,
-  OutputProvider,
-  RegExpFilter,
-  ResolveContextFeatures,
-  Sample,
-  Sort,
-  Sleep,
-  ThrowError,
-  RemoveAttributes,
-  RenameAttributes,
-} from './nodes';
-
+import * as nodes from './nodes'
 import { SerializedNode } from '../types/SerializedNode';
 import {
   ApiNodeFactory,
@@ -42,36 +10,10 @@ import { DataStoryContext } from './DataStoryContext';
 
 export class NodeFactory {
   context: DataStoryContext;
-  prototypes = {
-    Aggregate,
-    Clone_,
-    Comment,
-    Create,
-    CreateAttribute,
-    CreateCSV,
-    CreateGrid,
-    CreateJSON,
-    CreateSequence,
-    Evaluate,
-    Filter,
-    FilterDuplicates,
-    Flatten,
-    Group,
-    HTTPRequest,
-    Inspect,
-    Log,
-    Map,
-    OutputProvider,
-    RegExpFilter,
-    ResolveContextFeatures,
-    RemoveAttributes,
-    RenameAttributes,
-    Sample,
-    Sleep,
-    Sort,
-    ThrowError,
-    DownloadJSON,
-  };
+  prototypes = Object.keys(nodes).reduce((all, name) => {
+		all[name] = nodes[name]
+		return all
+	}, {})
 
   static withContext(context) {
     return new this(context);

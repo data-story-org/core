@@ -1,12 +1,12 @@
 import { Node } from "../Node";
 import { NodeParameter } from "../../NodeParameter";
 
-export class NODE_NAME extends Node {
+export class Multiply extends Node {
 	constructor(options = {}) {
 		super({
 			// Defaults
-			name: 'NODE_NAME',
-			summary: 'SUMMARY HERE',
+			name: 'Multiply',
+			summary: 'Multiply incoming features by a factor',
 			category: 'Workflow',
 			defaultInPorts: ['Input'],
 			defaultOutPorts: ['Output'],			
@@ -16,17 +16,20 @@ export class NODE_NAME extends Node {
 	}
 
 	async run() {
-			const p1 = this.getParameterValue('p1')
-			
-			this.output(
-					this.input()
-			)
+		const factor = this.getParameterValue('factor')
+
+		this.output(
+			this.input().map(feature => {
+				feature.original *= factor
+				return feature
+			})
+		)
 	}
 
 	getDefaultParameters() {
 		return [
 			...super.getDefaultParameters(),
-            NodeParameter.string('p1'),
+            NodeParameter.number('factor').withValue(2),
 		]
 	}     
 }

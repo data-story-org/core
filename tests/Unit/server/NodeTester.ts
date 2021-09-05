@@ -16,12 +16,15 @@ export class NodeTester {
   parameterKeyValues: {};
   dynamicPortsList: string[] = [];
   configurations = {};
+	shouldDoAssertAttachedFeatures = false
   shouldDoAssertCanRun = false;
   shouldDoAssertCantRun = false;
   shouldDoAssertOutputs = false;
   shouldDoAssertOutputCounts = false;
   shouldDoAssertDownloads = false;
-  outputMap = {};
+  
+	attachedFeatures = []
+	outputMap = {};
   outputCountMap = {};
   inputMap = {};
   downloadsMap = {};
@@ -83,6 +86,12 @@ export class NodeTester {
     return this;
   }
 
+  assertAttachedFeatures(features) {
+    this.shouldDoAssertAttachedFeatures = true;
+		this.attachedFeatures = features
+    return this;
+  }
+
   assertCanRun() {
     this.shouldDoAssertCanRun = true;
     return this;
@@ -131,6 +140,8 @@ export class NodeTester {
       await this.doAssertCanRun();
     if (this.shouldDoAssertCantRun)
       await this.doAssertCantRun();
+		if (this.shouldDoAssertAttachedFeatures)
+      await this.doAssertAttachedFeatures();			
     if (this.shouldDoAssertOutputs)
       await this.doAssertOutputs();
     if (this.shouldDoAssertOutputCounts)
@@ -179,6 +190,21 @@ export class NodeTester {
     expect(this.ranSuccessfully).toBe(false);
   }
 
+  protected async doAssertAttachedFeatures() {
+    await this.runOnce();
+
+		let Diagram = this.runResult;
+		let node = Diagram.findNodeByName(this.nodeClass.name)
+
+		let expectedFeatures = this.attachedFeatures.map(
+			(f) => new Feature(f),
+		);
+		expect(node.features).toStrictEqual(
+			expectedFeatures,
+		);
+	}
+		
+
   protected async doAssertOutputs() {
     await this.runOnce();
 
@@ -188,31 +214,14 @@ export class NodeTester {
     for (const [portName, expected] of Object.entries(
       this.outputMap,
     )) {
-      let port = Diagram.findByName(portName);
+      let port = Diagram.findPortByName(portName);
       let expectedFeatures = (expected as any).map(
         (f) => new Feature(f),
       );
-      expect((port as Port).features).toStrictEqual(
+      expect(port.features).toStrictEqual(
         expectedFeatures,
       );
     }
-
-    // Check that no other ports emits feautures
-    let ports = (
-      Diagram.findByName(this.nodeClass.name) as Node
-    ).ports;
-    let outputingPorts = ports
-      .filter((p) => p.features && p.features.length)
-      .map((p) => p.name);
-    const msg =
-      'There was a port outputting features that was not listed!';
-    expect({
-      msg,
-      keys: uniq([
-        ...Object.keys(this.outputMap),
-        ...this.dynamicPortsList,
-      ]).sort(),
-    }).toEqual({ msg, keys: outputingPorts.sort() });
   }
 
   protected async doAssertDownloads() {
@@ -220,7 +229,7 @@ export class NodeTester {
 
     const Diagram = this.runResult;
 
-    const node = Diagram.findByName(
+    const node = Diagram.findNodeByName(
       this.nodeClass.name,
     ) as DownloaderNode;
 
@@ -238,16 +247,16 @@ export class NodeTester {
     for (const [portName, expectedCount] of Object.entries(
       this.outputCountMap,
     )) {
-      let port = Diagram.findByName(portName);
-      expect((port as Port).features.length).toStrictEqual(
+      let port = Diagram.findPortByName(portName);
+      expect(port.features.length).toStrictEqual(
         expectedCount,
-      );
+			);
     }
 
     // Check that no other ports emits feautures
-    let node = Diagram.findByName(this.nodeClass.name);
+    let node = Diagram.findNodeByName(this.nodeClass.name);
 
-    let ports = (node as Node).ports;
+    let ports = node.ports;
     let outputingPorts = ports
       .filter((p) => p.features && p.features.length)
       .map((p) => p.name);

@@ -36,8 +36,8 @@ export class DiagramFactory {
       (data: SerializedLink) => {
         return new Link({
           id: data.id,
-          sourcePort: diagram.find(data.sourcePort) as Port,
-          targetPort: diagram.find(data.targetPort) as Port,
+          sourcePort: diagram.findPort(data.sourcePort),
+          targetPort: diagram.findPort(data.targetPort),
         });
       },
     );

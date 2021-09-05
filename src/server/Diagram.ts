@@ -6,6 +6,8 @@ import { Node } from './Node';
 import { Port } from './Port';
 import { isBrowser, isNode } from 'browser-or-node';
 import { DownloaderNode } from './DownloaderNode';
+import { Output } from './nodes';
+import { Feature } from '../Feature';
 
 export class Diagram {
   links: Link[] = [];
@@ -28,7 +30,16 @@ export class Diagram {
     this.context = context;
   }
 
-  async run() {
+	populateInputs(inputMap = {}): void {
+		Object.keys(inputMap).forEach(name => {
+			const inputNode: Node = this.findNodeByName(name)
+			inputNode.features = inputMap[name]
+		})		
+	}
+
+  async run(inputMap = {}) {
+		this.populateInputs(inputMap)
+
     for await (const node of this.executionOrder()) {
       await node.run();
       if (
@@ -49,27 +60,26 @@ export class Diagram {
     });
   }
 
-  find(id: string): Node | Link | Port {
-    const searchables = this.nodes
-      .concat(
-        this.nodes
-          .map((node) => node.ports)
-          .flat() as any[],
-      )
-      .concat(this.links as any[]);
+	findPort(id: string): Port {
+		const ports = this.nodes
+			.map((node) => node.ports)
+			.flat()
+		
+		return ports.find((port) => port.id == id);
+	}	
 
-    return searchables.find((entity) => entity.id == id);
+	findNode(id: string): Node {
+		return this.nodes.find((node) => node.id == id);
+	}
+
+	findPortByName(name: string): Port {
+		const ports = this.nodes.map((node) => node.ports).flat()
+    return ports.find(port => port.name == name)
   }
 
-  findByName(name: string): Node | Link | Port {
-    const searchables = this.nodes
-      .concat(
-        this.nodes.map((node) => node.ports).flat() as any,
-      )
-      .concat(this.links as any);
-
-    return searchables.find(
-      (entity) => entity.name == name,
+ 	findNodeByName(name: string): Node {
+    return this.nodes.find(
+      (node) => node.name == name,
     );
   }
 
@@ -90,27 +100,36 @@ export class Diagram {
 
   linkToLatest(node) {
     // Try to link to latest nodes
-    this.history.find((latest) => {
-      if (this.hasNode(latest)) {
-        if (this.canLink(latest, node)) {
-          // fromPort: prefer first unused outPort. Otherwise defaults to first
-          const sourcePort =
-            this.getAutomatedFromPort(latest);
+    [...this.history].reverse().find((latest) => {
+			if (this.canLink(latest, node)) {
+				// fromPort: prefer first unused outPort. Otherwise defaults to first
+				const sourcePort =
+					this.getAutomatedFromPort(latest);
 
-          // toPort: the first inPort
-          const targetPort: any = Object.values(
-            node.getInPorts(),
-          )[0];
+				// toPort: the first inPort
+				const targetPort: any = Object.values(
+					node.getInPorts(),
+				)[0];
+				this.links.push(
+					new Link({ sourcePort, targetPort }),
+				);
 
-          this.links.push(
-            new Link({ sourcePort, targetPort }),
-          );
-
-          return true; // exit find
-        }
-      }
+				return true; // exit find
+			}
     });
   }
+
+	getOutputFeatures(name = 'Output'): Feature[] {
+		const outputtingNode = this.nodes.find(n => {
+			return n instanceof Output && name == n.getParameterValue('node_name')
+		})
+
+		return outputtingNode.features
+	}
+	
+	getOutput(name = 'Output'): unknown[] {
+		return this.getOutputFeatures(name).map(f => f.original)
+	}	
 
   getAutomatedFromPort(fromNode): Port {
     const firstUnused: Node = fromNode
@@ -122,6 +141,12 @@ export class Diagram {
   }
 
   canLink(from, to) {
+		// Still exists?
+		if(!this.hasNode(from) || !this.hasNode(to)) return;
+
+		// ensure not linking to itself
+		if(from == to) return;
+
     // Has from node?
     if (!from) return;
 
@@ -185,9 +210,8 @@ export class Diagram {
 
     const dependencies = links.map((link: any) => {
       const sourcePort = link.sourcePort;
-      const sourceNode = (this.find(sourcePort.id) as Port)
-        .node;
-      return this.find(sourceNode.id);
+      const sourceNode = this.findPort(sourcePort.id).node;
+      return this.findNode(sourceNode.id);
     });
 
     const deepDependencies = dependencies.map((d) => {
@@ -243,7 +267,7 @@ export class Diagram {
   }
 
   hasNode(node) {
-    return Boolean(node.id && this.find(node.id));
+    return Boolean(node.id && this.findNode(node.id));
   }
 
   serialize(): SerializedDiagram {

@@ -13,8 +13,13 @@ fs.writeFile(
   () => {},
 );
 
-// Add Node file to NodeFactory
-// TODO
+// Add Node file to nodes index
+const nodesIndex = __dirname + '/../src/server/nodes/index.ts';
+let lines = fs.readFileSync(nodesIndex, 'utf8').split(/\r?\n/)
+lines.push(`export * from './${nodeName}';`)
+fs.writeFile(nodesIndex, lines.sort().join('\n'), function (err) {
+  if (err) throw err;
+});
 
 // Create Test file
 fs.writeFile(
@@ -32,5 +37,5 @@ fs.writeFile(
 
 console.info(
   nodeName +
-    ' NodeFile and test created. Remember to add your node in NodeFactory.',
+    ' NodeFile and test created!'
 );
