@@ -16,19 +16,19 @@ import {
   Log,
   FilterDuplicates,
   CreateSequence,
-	HTTPRequest,
+  HTTPRequest,
   // Aggregate,
 } from './nodes';
 
 // import Aggregate from "./nodes/Aggregate";
 
 const calling_a_api = DiagramBuilder.begin()
-	.add(Create)
-	.add(HTTPRequest)
-	.add(Inspect)
-	.add(Inspect)
-	.add(Inspect)
-	.finish()
+  .add(Create)
+  .add(HTTPRequest)
+  .add(Inspect)
+  .add(Inspect)
+  .add(Inspect)
+  .finish();
 
 // // export const cleanup_old_github_repos = DiagramBuilder.begin()
 // // 	.add(HTTPRequest)
@@ -80,5 +80,5 @@ const calling_a_api = DiagramBuilder.begin()
 // 	.finish()
 
 export const demos = {
-	calling_a_api
-}
+  calling_a_api,
+};
