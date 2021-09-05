@@ -1,4 +1,4 @@
-import * as nodes from './nodes'
+import * as nodes from './nodes';
 import { SerializedNode } from '../types/SerializedNode';
 import {
   ApiNodeFactory,
@@ -11,9 +11,9 @@ import { DataStoryContext } from './DataStoryContext';
 export class NodeFactory {
   context: DataStoryContext;
   prototypes = Object.keys(nodes).reduce((all, name) => {
-		all[name] = nodes[name]
-		return all
-	}, {})
+    all[name] = nodes[name];
+    return all;
+  }, {});
 
   static withContext(context) {
     return new this(context);

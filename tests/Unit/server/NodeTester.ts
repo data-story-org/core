@@ -16,15 +16,15 @@ export class NodeTester {
   parameterKeyValues: {};
   dynamicPortsList: string[] = [];
   configurations = {};
-	shouldDoAssertAttachedFeatures = false
+  shouldDoAssertAttachedFeatures = false;
   shouldDoAssertCanRun = false;
   shouldDoAssertCantRun = false;
   shouldDoAssertOutputs = false;
   shouldDoAssertOutputCounts = false;
   shouldDoAssertDownloads = false;
-  
-	attachedFeatures = []
-	outputMap = {};
+
+  attachedFeatures = [];
+  outputMap = {};
   outputCountMap = {};
   inputMap = {};
   downloadsMap = {};
@@ -88,7 +88,7 @@ export class NodeTester {
 
   assertAttachedFeatures(features) {
     this.shouldDoAssertAttachedFeatures = true;
-		this.attachedFeatures = features
+    this.attachedFeatures = features;
     return this;
   }
 
@@ -140,8 +140,8 @@ export class NodeTester {
       await this.doAssertCanRun();
     if (this.shouldDoAssertCantRun)
       await this.doAssertCantRun();
-		if (this.shouldDoAssertAttachedFeatures)
-      await this.doAssertAttachedFeatures();			
+    if (this.shouldDoAssertAttachedFeatures)
+      await this.doAssertAttachedFeatures();
     if (this.shouldDoAssertOutputs)
       await this.doAssertOutputs();
     if (this.shouldDoAssertOutputCounts)
@@ -193,17 +193,14 @@ export class NodeTester {
   protected async doAssertAttachedFeatures() {
     await this.runOnce();
 
-		let Diagram = this.runResult;
-		let node = Diagram.findNodeByName(this.nodeClass.name)
+    let Diagram = this.runResult;
+    let node = Diagram.findNodeByName(this.nodeClass.name);
 
-		let expectedFeatures = this.attachedFeatures.map(
-			(f) => new Feature(f),
-		);
-		expect(node.features).toStrictEqual(
-			expectedFeatures,
-		);
-	}
-		
+    let expectedFeatures = this.attachedFeatures.map(
+      (f) => new Feature(f),
+    );
+    expect(node.features).toStrictEqual(expectedFeatures);
+  }
 
   protected async doAssertOutputs() {
     await this.runOnce();
@@ -218,9 +215,7 @@ export class NodeTester {
       let expectedFeatures = (expected as any).map(
         (f) => new Feature(f),
       );
-      expect(port.features).toStrictEqual(
-        expectedFeatures,
-      );
+      expect(port.features).toStrictEqual(expectedFeatures);
     }
   }
 
@@ -250,7 +245,7 @@ export class NodeTester {
       let port = Diagram.findPortByName(portName);
       expect(port.features.length).toStrictEqual(
         expectedCount,
-			);
+      );
     }
 
     // Check that no other ports emits feautures

@@ -30,15 +30,15 @@ export class Diagram {
     this.context = context;
   }
 
-	populateInputs(inputMap = {}): void {
-		Object.keys(inputMap).forEach(name => {
-			const inputNode: Node = this.findNodeByName(name)
-			inputNode.features = inputMap[name]
-		})		
-	}
+  populateInputs(inputMap = {}): void {
+    Object.keys(inputMap).forEach((name) => {
+      const inputNode: Node = this.findNodeByName(name);
+      inputNode.features = inputMap[name];
+    });
+  }
 
   async run(inputMap = {}) {
-		this.populateInputs(inputMap)
+    this.populateInputs(inputMap);
 
     for await (const node of this.executionOrder()) {
       await node.run();
@@ -60,27 +60,27 @@ export class Diagram {
     });
   }
 
-	findPort(id: string): Port {
-		const ports = this.nodes
-			.map((node) => node.ports)
-			.flat()
-		
-		return ports.find((port) => port.id == id);
-	}	
+  findPort(id: string): Port {
+    const ports = this.nodes
+      .map((node) => node.ports)
+      .flat();
 
-	findNode(id: string): Node {
-		return this.nodes.find((node) => node.id == id);
-	}
-
-	findPortByName(name: string): Port {
-		const ports = this.nodes.map((node) => node.ports).flat()
-    return ports.find(port => port.name == name)
+    return ports.find((port) => port.id == id);
   }
 
- 	findNodeByName(name: string): Node {
-    return this.nodes.find(
-      (node) => node.name == name,
-    );
+  findNode(id: string): Node {
+    return this.nodes.find((node) => node.id == id);
+  }
+
+  findPortByName(name: string): Port {
+    const ports = this.nodes
+      .map((node) => node.ports)
+      .flat();
+    return ports.find((port) => port.name == name);
+  }
+
+  findNodeByName(name: string): Node {
+    return this.nodes.find((node) => node.name == name);
   }
 
   addNode(node) {
@@ -101,35 +101,40 @@ export class Diagram {
   linkToLatest(node) {
     // Try to link to latest nodes
     [...this.history].reverse().find((latest) => {
-			if (this.canLink(latest, node)) {
-				// fromPort: prefer first unused outPort. Otherwise defaults to first
-				const sourcePort =
-					this.getAutomatedFromPort(latest);
+      if (this.canLink(latest, node)) {
+        // fromPort: prefer first unused outPort. Otherwise defaults to first
+        const sourcePort =
+          this.getAutomatedFromPort(latest);
 
-				// toPort: the first inPort
-				const targetPort: any = Object.values(
-					node.getInPorts(),
-				)[0];
-				this.links.push(
-					new Link({ sourcePort, targetPort }),
-				);
+        // toPort: the first inPort
+        const targetPort: any = Object.values(
+          node.getInPorts(),
+        )[0];
+        this.links.push(
+          new Link({ sourcePort, targetPort }),
+        );
 
-				return true; // exit find
-			}
+        return true; // exit find
+      }
     });
   }
 
-	getOutputFeatures(name = 'Output'): Feature[] {
-		const outputtingNode = this.nodes.find(n => {
-			return n instanceof Output && name == n.getParameterValue('node_name')
-		})
+  getOutputFeatures(name = 'Output'): Feature[] {
+    const outputtingNode = this.nodes.find((n) => {
+      return (
+        n instanceof Output &&
+        name == n.getParameterValue('node_name')
+      );
+    });
 
-		return outputtingNode.features
-	}
-	
-	getOutput(name = 'Output'): unknown[] {
-		return this.getOutputFeatures(name).map(f => f.original)
-	}	
+    return outputtingNode.features;
+  }
+
+  getOutput(name = 'Output'): unknown[] {
+    return this.getOutputFeatures(name).map(
+      (f) => f.original,
+    );
+  }
 
   getAutomatedFromPort(fromNode): Port {
     const firstUnused: Node = fromNode
@@ -141,11 +146,11 @@ export class Diagram {
   }
 
   canLink(from, to) {
-		// Still exists?
-		if(!this.hasNode(from) || !this.hasNode(to)) return;
+    // Still exists?
+    if (!this.hasNode(from) || !this.hasNode(to)) return;
 
-		// ensure not linking to itself
-		if(from == to) return;
+    // ensure not linking to itself
+    if (from == to) return;
 
     // Has from node?
     if (!from) return;
