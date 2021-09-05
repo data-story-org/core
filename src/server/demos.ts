@@ -1,4 +1,5 @@
 // import { DiagramBuilder } from "./../DiagramBuilder";
+import { DiagramBuilder } from './DiagramBuilder';
 import {
   CreateAttribute,
   Clone_,
@@ -15,20 +16,19 @@ import {
   Log,
   FilterDuplicates,
   CreateSequence,
+	HTTPRequest,
   // Aggregate,
 } from './nodes';
 
 // import Aggregate from "./nodes/Aggregate";
 
-// export const playing_with_json = DiagramBuilder.begin()
-// 	.add(Create, {feature_type: 'object', contents: '{}'})
-// 	.add(CreateAttribute, {attribute: 'resource', value: 'todos'})
-// 	.add(Clone_, {number_of_clones: 3})
-// 	.add(HTTPRequest)
-// 	.add(Inspect)
-// 	.add(Inspect)
-// 	.add(Inspect)
-// 	.finish()
+const calling_a_api = DiagramBuilder.begin()
+	.add(Create)
+	.add(HTTPRequest)
+	.add(Inspect)
+	.add(Inspect)
+	.add(Inspect)
+	.finish()
 
 // // export const cleanup_old_github_repos = DiagramBuilder.begin()
 // // 	.add(HTTPRequest)
@@ -78,3 +78,7 @@ import {
 // 	.add(Aggregate, {'group_by': 'date'})
 // 	.add(Inspect)
 // 	.finish()
+
+export const demos = {
+	calling_a_api
+}
