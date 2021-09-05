@@ -32,7 +32,7 @@ export class Diagram {
 
 	populateInputs(inputMap = {}): void {
 		Object.keys(inputMap).forEach(name => {
-			const inputNode: Node = this.findByName(name) as Node
+			const inputNode: Node = this.findNodeByName(name)
 			inputNode.features = inputMap[name]
 		})		
 	}
@@ -60,27 +60,26 @@ export class Diagram {
     });
   }
 
-  find(id: string): Node | Link | Port {
-    const searchables = this.nodes
-      .concat(
-        this.nodes
-          .map((node) => node.ports)
-          .flat() as any[],
-      )
-      .concat(this.links as any[]);
+	findPort(id: string): Port {
+		const ports = this.nodes
+			.map((node) => node.ports)
+			.flat()
+		
+		return ports.find((port) => port.id == id);
+	}	
 
-    return searchables.find((entity) => entity.id == id);
+	findNode(id: string): Node {
+		return this.nodes.find((node) => node.id == id);
+	}
+
+	findPortByName(name: string): Port {
+		const ports = this.nodes.map((node) => node.ports).flat()
+    return ports.find(port => port.name == name)
   }
 
-  findByName(name: string): Node | Link | Port {
-    const searchables = this.nodes
-      .concat(
-        this.nodes.map((node) => node.ports).flat() as any,
-      )
-      .concat(this.links as any);
-
-    return searchables.find(
-      (entity) => entity.name == name,
+ 	findNodeByName(name: string): Node {
+    return this.nodes.find(
+      (node) => node.name == name,
     );
   }
 
@@ -211,9 +210,8 @@ export class Diagram {
 
     const dependencies = links.map((link: any) => {
       const sourcePort = link.sourcePort;
-      const sourceNode = (this.find(sourcePort.id) as Port)
-        .node;
-      return this.find(sourceNode.id);
+      const sourceNode = this.findPort(sourcePort.id).node;
+      return this.findNode(sourceNode.id);
     });
 
     const deepDependencies = dependencies.map((d) => {
@@ -269,7 +267,7 @@ export class Diagram {
   }
 
   hasNode(node) {
-    return Boolean(node.id && this.find(node.id));
+    return Boolean(node.id && this.findNode(node.id));
   }
 
   serialize(): SerializedDiagram {

@@ -194,9 +194,9 @@ export class NodeTester {
     await this.runOnce();
 
 		let Diagram = this.runResult;
-		let node = Diagram.findByName(this.nodeClass.name) as Node
+		let node = Diagram.findNodeByName(this.nodeClass.name)
 
-		let expectedFeatures = (this.attachedFeatures as any).map(
+		let expectedFeatures = this.attachedFeatures.map(
 			(f) => new Feature(f),
 		);
 		expect(node.features).toStrictEqual(
@@ -214,11 +214,11 @@ export class NodeTester {
     for (const [portName, expected] of Object.entries(
       this.outputMap,
     )) {
-      let port = Diagram.findByName(portName);
+      let port = Diagram.findPortByName(portName);
       let expectedFeatures = (expected as any).map(
         (f) => new Feature(f),
       );
-      expect((port as Port).features).toStrictEqual(
+      expect(port.features).toStrictEqual(
         expectedFeatures,
       );
     }
@@ -229,7 +229,7 @@ export class NodeTester {
 
     const Diagram = this.runResult;
 
-    const node = Diagram.findByName(
+    const node = Diagram.findNodeByName(
       this.nodeClass.name,
     ) as DownloaderNode;
 
@@ -247,16 +247,16 @@ export class NodeTester {
     for (const [portName, expectedCount] of Object.entries(
       this.outputCountMap,
     )) {
-      let port = Diagram.findByName(portName);
-      expect((port as Port).features.length).toStrictEqual(
+      let port = Diagram.findPortByName(portName);
+      expect(port.features.length).toStrictEqual(
         expectedCount,
-      );
+			);
     }
 
     // Check that no other ports emits feautures
-    let node = Diagram.findByName(this.nodeClass.name);
+    let node = Diagram.findNodeByName(this.nodeClass.name);
 
-    let ports = (node as Node).ports;
+    let ports = node.ports;
     let outputingPorts = ports
       .filter((p) => p.features && p.features.length)
       .map((p) => p.name);
