@@ -7,6 +7,7 @@ import { Node } from '../../../src/server/Node';
 import { DataStoryContext } from '../../../src/server/DataStoryContext';
 import uniq from 'lodash/uniq';
 import { DownloaderNode } from '../../../src/server/DownloaderNode';
+import { camelCasePrepend } from '../../../src/utils';
 
 export class NodeTester {
   diagram: Diagram;
@@ -16,20 +17,22 @@ export class NodeTester {
   parameterKeyValues: {};
   dynamicPortsList: string[] = [];
   configurations = {};
-  shouldDoAssertAttachedFeatures = false;
-  shouldDoAssertCanRun = false;
-  shouldDoAssertCantRun = false;
-  shouldDoAssertOutputs = false;
-  shouldDoAssertOutputCounts = false;
-  shouldDoAssertDownloads = false;
-
-  attachedFeatures = [];
-  outputMap = {};
+	attachedFeatures = []
+	outputMap = {};
   outputCountMap = {};
   inputMap = {};
   downloadsMap = {};
   hasRun = false;
   ranSuccessfully: boolean;
+
+	asserts = {
+		assertAttachedFeatures: false,
+		assertCanRun: false,
+		assertCantRun: false,
+		assertDownloads: false,		
+		assertOutputs: false,
+		assertOutputCounts: false,
+	}
 
   constructor(nodeClass) {
     this.nodeClass = nodeClass;
@@ -87,18 +90,18 @@ export class NodeTester {
   }
 
   assertAttachedFeatures(features) {
-    this.shouldDoAssertAttachedFeatures = true;
-    this.attachedFeatures = features;
+    this.asserts.assertAttachedFeatures = true;
+		this.attachedFeatures = features
     return this;
   }
 
   assertCanRun() {
-    this.shouldDoAssertCanRun = true;
+    this.asserts.assertCanRun = true;
     return this;
   }
 
   assertCantRun() {
-    this.shouldDoAssertCantRun = true;
+    this.asserts.assertCantRun = true;
     return this;
   }
 
@@ -109,7 +112,7 @@ export class NodeTester {
   }
 
   assertOutputs(outputMap: {}) {
-    this.shouldDoAssertOutputs = true;
+    this.asserts.assertOutputs = true;
     this.outputMap = outputMap;
     return this;
   }
@@ -121,13 +124,13 @@ export class NodeTester {
   }
 
   assertOutputCounts(outputCountMap: {}) {
-    this.shouldDoAssertOutputCounts = true;
+    this.asserts.assertOutputCounts = true;
     this.outputCountMap = outputCountMap;
     return this;
   }
 
   assertDownloads(downloadsMap: {}, prettyPrint = false) {
-    this.shouldDoAssertDownloads = true;
+    this.asserts.assertDownloads = true;
     this.downloadsMap = prettyPrint
       ? JSON.stringify(downloadsMap, null, 4)
       : JSON.stringify(downloadsMap);
@@ -136,18 +139,10 @@ export class NodeTester {
 
   async finish() {
     this.setupDiagram();
-    if (this.shouldDoAssertCanRun)
-      await this.doAssertCanRun();
-    if (this.shouldDoAssertCantRun)
-      await this.doAssertCantRun();
-    if (this.shouldDoAssertAttachedFeatures)
-      await this.doAssertAttachedFeatures();
-    if (this.shouldDoAssertOutputs)
-      await this.doAssertOutputs();
-    if (this.shouldDoAssertOutputCounts)
-      await this.doAssertOutputCounts();
-    if (this.shouldDoAssertDownloads)
-      await this.doAssertDownloads();
+		for (const [assertion, active] of Object.entries(this.asserts)) {
+			const method = camelCasePrepend('do', assertion)
+			if(active) await this[method]();
+		}
   }
 
   protected setupDiagram() {
@@ -196,11 +191,13 @@ export class NodeTester {
     let Diagram = this.runResult;
     let node = Diagram.findNodeByName(this.nodeClass.name);
 
-    let expectedFeatures = this.attachedFeatures.map(
-      (f) => new Feature(f),
-    );
-    expect(node.features).toStrictEqual(expectedFeatures);
-  }
+		let expectedFeatures = this.attachedFeatures.map(
+			(f) => new Feature(f),
+		);
+		expect(node.features).toStrictEqual(
+			expectedFeatures,
+		);
+	}
 
   protected async doAssertOutputs() {
     await this.runOnce();
