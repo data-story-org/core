@@ -6,13 +6,13 @@
   "types": "lib/src/index.d.ts",
   "exports": {
     ".": "./lib/src/index.js",
-    "./utils": "./lib/src/utils/index.js"
+    "./utils": "./lib/src/utils/index.js",
+    "./nodes": "./lib/src/server/nodes/index.js"
   },
   "typesVersions": {
     "*": {
-      "utils": [
-        "lib/src/utils/index.d.ts"
-      ]
+      "utils": ["./lib/src/utils/index.d.ts"],
+      "nodes": ["./lib/src/server/nodes/index.d.ts"]
     }
   },
   "scripts": {
@@ -35,9 +35,7 @@
     "type": "git",
     "url": ""
   },
-  "keywords": [
-    "typescript"
-  ],
+  "keywords": ["typescript"],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -59,9 +57,7 @@
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
   },
-  "files": [
-    "lib/**/*"
-  ],
+  "files": ["lib/**/*"],
   "dependencies": {
     "axios": "^0.21.1",
     "browser-or-node": "^1.3.0",
