@@ -1,5 +1,6 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../../NodeParameter';
+import { Feature } from '../../Feature';
 
 export class Multiply extends Node {
   constructor(options = {}) {
@@ -20,8 +21,9 @@ export class Multiply extends Node {
 
     this.output(
       this.input().map((feature) => {
-        feature.original *= factor;
-        return feature;
+        return new Feature(
+          (feature.original ?? feature) * factor,
+        );
       }),
     );
   }
