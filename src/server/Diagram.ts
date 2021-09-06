@@ -134,7 +134,7 @@ export class Diagram {
 
   getOutput(name = 'Output'): unknown[] {
     return this.getOutputFeatures(name).map(
-      (f) => f.original,
+      (f) => f.original ?? f,
     );
   }
 
