@@ -80,7 +80,9 @@ export class Diagram {
   }
 
   findNodeByName(name: string): Node {
-    return this.nodes.find((node) => node.name == name);
+    return this.nodes.find(
+      (node) => node.getParameterValue('node_name') == name,
+    );
   }
 
   addNode(node) {
