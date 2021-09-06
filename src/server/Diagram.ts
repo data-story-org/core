@@ -80,7 +80,9 @@ export class Diagram {
   }
 
   findNodeByName(name: string): Node {
-    return this.nodes.find((node) => node.name == name);
+    return this.nodes.find(
+      (node) => node.getParameterValue('node_name') == name,
+    );
   }
 
   addNode(node) {
@@ -132,7 +134,7 @@ export class Diagram {
 
   getOutput(name = 'Output'): unknown[] {
     return this.getOutputFeatures(name).map(
-      (f) => f.original,
+      (f) => f.original ?? f,
     );
   }
 

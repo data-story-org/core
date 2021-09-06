@@ -6,12 +6,16 @@
   "types": "lib/src/index.d.ts",
   "exports": {
     ".": "./lib/src/index.js",
-    "./utils": "./lib/src/utils/index.js"
+    "./utils": "./lib/src/utils/index.js",
+    "./nodes": "./lib/src/server/nodes/index.js"
   },
   "typesVersions": {
     "*": {
       "utils": [
-        "lib/src/utils/index.d.ts"
+        "./lib/src/utils/index.d.ts"
+      ],
+      "nodes": [
+        "./lib/src/server/nodes/index.d.ts"
       ]
     }
   },

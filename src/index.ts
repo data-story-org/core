@@ -4,6 +4,7 @@ export {
   Port,
   Link,
   Server,
+  DiagramBuilder,
 } from './server';
 
 export {
@@ -18,4 +19,3 @@ export { NodeParameter } from './NodeParameter';
 export { repeatableConverter } from './NodeParameter';
 
 export { demos } from './server/demos';
-export { DiagramBuilder } from './server/DiagramBuilder';
