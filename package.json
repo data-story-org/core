@@ -29,6 +29,7 @@
     "lint:quiet:fix": "npm run lint:fix -- --quiet",
     "test": "jest --config tests/jest.config.js",
     "prepare": "npm run build",
+    "postinstall": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
