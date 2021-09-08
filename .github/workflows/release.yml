@@ -18,13 +18,9 @@ jobs:
       - name: Install dependencies
         run: yarn --silent
 
-      - id: get_version
-        uses: battila7/get-version-action@v2
-
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          tag: ${{ steps.get_version.outputs.version-without-v }}
           check-version: false
 
 
