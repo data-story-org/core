@@ -25,6 +25,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           tag: ${{ steps.get_version.outputs.version-without-v }}
+          check-version: false
 
 
       - if: steps.publish.outputs.type != 'none'
