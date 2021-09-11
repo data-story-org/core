@@ -20,14 +20,17 @@ export class DiagramFactory {
     this.context = context;
   }
 
-  hydrate(data: SerializedDiagram): Diagram {
+  hydrate(
+    data: SerializedDiagram,
+    nodeFactory: NodeFactory,
+  ): Diagram {
     // Create empty diagram
     const diagram = new Diagram(this.context);
 
     // Add Nodes
     diagram.nodes = Object.values(data.nodes).map(
       (node: SerializedNode) => {
-        return new NodeFactory().hydrate(node, diagram);
+        return nodeFactory.hydrate(node, diagram);
       },
     );
 

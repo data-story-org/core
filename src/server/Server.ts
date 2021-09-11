@@ -6,19 +6,21 @@ import { DataStoryContext } from './DataStoryContext';
 
 export class Server {
   context: DataStoryContext;
+  nodeFactory: NodeFactory;
 
   constructor(context = {}) {
     this.context = context;
+    this.nodeFactory = NodeFactory.withContext(context);
   }
 
-  public boot() {
+  public boot(extraNodes?) {
     return new Promise<BootPayload>((callback) => {
       return callback({
         data: {
           stories: [],
-          availableNodes: NodeFactory.withContext(
-            this.context,
-          ).nodeDescriptions(),
+          availableNodes: this.nodeFactory
+            .withNodes(extraNodes ?? [])
+            .nodeDescriptions(),
         },
       });
     });
@@ -28,7 +30,10 @@ export class Server {
     diagram: SerializedDiagram,
   ): Promise<{}> {
     return DiagramFactory.withContext(this.context)
-      .hydrate(diagram as SerializedDiagram)
+      .hydrate(
+        diagram as SerializedDiagram,
+        this.nodeFactory,
+      )
       .run();
   }
 
