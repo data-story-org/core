@@ -12,6 +12,7 @@ export {
   SerializedLink,
   SerializedNode,
   SerializedPort,
+  BootPayload
 } from './types';
 
 export { Feature } from './Feature';

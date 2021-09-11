@@ -12,10 +12,10 @@
   "typesVersions": {
     "*": {
       "utils": [
-        "./lib/src/utils/index.d.ts"
+        "lib/src/utils/index.d.ts"
       ],
       "nodes": [
-        "./lib/src/server/nodes/index.d.ts"
+        "lib/src/server/nodes/index.d.ts"
       ]
     }
   },

@@ -3,3 +3,4 @@ export { SerializedLink } from './SerializedLink';
 export { SerializedNode } from './SerializedNode';
 export { SerializedPort } from './SerializedPort';
 export * from './DownloadData';
+export * from './BootPayload';
