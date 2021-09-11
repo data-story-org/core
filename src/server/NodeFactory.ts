@@ -19,6 +19,16 @@ export class NodeFactory {
     return new this(context);
   }
 
+  withNodes(nodes) {
+    nodes.forEach((node) => {
+      this.prototypes = {
+        ...this.prototypes,
+        [new node().name]: node,
+      };
+    });
+    return this;
+  }
+
   constructor(context = {}) {
     this.context = context;
   }
