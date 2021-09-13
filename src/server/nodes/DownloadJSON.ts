@@ -18,6 +18,12 @@ export class DownloadJSON extends DownloaderNode {
     });
   }
 
+  downloadData = new DownloadData<any>({
+    data: [],
+    mimeType: 'application/json',
+    fileExtension: 'json',
+  });
+
   async run() {
     const toDownload = this.getParameterValue(
       'attributes to download',
@@ -31,20 +37,14 @@ export class DownloadJSON extends DownloaderNode {
       toDownload.length === 1 && toDownload[0] === ''
     );
 
-    const fileName = `${this.getParameterValue(
+    this.downloadData.fileName = `${this.getParameterValue(
       'node_name',
     )} ${new Date()
       .toLocaleString('en-US', {
         hour12: false,
       })
-      .replace(/:/gi, '_')}`;
-
-    this.downloadData = new DownloadData<any>({
-      data: [],
-      mimeType: 'application/json',
-      fileName: fileName,
-      fileExtension: 'json',
-    });
+      .replace(/:/gi, '_')
+      .replace(/\//gi, '_')}`;
 
     const latestAttribute = (downloadIndex: number) => {
       const toDownloadAttrs =
