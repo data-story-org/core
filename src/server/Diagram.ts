@@ -118,11 +118,11 @@ export class Diagram {
     });
   }
 
-	getInputNodes() {
+	getInputNodes(): Node[] {
 		return this.nodes.filter(n => n instanceof Input)
 	}
 
-	getOutputNodes() {
+	getOutputNodes(): Node[] {
 		return this.nodes.filter(n => n instanceof Output)
 	}
 
