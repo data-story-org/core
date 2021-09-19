@@ -5,7 +5,7 @@ import { Link } from './Link';
 import { Node } from './Node';
 import { Port } from './Port';
 import { DownloaderNode } from './DownloaderNode';
-import { Output } from './nodes';
+import { Input, Output } from './nodes';
 import { Feature } from '../Feature';
 
 export interface DiagramRunResult {
@@ -118,13 +118,18 @@ export class Diagram {
     });
   }
 
+	getInputNodes() {
+		return this.nodes.filter(n => n instanceof Input)
+	}
+
+	getOutputNodes() {
+		return this.nodes.filter(n => n instanceof Output)
+	}
+
   getOutputFeatures(name = 'Output'): Feature[] {
-    const outputtingNode = this.nodes.find((n) => {
-      return (
-        n instanceof Output &&
-        name == n.getParameterValue('node_name')
-      );
-    });
+    const outputtingNode = this.getOutputNodes().find(n => {
+			return name == n.getParameterValue('node_name')
+		});
 
     return outputtingNode.features;
   }
