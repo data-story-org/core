@@ -70,12 +70,12 @@ describe('Outputs', () => {
 
     let afterRunning = (
       (await getDiagram().run()) as any
-    ).data.diagram.getOutput();
+    ).diagram.getOutput();
     expect(afterRunning).toStrictEqual(defaultOutput);
 
     let explicit = (
       (await getDiagram().run()) as any
-    ).data.diagram.getOutput('Output');
+    ).diagram.getOutput('Output');
     expect(explicit).toStrictEqual(defaultOutput);
   });
 
@@ -85,14 +85,14 @@ describe('Outputs', () => {
 
     let afterRunning = (
       (await getDiagram().run()) as any
-    ).data.diagram.getOutputFeatures();
+    ).diagram.getOutputFeatures();
     expect(afterRunning).toStrictEqual(
       defaultOutputFeatures,
     );
 
     let explicit = (
       (await getDiagram().run()) as any
-    ).data.diagram.getOutputFeatures('Output');
+    ).diagram.getOutputFeatures('Output');
     expect(explicit).toStrictEqual(defaultOutputFeatures);
   });
 });
@@ -110,8 +110,8 @@ describe('Outputs', () => {
     let runResult: any = await getDiagram().run({
       Input: [1, 2, 3].map((n) => new Feature(n)),
     });
-    expect(
-      runResult.data.diagram.getOutput(),
-    ).toStrictEqual([3, 6, 9]);
+    expect(runResult.diagram.getOutput()).toStrictEqual([
+      3, 6, 9,
+    ]);
   });
 });

@@ -270,7 +270,7 @@ export class NodeTester {
     await this.diagram
       .run()
       .then((result: any) => {
-        this.runResult = result.data.diagram;
+        this.runResult = result.diagram;
         this.ranSuccessfully = true;
       })
       .catch((f) => {
