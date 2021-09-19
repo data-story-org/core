@@ -118,18 +118,20 @@ export class Diagram {
     });
   }
 
-	getInputNodes(): Node[] {
-		return this.nodes.filter(n => n instanceof Input)
-	}
+  getInputNodes(): Node[] {
+    return this.nodes.filter((n) => n instanceof Input);
+  }
 
-	getOutputNodes(): Node[] {
-		return this.nodes.filter(n => n instanceof Output)
-	}
+  getOutputNodes(): Node[] {
+    return this.nodes.filter((n) => n instanceof Output);
+  }
 
   getOutputFeatures(name = 'Output'): Feature[] {
-    const outputtingNode = this.getOutputNodes().find(n => {
-			return name == n.getParameterValue('node_name')
-		});
+    const outputtingNode = this.getOutputNodes().find(
+      (n) => {
+        return name == n.getParameterValue('node_name');
+      },
+    );
 
     return outputtingNode.features;
   }
