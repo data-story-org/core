@@ -1,6 +1,6 @@
 {
   "name": "@data-story-org/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
