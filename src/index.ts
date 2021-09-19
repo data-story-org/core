@@ -20,4 +20,4 @@ export { Feature } from './Feature';
 export { NodeParameter } from './NodeParameter';
 export { repeatableConverter } from './NodeParameter';
 
-export { demos } from './server/demos';
+export { Demo, demos } from './server/demos';
