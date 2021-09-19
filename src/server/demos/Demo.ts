@@ -1,10 +1,10 @@
-import { Diagram } from "../Diagram";
+import { Diagram } from '../Diagram';
 
 export class Demo {
-	constructor(
+  constructor(
     public name: string,
     public description: string,
     public tags: string[],
-		public diagram: Diagram
+    public diagram: Diagram,
   ) {}
 }
