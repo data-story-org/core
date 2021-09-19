@@ -7,6 +7,8 @@ import {
 } from './nodes/factories';
 import { Node } from './Node';
 import { DataStoryContext } from './DataStoryContext';
+import { DownloaderNode } from './DownloaderNode';
+import { DataDonwloadFunction } from '../types';
 
 export class NodeFactory {
   context: DataStoryContext;
@@ -14,16 +16,22 @@ export class NodeFactory {
     all[name] = nodes[name];
     return all;
   }, {});
+  downloaderFunction: DataDonwloadFunction;
 
   static withContext(context) {
     return new this(context);
+  }
+
+  withDownloader(downloaderFunction: DataDonwloadFunction) {
+    this.downloaderFunction = downloaderFunction;
+    return this;
   }
 
   withNodes(nodes) {
     nodes.forEach((node) => {
       this.prototypes = {
         ...this.prototypes,
-        [new node().name]: node,
+        [new node().nodeType]: node,
       };
     });
     return this;
@@ -63,12 +71,25 @@ export class NodeFactory {
     );
   }
 
-  hydrate(node: SerializedNode, diagram = null): Node {
+  hydrate(
+    node: SerializedNode,
+    diagram = null,
+  ): Node | DownloaderNode {
     const type = this.prototypes[node.nodeType];
 
-    return new type({
+    const hydratedNode = new type({
       ...node,
       diagram,
     });
+
+    if (
+      hydratedNode instanceof DownloaderNode &&
+      this.downloaderFunction
+    ) {
+      hydratedNode.downloadData.downloaderFunction =
+        this.downloaderFunction;
+    }
+
+    return hydratedNode;
   }
 }

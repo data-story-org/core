@@ -3,14 +3,27 @@ import { BootPayload } from '../types/BootPayload';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
 import { DataStoryContext } from './DataStoryContext';
+import { DataDonwloadFunction } from '../types';
+
+export interface ServerOptions {
+  downloaderFunction?: DataDonwloadFunction;
+}
 
 export class Server {
   context: DataStoryContext;
   nodeFactory: NodeFactory;
+  diagramFactory: DiagramFactory;
 
-  constructor(context = {}) {
+  constructor(
+    context: DataStoryContext = {},
+    options?: ServerOptions,
+  ) {
     this.context = context;
-    this.nodeFactory = NodeFactory.withContext(context);
+    this.nodeFactory = NodeFactory.withContext(
+      context,
+    ).withDownloader(options?.downloaderFunction);
+    this.diagramFactory =
+      DiagramFactory.withContext(context);
   }
 
   public boot(extraNodes?) {
@@ -29,7 +42,7 @@ export class Server {
   public async run(
     diagram: SerializedDiagram,
   ): Promise<{}> {
-    return DiagramFactory.withContext(this.context)
+    return this.diagramFactory
       .hydrate(
         diagram as SerializedDiagram,
         this.nodeFactory,
