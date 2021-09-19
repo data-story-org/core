@@ -29,7 +29,6 @@ export abstract class Node {
   public category = 'Custom';
   public editableInPorts = false;
   public editableOutPorts = false;
-  public key = 'test-key';
   public name: string;
   public nodeType: string;
   public nodeReact = 'Node';
@@ -137,7 +136,6 @@ export abstract class Node {
       editableInPorts: this.editableInPorts,
       editableOutPorts: this.editableOutPorts,
       ports: this.ports.map((port) => port.serialize()),
-      key: this.key,
       name: this.name,
       nodeReact: this.nodeReact,
       nodeType: this.nodeType ?? this.name,
