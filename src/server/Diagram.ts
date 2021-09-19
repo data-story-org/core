@@ -8,6 +8,10 @@ import { DownloaderNode } from './DownloaderNode';
 import { Output } from './nodes';
 import { Feature } from '../Feature';
 
+export interface DiagramRunResult {
+  diagram: Diagram;
+}
+
 export class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];
@@ -36,7 +40,7 @@ export class Diagram {
     });
   }
 
-  async run(inputMap = {}) {
+  async run(inputMap = {}): Promise<DiagramRunResult> {
     this.populateInputs(inputMap);
 
     for await (const node of this.executionOrder()) {
@@ -48,9 +52,7 @@ export class Diagram {
 
     return new Promise((callback) => {
       return callback({
-        data: {
-          diagram: this,
-        },
+        diagram: this,
       });
     });
   }
