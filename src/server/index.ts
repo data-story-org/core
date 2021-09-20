@@ -8,3 +8,4 @@ export { Link } from './Link';
 export { Node } from './Node';
 export { Port } from './Port';
 export * from './DownloaderNode';
+export * from './DataStory';
