@@ -4,6 +4,7 @@ import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
 import { DataStoryContext } from './DataStoryContext';
 import { DataDonwloadFunction } from '../types';
+import { DataStory } from './DataStory';
 
 export interface ServerOptions {
   downloaderFunction?: DataDonwloadFunction;
@@ -50,7 +51,7 @@ export class Server {
       .run();
   }
 
-  public async save(name: string, model: any) {
+  public async save(story: DataStory<any>) {
     return new Promise((success) => {
       return success(true);
     });
