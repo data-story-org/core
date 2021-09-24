@@ -5,6 +5,7 @@ export {
   Link,
   Server,
   DiagramBuilder,
+  Story,
 } from './server';
 
 export {
@@ -20,4 +21,4 @@ export { Feature } from './Feature';
 export { NodeParameter } from './NodeParameter';
 export { repeatableConverter } from './NodeParameter';
 
-export { Demo, demos } from './server/demos';
+export { demos } from './server/demos';
