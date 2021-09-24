@@ -5,7 +5,7 @@ export {
   Link,
   Server,
   DiagramBuilder,
-  DataStory,
+  Story,
 } from './server';
 
 export {
