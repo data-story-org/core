@@ -3,7 +3,6 @@ import { NodeParameter } from "../../NodeParameter";
 import axios, { AxiosRequestConfig } from "axios";
 import { Feature } from "../../Feature";
 const cheerio = require('cheerio');
-import { nonCircularJsonStringify } from '@data-story-org/core/utils';
 
 export class ScrapeHTML extends Node {
 	constructor(options = {}) {
