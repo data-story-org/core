@@ -19,14 +19,15 @@ export class ScrapeHTML extends Node {
 	}
 
 	async run() {
-		const proxy = 'https://nameless-dawn-49509.herokuapp.com'
-		const url = 'https://www.hemnet.se/bostader'
-		const selector = '.normal-results__hit'
+		const proxy = this.getParameterValue('proxy')
+		const url = this.getParameterValue('url')
+		const fullUrl = (proxy ? proxy + '/': '') + url
+		const selector = this.getParameterValue('Root selector')
 		const config = {
 			'X-Requested-With': 'XMLHttpRequest'
 		} as AxiosRequestConfig
 	
-		await axios.get(`${proxy}/${url}`, config)
+		await axios.get(fullUrl, config)
 			.then((response) => {
 				const $ = cheerio.load(response.data);
 				
@@ -69,7 +70,7 @@ export class ScrapeHTML extends Node {
 		return feature
 	}
 
-	extractAttributeValue(element, selector, method): string {
+	extractAttributeValue(element, selector, method = 'single'): string {
 		const $ = cheerio.load(element);
 
 		if(method != 'single') return;
@@ -80,6 +81,8 @@ export class ScrapeHTML extends Node {
   getDefaultParameters() {
     return [
       ...super.getDefaultParameters(),
+			NodeParameter.string('url').withValue('https://www.hemnet.se/bostader'),
+			NodeParameter.string('proxy').withValue('https://nameless-dawn-49509.herokuapp.com'),
 			NodeParameter.string('Root selector').withValue('.normal-results__hit'),
       NodeParameter.row('Attribute extractions', [
         NodeParameter.string('attribute').withValue(
