@@ -2,7 +2,7 @@ import { Node } from "../Node";
 import { NodeParameter } from "../../NodeParameter";
 import axios, { AxiosRequestConfig } from "axios";
 import { Feature } from "../../Feature";
-const cheerio = require('cheerio');
+import cheerio from 'cheerio'
 
 export class ScrapeHTML extends Node {
 	constructor(options = {}) {
@@ -31,7 +31,7 @@ export class ScrapeHTML extends Node {
 				const $ = cheerio.load(response.data);
 				
 				const elements = $(selector);
-				let features = this.toFeatures(elements)
+				const features = this.toFeatures(elements)
 				this.output(features)
 			})
 			.catch((reason) => {
@@ -40,7 +40,7 @@ export class ScrapeHTML extends Node {
 			});			
 	}
 	
-	toFeatures(elements) {
+	toFeatures(elements): Feature[] {
 		const features = []
 		
 		for (let i = 0; i < elements.length; i++) {
@@ -51,7 +51,7 @@ export class ScrapeHTML extends Node {
 		return features
 	}
 
-	extractFeature(element) {
+	extractFeature(element): Feature {
     const extractions = this.getParameterValue('Attribute extractions');		
 		const feature = new Feature({})
 
@@ -69,7 +69,7 @@ export class ScrapeHTML extends Node {
 		return feature
 	}
 
-	extractAttributeValue(element, selector, method) {
+	extractAttributeValue(element, selector, method): string {
 		const $ = cheerio.load(element);
 
 		if(method != 'single') return;
