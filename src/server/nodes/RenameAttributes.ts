@@ -66,10 +66,10 @@ export class RenameAttributes extends Node {
     return [
       ...super.getDefaultParameters(),
       NodeParameter.row('Attributes to rename', [
-        NodeParameter.string('input').withValue(
+        NodeParameter.string('input').withPlaceholder(
           'Attribute',
         ),
-        NodeParameter.string('output').withValue(
+        NodeParameter.string('output').withPlaceholder(
           'New name',
         ),
       ]).repeatable(),
