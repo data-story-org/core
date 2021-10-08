@@ -43,8 +43,8 @@ export class RemoveAttributes extends Node {
   getDefaultParameters() {
     return [
       ...super.getDefaultParameters(),
-      NodeParameter.string('attributes to remove')
-        .withValue('resource')
+      NodeParameter.string('Attributes to remove')
+        .withPlaceholder('Attribute name')
         .repeatable(),
     ];
   }
