@@ -12,7 +12,6 @@ export class DownloadJSON extends DownloaderNode {
       category: 'Downloader',
       defaultInPorts: ['Input'],
       defaultOutPorts: [],
-      // defaultOutPorts: ['Output'],
       // Explicitly configured
       ...options,
     });
