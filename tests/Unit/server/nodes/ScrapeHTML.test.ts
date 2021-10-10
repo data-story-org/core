@@ -16,37 +16,37 @@ const html = `
 		</li>			
 	</ul>		
 </body>	
-`
+`;
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.get.mockResolvedValue({
-	data: html
+  data: html,
 });
 
 describe('ScrapeHTML node', () => {
-	it('can extract attributes', async () => {
-		await when(ScrapeHTML)
-			.hasParameters({
-				'url': 'https://faked-persons.html',
-				'Root selector': '.person-card',
-				'Attribute extractions': [
-					{
-						attribute: { value: 'name' },
-						selector: { value: '.person-name' },
-						method: { value: 'single' },
-					},
-					{
-						attribute: { value: 'skill' },
-						selector: { value: '.person-skill' },
-						method: { value: 'single' },						
-					},					
-				],				
-			})
-			.assertOutput([
-				{name: 'Jerry', skill: 'C++'},
-				{name: 'Jane', skill: 'Rust'}
-			])
-			.finish();
-	})
+  it('can extract attributes', async () => {
+    await when(ScrapeHTML)
+      .hasParameters({
+        url: 'https://faked-persons.html',
+        'Root selector': '.person-card',
+        'Attribute extractions': [
+          {
+            attribute: { value: 'name' },
+            selector: { value: '.person-name' },
+            method: { value: 'single' },
+          },
+          {
+            attribute: { value: 'skill' },
+            selector: { value: '.person-skill' },
+            method: { value: 'single' },
+          },
+        ],
+      })
+      .assertOutput([
+        { name: 'Jerry', skill: 'C++' },
+        { name: 'Jane', skill: 'Rust' },
+      ])
+      .finish();
+  });
 });
