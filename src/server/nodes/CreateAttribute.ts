@@ -25,8 +25,8 @@ export class CreateAttribute extends Node {
 
     toCreate.map((result) => {
       valuesMap.set(
-        result['attribute']['value'],
-        result['value']['value'],
+        result['Attribute']['value'],
+        result['Value']['value'],
       );
     });
 
@@ -48,10 +48,12 @@ export class CreateAttribute extends Node {
     return [
       ...super.getDefaultParameters(),
       NodeParameter.row('Atrribute & value to create', [
-        NodeParameter.string('attribute').withValue(
-          'Attribute',
+        NodeParameter.string('Attribute').withPlaceholder(
+          'attribute',
         ),
-        NodeParameter.string('value').withValue('Value'),
+        NodeParameter.string('Value').withPlaceholder(
+          'value',
+        ),
       ]).repeatable(),
     ];
   }

@@ -18,7 +18,7 @@ export class RemoveAttributes extends Node {
 
   async run() {
     const toRemove = this.getParameterValue(
-      'attributes to remove',
+      'Attributes to remove',
     );
 
     this.output(
@@ -43,8 +43,8 @@ export class RemoveAttributes extends Node {
   getDefaultParameters() {
     return [
       ...super.getDefaultParameters(),
-      NodeParameter.string('attributes to remove')
-        .withValue('resource')
+      NodeParameter.string('Attributes to remove')
+        .withPlaceholder('Attribute name')
         .repeatable(),
     ];
   }

@@ -97,13 +97,12 @@ export class Filter extends Node {
     return [
       ...super.getDefaultParameters(),
       NodeParameter.string('attribute to match against')
-        .withValue('attribute to match')
+        .withPlaceholder('Attribute')
         .withDescription(
           'you may use dot notated paths, or none to match feature generally',
         ),
       NodeParameter.port('Output ports', 'String_')
-        .withValue('port')
-        .withPlaceholder('port')
+        .withPlaceholder('port name')
         .repeatable(),
     ];
   }
