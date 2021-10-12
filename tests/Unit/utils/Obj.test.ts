@@ -1,4 +1,4 @@
-import { pickBy } from '../../../../src/utils/Obj';
+import { pickBy } from '../../../src/utils/Obj';
 
 test('it can pick key values in object', () => {
   const nonZeroes = pickBy(
