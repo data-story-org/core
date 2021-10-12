@@ -6,7 +6,7 @@ const nodeName = process.argv[2];
 fs.writeFile(
   __dirname + '/../src/server/nodes/' + nodeName + '.ts',
   fs
-    .readFileSync(__dirname + '/add-node.stub')
+    .readFileSync(__dirname + '/stubs/add-node.stub')
     .toString()
     .replace(/NODE_NAME/g, nodeName),
   {},
@@ -35,7 +35,7 @@ fs.writeFile(
     nodeName +
     '.test.ts',
   fs
-    .readFileSync(__dirname + '/add-node-test.stub')
+    .readFileSync(__dirname + '/stubs/add-node-test.stub')
     .toString()
     .replace(/NODE_NAME/g, nodeName),
   {},

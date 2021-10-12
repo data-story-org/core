@@ -3,7 +3,6 @@ import { DiagramBuilder } from '../../../src/server/DiagramBuilder';
 import { Feature } from '../../../src/Feature';
 import { OutputProvider } from '../../../src/server/nodes/OutputProvider';
 import { Port } from '../../../src/server/Port';
-import { Node } from '../../../src/server/Node';
 import { DataStoryContext } from '../../../src/server/DataStoryContext';
 import uniq from 'lodash/uniq';
 import { DownloaderNode } from '../../../src/server/DownloaderNode';

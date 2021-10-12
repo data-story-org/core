@@ -1,4 +1,4 @@
-import { Feature } from '../../../src/Feature';
+import { Feature } from '../../src/Feature';
 
 test('a Feature can be instantiate from various types', () => {
   ['str', 123, [], {}, { foo: 'bar' }].forEach((value) => {

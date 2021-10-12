@@ -14,24 +14,3 @@ export type SerializedNode = {
   summary: string; // what?
   nodeType: string;
 };
-
-// TO BE MOVED TO GUI
-export type SerializedReactNode = {
-  id: string;
-  type: string;
-  x: number;
-  y: number;
-  ports: unknown[]; //SerializedPort
-  category: string;
-  editableInPorts: boolean;
-  editableOutPorts: boolean;
-  key?: string; // what?
-  name: string;
-  nodeReact: string; // what?
-  parameters: NodeParameter[];
-  summary: string; // what?
-  nodeType: string;
-  selected: unknown;
-  extras: unknown;
-  locked: unknown;
-};
