@@ -8,8 +8,8 @@ it('can add a attribute value to an object feature', async () => {
     .parameters({
       'Atrribute & value to create': [
         {
-          attribute: { value: 'foo' },
-          value: { value: 'bar' },
+          Attribute: { value: 'foo' },
+          Value: { value: 'bar' },
         },
       ],
     })
@@ -24,8 +24,8 @@ it('can add a attribute with object value to an object feature', async () => {
     .parameters({
       'Atrribute & value to create': [
         {
-          attribute: { value: 'foo' },
-          value: { value: {} },
+          Attribute: { value: 'foo' },
+          Value: { value: {} },
         },
       ],
     })
