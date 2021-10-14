@@ -84,7 +84,7 @@ export class ScrapeHTML extends Node {
     element,
     selector,
     method = 'single',
-  ): any {
+  ): unknown {
     const $ = cheerio.load(element);
 
 		const matches = $(selector)
