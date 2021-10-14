@@ -84,12 +84,19 @@ export class ScrapeHTML extends Node {
     element,
     selector,
     method = 'single',
-  ): string {
+  ): unknown {
     const $ = cheerio.load(element);
 
-    if (method != 'single') return;
+		const matches = $(selector)
+    if (method == 'single') return matches[0].firstChild.data;
 
-    return $(selector)[0].firstChild.data;
+		const attributeValues = [];
+
+		for (let i = 0; i < matches.length; i++) {
+			attributeValues.push(matches[i].firstChild.data)
+		}
+
+		return attributeValues
   }
 
   getDefaultParameters() {
@@ -112,8 +119,8 @@ export class ScrapeHTML extends Node {
           '.listing-card__street-address',
         ),
         // Refactor to select
-        NodeParameter.string('method')
-          .withPlaceholder('single || multiple') // Ensure this works
+        NodeParameter.select('method')
+          .withOptions(['single', 'multiple'])
           .withValue('single'), // Only single implemented at the moment
       ]).repeatable(),
     ];

@@ -9,10 +9,11 @@ const html = `
 		<li class="person-card">
 			<h2 class="person-name">Jerry</h2>
 			<p class="person-skill">C++</p>
+			<p class="person-skill">Java</p>
 		</li>
 		<li class="person-card">
 			<h2 class="person-name">Jane</h2>
-			<p class="person-skill">Rust</p>
+			<p class="person-skill">Rust</p>			
 		</li>			
 	</ul>		
 </body>	
@@ -37,15 +38,21 @@ describe('ScrapeHTML node', () => {
             method: { value: 'single' },
           },
           {
-            attribute: { value: 'skill' },
+            attribute: { value: 'skills' },
             selector: { value: '.person-skill' },
-            method: { value: 'single' },
+            method: { value: 'multiple' },
           },
         ],
       })
       .assertOutput([
-        { name: 'Jerry', skill: 'C++' },
-        { name: 'Jane', skill: 'Rust' },
+        {
+					name: 'Jerry',
+					skills: ['C++', 'Java']
+				},
+        {
+					name: 'Jane',
+					skills: ['Rust']
+				},
       ])
       .finish();
   });
