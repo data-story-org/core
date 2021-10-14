@@ -92,7 +92,7 @@ export class ScrapeHTML extends Node {
 
 		const attributeValues = [];
 
-		for (var i = 0; i < matches.length; i++) {
+		for (let i = 0; i < matches.length; i++) {
 			attributeValues.push(matches[i].firstChild.data)
 		}
 
