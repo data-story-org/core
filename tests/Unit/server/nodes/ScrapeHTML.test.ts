@@ -46,13 +46,13 @@ describe('ScrapeHTML node', () => {
       })
       .assertOutput([
         {
-					name: 'Jerry',
-					skills: ['C++', 'Java']
-				},
+          name: 'Jerry',
+          skills: ['C++', 'Java'],
+        },
         {
-					name: 'Jane',
-					skills: ['Rust']
-				},
+          name: 'Jane',
+          skills: ['Rust'],
+        },
       ])
       .finish();
   });

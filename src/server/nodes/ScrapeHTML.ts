@@ -87,16 +87,17 @@ export class ScrapeHTML extends Node {
   ): unknown {
     const $ = cheerio.load(element);
 
-		const matches = $(selector)
-    if (method == 'single') return matches[0].firstChild.data;
+    const matches = $(selector);
+    if (method == 'single')
+      return matches[0].firstChild.data;
 
-		const attributeValues = [];
+    const attributeValues = [];
 
-		for (let i = 0; i < matches.length; i++) {
-			attributeValues.push(matches[i].firstChild.data)
-		}
+    for (let i = 0; i < matches.length; i++) {
+      attributeValues.push(matches[i].firstChild.data);
+    }
 
-		return attributeValues
+    return attributeValues;
   }
 
   getDefaultParameters() {
