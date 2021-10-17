@@ -19,17 +19,19 @@ export type NodeMap = {
   [name: string]: Node;
 };
 
-type SpecializedFactoryClass = {new(factory: NodeFactory): SpecializedNodeFactory}
+type SpecializedFactoryClass = {
+  new (factory: NodeFactory): SpecializedNodeFactory;
+};
 
 export class NodeFactory {
   context: DataStoryContext;
   prototypes: PrototypeMap = nodes;
   downloaderFunction: DataDownloadFunction;
-	factories: SpecializedFactoryClass[] = [
-		DefaultNodeFactory,
-		ApiNodeFactory,
-		ContextNodeFactory
-	]
+  factories: SpecializedFactoryClass[] = [
+    DefaultNodeFactory,
+    ApiNodeFactory,
+    ContextNodeFactory,
+  ];
 
   static withContext(context) {
     return new this(context);

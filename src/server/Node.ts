@@ -22,7 +22,9 @@ type NodeOptions = {
   features?: Feature[];
 };
 
-export type NodeClass = {new(options?: NodeOptions): Node}
+export type NodeClass = {
+  new (options?: NodeOptions): Node;
+};
 
 export abstract class Node {
   public id: string;
