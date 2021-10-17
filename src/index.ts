@@ -14,7 +14,7 @@ export {
   SerializedNode,
   SerializedPort,
   BootPayload,
-  DataDonwloadFunction,
+  DataDownloadFunction,
 } from './types';
 
 export { Feature } from './Feature';

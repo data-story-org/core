@@ -1,5 +1,7 @@
+import { NodeMap } from "../../NodeFactory";
+
 export class DefaultNodeFactory {
-  static make(nodes: {}): Record<string, unknown> {
+  static make(nodes: {}): NodeMap {
     const instances = {};
 
     for (const name in nodes) {

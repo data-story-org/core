@@ -8,21 +8,34 @@ import {
 import { Node } from './Node';
 import { DataStoryContext } from './DataStoryContext';
 import { DownloaderNode } from './DownloaderNode';
-import { DataDonwloadFunction } from '../types';
+import { DataDownloadFunction } from '../types';
 
+export type PrototypeMap = {
+	[name: string]: any // TODO -> "typeof Node", reference classes not an instances
+}
+
+export type NodeMap = {
+	[name: string]: Node
+}
+
+const prototypes: PrototypeMap = Object.keys(nodes).reduce((all, name) => {
+	all[name] = nodes[name];
+	return all;
+}, {});
 export class NodeFactory {
   context: DataStoryContext;
-  prototypes = Object.keys(nodes).reduce((all, name) => {
-    all[name] = nodes[name];
-    return all;
-  }, {});
-  downloaderFunction: DataDonwloadFunction;
+  prototypes = prototypes
+  downloaderFunction: DataDownloadFunction;
 
   static withContext(context) {
     return new this(context);
   }
 
-  withDownloader(downloaderFunction: DataDonwloadFunction) {
+  constructor(context = {}) {
+    this.context = context;
+  }	
+
+  withDownloader(downloaderFunction: DataDownloadFunction) {
     this.downloaderFunction = downloaderFunction;
     return this;
   }
@@ -37,23 +50,19 @@ export class NodeFactory {
     return this;
   }
 
-  constructor(context = {}) {
-    this.context = context;
-  }
-
-  defaultNodes(): {} {
+  defaultNodes(): NodeMap {
     return DefaultNodeFactory.make(this.prototypes);
   }
 
-  apiNodes(): {} {
+  apiNodes(): NodeMap {
     return ApiNodeFactory.make(this.context);
   }
 
-  contextNodes() {
+  contextNodes(): NodeMap {
     return ContextNodeFactory.make(this.context);
   }
 
-  all(): object {
+  all(): NodeMap {
     return {
       ...this.defaultNodes(),
       ...this.apiNodes(),
@@ -61,7 +70,7 @@ export class NodeFactory {
     };
   }
 
-  find(nodeType) {
+  find(nodeType: string): Node {
     return this.all()[nodeType];
   }
 

@@ -1,6 +1,6 @@
 import { isBrowserEnv } from '../utils';
 
-export type DataDonwloadFunction = (
+export type DataDownloadFunction = (
   downloadData: DownloadDataI<any>,
 ) => Promise<void>;
 
@@ -9,10 +9,10 @@ export interface DownloadDataI<T> {
   mimeType: string;
   fileName?: string;
   fileExtension: string;
-  downloaderFunction?: DataDonwloadFunction;
+  downloaderFunction?: DataDownloadFunction;
 }
 
-export const defaultDataDownloader: DataDonwloadFunction =
+export const defaultDataDownloader: DataDownloadFunction =
   async (downloadData: DownloadDataI<any>) => {
     if (isBrowserEnv) {
       const { data, mimeType, fileName, fileExtension } =
@@ -39,7 +39,7 @@ export class DownloadData<T> {
   mimeType: string;
   fileName: string;
   fileExtension: string;
-  downloaderFunction: DataDonwloadFunction =
+  downloaderFunction: DataDownloadFunction =
     defaultDataDownloader;
 
   public async download() {
