@@ -9,9 +9,10 @@ import { Node } from './Node';
 import { DataStoryContext } from './DataStoryContext';
 import { DownloaderNode } from './DownloaderNode';
 import { DataDownloadFunction } from '../types';
+import { SpecializedNodeFactory } from './nodes/factories/SpecializedNodeFactory';
 
 export type PrototypeMap = {
-  [name: string]: any; // TODO -> "typeof Node", reference classes not an instances
+  [name: string]: any; // TODO -> "typeof Node", reference classes not instances
 };
 
 export type NodeMap = {
@@ -22,6 +23,11 @@ export class NodeFactory {
   context: DataStoryContext;
   prototypes: PrototypeMap = nodes;
   downloaderFunction: DataDownloadFunction;
+	factories: any[] = [ // TODO "~~SpecializedNodeFactory[]", reference classes not instances
+		DefaultNodeFactory,
+		ApiNodeFactory,
+		ContextNodeFactory
+	]
 
   static withContext(context) {
     return new this(context);
@@ -46,24 +52,13 @@ export class NodeFactory {
     return this;
   }
 
-  defaultNodes(): NodeMap {
-    return DefaultNodeFactory.make(this.prototypes);
-  }
-
-  apiNodes(): NodeMap {
-    return ApiNodeFactory.make(this.context);
-  }
-
-  contextNodes(): NodeMap {
-    return ContextNodeFactory.make(this.context);
-  }
-
   all(): NodeMap {
-    return {
-      ...this.defaultNodes(),
-      ...this.apiNodes(),
-      ...this.contextNodes(),
-    };
+		return this.factories.reduce((all, subFactory) => {
+			return {
+				...all,
+				...((new subFactory(this)).all())
+			}
+		}, {})
   }
 
   nodeDescriptions() {
