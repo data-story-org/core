@@ -11,20 +11,23 @@ import { DownloaderNode } from './DownloaderNode';
 import { DataDownloadFunction } from '../types';
 
 export type PrototypeMap = {
-	[name: string]: any // TODO -> "typeof Node", reference classes not an instances
-}
+  [name: string]: any; // TODO -> "typeof Node", reference classes not an instances
+};
 
 export type NodeMap = {
-	[name: string]: Node
-}
+  [name: string]: Node;
+};
 
-const prototypes: PrototypeMap = Object.keys(nodes).reduce((all, name) => {
-	all[name] = nodes[name];
-	return all;
-}, {});
+const prototypes: PrototypeMap = Object.keys(nodes).reduce(
+  (all, name) => {
+    all[name] = nodes[name];
+    return all;
+  },
+  {},
+);
 export class NodeFactory {
   context: DataStoryContext;
-  prototypes = prototypes
+  prototypes = prototypes;
   downloaderFunction: DataDownloadFunction;
 
   static withContext(context) {
@@ -33,7 +36,7 @@ export class NodeFactory {
 
   constructor(context = {}) {
     this.context = context;
-  }	
+  }
 
   withDownloader(downloaderFunction: DataDownloadFunction) {
     this.downloaderFunction = downloaderFunction;

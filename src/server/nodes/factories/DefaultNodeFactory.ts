@@ -1,4 +1,4 @@
-import { NodeMap } from "../../NodeFactory";
+import { NodeMap } from '../../NodeFactory';
 
 export class DefaultNodeFactory {
   static make(nodes: {}): NodeMap {
