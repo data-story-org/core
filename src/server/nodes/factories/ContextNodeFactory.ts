@@ -1,8 +1,17 @@
 import { DataStoryContext } from '../../DataStoryContext';
+import { NodeFactory, NodeMap } from '../../NodeFactory';
 import { ResolveContextFeatures } from '../ResolveContextFeatures';
+import { SpecializedNodeFactory } from './SpecializedNodeFactory';
 
-export class ContextNodeFactory {
-  static make(context: DataStoryContext): {} {
+export class ContextNodeFactory implements SpecializedNodeFactory {
+	parentFactory: NodeFactory
+
+	constructor(parentFactory: NodeFactory) {
+		this.parentFactory = parentFactory
+	}
+
+  all(): NodeMap {
+		const context = this.parentFactory.context
     const models = context.models;
     if (!models) return {};
 

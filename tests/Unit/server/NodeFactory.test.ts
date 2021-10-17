@@ -3,7 +3,6 @@ import {
   NodeFactory,
   NodeMap,
 } from '../../../src/server/NodeFactory';
-import { Create } from '../../../src/server/nodes';
 
 describe('NodeFactory', () => {
   const factory = () => {
@@ -19,11 +18,5 @@ describe('NodeFactory', () => {
     Object.entries(nodes).forEach(([_nodeType, node]) => {
       expect(node).toBeInstanceOf(Node);
     });
-  });
-
-  it('can create a specific node', () => {
-    const node = factory().find('Create');
-
-    expect(node).toBeInstanceOf(Create);
   });
 });
