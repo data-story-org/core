@@ -18,16 +18,9 @@ export type NodeMap = {
   [name: string]: Node;
 };
 
-const prototypes: PrototypeMap = Object.keys(nodes).reduce(
-  (all, name) => {
-    all[name] = nodes[name];
-    return all;
-  },
-  {},
-);
 export class NodeFactory {
   context: DataStoryContext;
-  prototypes = prototypes;
+  prototypes: PrototypeMap = nodes;
   downloaderFunction: DataDownloadFunction;
 
   static withContext(context) {
