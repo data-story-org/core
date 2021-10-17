@@ -1,5 +1,5 @@
-import { NodeMap } from "../../NodeFactory";
+import { NodeMap } from '../../NodeFactory';
 
 export interface SpecializedNodeFactory {
-	all(): NodeMap
+  all(): NodeMap;
 }

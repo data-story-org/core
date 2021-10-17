@@ -23,11 +23,12 @@ export class NodeFactory {
   context: DataStoryContext;
   prototypes: PrototypeMap = nodes;
   downloaderFunction: DataDownloadFunction;
-	factories: any[] = [ // TODO "~~SpecializedNodeFactory[]", reference classes not instances
-		DefaultNodeFactory,
-		ApiNodeFactory,
-		ContextNodeFactory
-	]
+  factories: any[] = [
+    // TODO "~~SpecializedNodeFactory[]", reference classes not instances
+    DefaultNodeFactory,
+    ApiNodeFactory,
+    ContextNodeFactory,
+  ];
 
   static withContext(context) {
     return new this(context);
@@ -53,12 +54,12 @@ export class NodeFactory {
   }
 
   all(): NodeMap {
-		return this.factories.reduce((all, subFactory) => {
-			return {
-				...all,
-				...((new subFactory(this)).all())
-			}
-		}, {})
+    return this.factories.reduce((all, subFactory) => {
+      return {
+        ...all,
+        ...new subFactory(this).all(),
+      };
+    }, {});
   }
 
   nodeDescriptions() {

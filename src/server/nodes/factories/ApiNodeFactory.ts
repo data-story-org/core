@@ -2,15 +2,17 @@ import { NodeFactory, NodeMap } from '../../NodeFactory';
 import { HTTPRequest } from '../HTTPRequest';
 import { SpecializedNodeFactory } from './SpecializedNodeFactory';
 
-export class ApiNodeFactory implements SpecializedNodeFactory {
-	parentFactory: NodeFactory
+export class ApiNodeFactory
+  implements SpecializedNodeFactory
+{
+  parentFactory: NodeFactory;
 
-	constructor(parentFactory: NodeFactory) {
-		this.parentFactory = parentFactory
-	}
+  constructor(parentFactory: NodeFactory) {
+    this.parentFactory = parentFactory;
+  }
 
   all(): NodeMap {
-		const context = this.parentFactory.context		
+    const context = this.parentFactory.context;
     const apis = context.apis;
     if (!apis) return {};
 
