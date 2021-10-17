@@ -66,10 +66,6 @@ export class NodeFactory {
     };
   }
 
-  find(nodeType: string): Node {
-    return this.all()[nodeType];
-  }
-
   nodeDescriptions() {
     return Object.values(this.all()).map((node) =>
       node.serialize(),
