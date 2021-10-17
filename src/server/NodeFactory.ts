@@ -25,20 +25,11 @@ export class NodeFactory {
   context: DataStoryContext;
   prototypes: PrototypeMap = nodes;
   downloaderFunction: DataDownloadFunction;
-<<<<<<< Updated upstream
-  factories: any[] = [
-    // TODO "~~SpecializedNodeFactory[]", reference classes not instances
-    DefaultNodeFactory,
-    ApiNodeFactory,
-    ContextNodeFactory,
-  ];
-=======
 	factories: SpecializedFactoryClass[] = [
 		DefaultNodeFactory,
 		ApiNodeFactory,
 		ContextNodeFactory
 	]
->>>>>>> Stashed changes
 
   static withContext(context) {
     return new this(context);
