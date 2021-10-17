@@ -3,11 +3,11 @@ import { BootPayload } from '../types/BootPayload';
 import { DiagramFactory } from './DiagramFactory';
 import { SerializedDiagram } from '../types/SerializedDiagram';
 import { DataStoryContext } from './DataStoryContext';
-import { DataDonwloadFunction } from '../types';
+import { DataDownloadFunction } from '../types';
 import { Story } from './Story';
 
 export interface ServerOptions {
-  downloaderFunction?: DataDonwloadFunction;
+  downloaderFunction?: DataDownloadFunction;
 }
 
 export class Server {
