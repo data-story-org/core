@@ -5,30 +5,31 @@ import {
   DefaultNodeFactory,
   ContextNodeFactory,
 } from './nodes/factories';
-import { Node } from './Node';
+import { Node, NodeClass } from './Node';
 import { DataStoryContext } from './DataStoryContext';
 import { DownloaderNode } from './DownloaderNode';
 import { DataDownloadFunction } from '../types';
 import { SpecializedNodeFactory } from './nodes/factories/SpecializedNodeFactory';
 
 export type PrototypeMap = {
-  [name: string]: any; // TODO -> "typeof Node", reference classes not instances
+  [name: string]: NodeClass;
 };
 
 export type NodeMap = {
   [name: string]: Node;
 };
 
+type SpecializedFactoryClass = {new(factory: NodeFactory): SpecializedNodeFactory}
+
 export class NodeFactory {
   context: DataStoryContext;
   prototypes: PrototypeMap = nodes;
   downloaderFunction: DataDownloadFunction;
-  factories: any[] = [
-    // TODO "~~SpecializedNodeFactory[]", reference classes not instances
-    DefaultNodeFactory,
-    ApiNodeFactory,
-    ContextNodeFactory,
-  ];
+	factories: SpecializedFactoryClass[] = [
+		DefaultNodeFactory,
+		ApiNodeFactory,
+		ContextNodeFactory
+	]
 
   static withContext(context) {
     return new this(context);
