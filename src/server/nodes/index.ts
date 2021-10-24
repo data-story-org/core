@@ -1,3 +1,4 @@
+
 export * from './Aggregate';
 export * from './Clone_';
 export * from './Comment';
@@ -21,6 +22,7 @@ export * from './Map';
 export * from './Multiply';
 export * from './Output';
 export * from './OutputProvider';
+export * from './RunDiagram';
 export * from './RegExpFilter';
 export * from './RemoveAttributes';
 export * from './RenameAttributes';
