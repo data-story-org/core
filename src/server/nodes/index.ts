@@ -1,3 +1,4 @@
+
 export * from './Aggregate';
 export * from './Clone_';
 export * from './Comment';
@@ -25,6 +26,7 @@ export * from './RegExpFilter';
 export * from './RemoveAttributes';
 export * from './RenameAttributes';
 export * from './ResolveContextFeatures';
+export * from './RunDiagram';
 export * from './Sample';
 export * from './ScrapeHTML';
 export * from './Sleep';
