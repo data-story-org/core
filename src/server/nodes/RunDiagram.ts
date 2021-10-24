@@ -4,6 +4,7 @@ import { DiagramRunResult } from "../Diagram";
 import { Feature } from "../../Feature";
 import { DiagramFactory } from "../DiagramFactory";
 import { NodeFactory } from "../NodeFactory";
+import { Diagram } from "..";
 
 export class RunDiagram extends Node {
 	constructor(options = {}) {
@@ -43,7 +44,7 @@ export class RunDiagram extends Node {
 		]
 	}
 	
-	getDiagram() {
+	getDiagram(): Diagram {
 		return (new DiagramFactory).hydrate(
 			JSON.parse(this.getParameterValue('diagram')),
 			new NodeFactory
