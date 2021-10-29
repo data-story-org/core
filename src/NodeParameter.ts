@@ -1,3 +1,6 @@
+import { FixedSizeArray } from './types';
+import { cloneClass, zip } from './utils';
+
 type Repeatables = {
   [k: number]: any;
 };
@@ -25,6 +28,10 @@ type ComplexFieldType = 'Row' | 'Port';
 
 type FieldType = SimpleFieldType | ComplexFieldType;
 
+type RowValue = {
+  [parameterName: string]: NodeParameter;
+};
+
 export class NodeParameter {
   name: string;
   description = '';
@@ -34,6 +41,7 @@ export class NodeParameter {
   defaultValue: any = '';
   options?: string[];
   isRepeatable = false;
+  extraRowsDefaultValues: any[] = [];
   wrappedPortType: SimpleFieldType = 'String_';
 
   constructor(name: string, value: any = '') {
@@ -78,11 +86,37 @@ export class NodeParameter {
       .withWrappedPortType(wrappedFieldType);
   }
 
-  static row(name: string, params: NodeParameter[]) {
-    const value = Object.fromEntries(
-      params.map((p) => [p.name, p]),
+  static row<ColumnsLength extends number>(
+    name: string,
+    rowParams: FixedSizeArray<ColumnsLength, NodeParameter>,
+    extraDefaultRows: Array<
+      FixedSizeArray<ColumnsLength, any>
+    > = [],
+  ) {
+    const value: RowValue = Object.fromEntries(
+      rowParams.map((p) => [p.name, p]),
     );
-    return this.make(name, value).withFieldType('Row');
+
+    const extraRowsValues = extraDefaultRows.map(
+      (extraRowValues) =>
+        Object.fromEntries(
+          zip(rowParams, extraRowValues).map(
+            ([parameter, value]) => [
+              parameter.name,
+              cloneClass(parameter).withValue(value),
+            ],
+          ),
+        ),
+    );
+
+    return this.make(name, value)
+      .withFieldType('Row')
+      .withExtraRowsValues(extraRowsValues);
+  }
+
+  withExtraRowsValues(extraRowsValues: RowValue[]) {
+    this.extraRowsDefaultValues = extraRowsValues;
+    return this;
   }
 
   withFieldType(type: FieldType) {
@@ -115,9 +149,12 @@ export class NodeParameter {
     return this;
   }
 
-  repeatable() {
+  repeatable(extraDefaultValues: any[] = []) {
     this.defaultValue = this.value;
-    this.value = [this.value];
+    this.value =
+      this.fieldType === 'Row'
+        ? [this.value, ...this.extraRowsDefaultValues]
+        : [this.value, ...extraDefaultValues];
 
     this.isRepeatable = true;
 
