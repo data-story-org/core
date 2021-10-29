@@ -12,3 +12,8 @@ export const groupBy = (items, key) => {
     {},
   );
 };
+
+export const zip = <A, B>(
+  a: Array<A> | ReadonlyArray<A>,
+  b: Array<B> | ReadonlyArray<B>,
+) => a.map((ele: A, i: number) => [ele, b[i]]);
