@@ -1,4 +1,4 @@
-import { NodeParameter } from '../NodeParameter';
+import { NodeParameter } from '../server/NodeParameter';
 import { SerializedPort } from './SerializedPort';
 
 export type SerializedNode = {

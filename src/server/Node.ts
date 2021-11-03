@@ -2,7 +2,7 @@ import { Diagram } from './Diagram';
 import cloneDeep from 'lodash/cloneDeep';
 import { Feature } from '../Feature';
 import { UID } from '../utils';
-import { NodeParameter } from '../NodeParameter';
+import { NodeParameter } from './NodeParameter';
 import { Port } from './Port';
 import { SerializedPort } from '../types';
 

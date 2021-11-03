@@ -1,5 +1,5 @@
-import { FixedSizeArray } from './types';
-import { cloneClass, zip } from './utils';
+import { FixedSizeArray } from '../../types';
+import { cloneClass, zip } from '../../utils';
 
 type Repeatables = {
   [k: number]: any;
@@ -28,8 +28,32 @@ type ComplexFieldType = 'Row' | 'Port';
 
 type FieldType = SimpleFieldType | ComplexFieldType;
 
+type NodeParameterRepeatableValue<V> = V[];
+type NodeParameterRowValue<V> = V[][];
+
+type NodeParameterValue<V> =
+  | V
+  | NodeParameterRepeatableValue<V>
+  | NodeParameterRowValue<V>;
+
 type RowValue = {
   [parameterName: string]: NodeParameter;
+};
+
+const extraRowsValues = <ValueType = string>(
+  rowValues: Array<NodeParameter>,
+  extraDefaultRows: Array<Array<ValueType>>,
+): RowValue[] => {
+  return extraDefaultRows.map((extraRowValues) =>
+    Object.fromEntries(
+      zip(rowValues, extraRowValues).map(
+        ([parameter, value]) => [
+          parameter.name,
+          cloneClass(parameter).withValue(value),
+        ],
+      ),
+    ),
+  );
 };
 
 export class NodeParameter {
@@ -41,8 +65,7 @@ export class NodeParameter {
   defaultValue: any = '';
   options?: string[];
   isRepeatable = false;
-  extraRowsDefaultValues: any[] = [];
-  wrappedPortType: SimpleFieldType = 'String_';
+  wrappedPortType?: SimpleFieldType = 'String_';
 
   constructor(name: string, value: any = '') {
     this.name = name;
@@ -86,37 +109,15 @@ export class NodeParameter {
       .withWrappedPortType(wrappedFieldType);
   }
 
-  static row<ColumnsLength extends number>(
+  static row<RowLength extends number>(
     name: string,
-    rowParams: FixedSizeArray<ColumnsLength, NodeParameter>,
-    extraDefaultRows: Array<
-      FixedSizeArray<ColumnsLength, any>
-    > = [],
+    rowParams: FixedSizeArray<RowLength, NodeParameter>,
   ) {
     const value: RowValue = Object.fromEntries(
       rowParams.map((p) => [p.name, p]),
     );
 
-    const extraRowsValues = extraDefaultRows.map(
-      (extraRowValues) =>
-        Object.fromEntries(
-          zip(rowParams, extraRowValues).map(
-            ([parameter, value]) => [
-              parameter.name,
-              cloneClass(parameter).withValue(value),
-            ],
-          ),
-        ),
-    );
-
-    return this.make(name, value)
-      .withFieldType('Row')
-      .withExtraRowsValues(extraRowsValues);
-  }
-
-  withExtraRowsValues(extraRowsValues: RowValue[]) {
-    this.extraRowsDefaultValues = extraRowsValues;
-    return this;
+    return this.make(name, value).withFieldType('Row');
   }
 
   withFieldType(type: FieldType) {
@@ -139,8 +140,27 @@ export class NodeParameter {
     return this;
   }
 
-  withValue(value: any) {
-    this.value = value;
+  withValue<V>(value: NodeParameterValue<V>) {
+    if (this.isRepeatable) {
+      this.value =
+        this.fieldType === 'Row'
+          ? [
+              ...extraRowsValues(
+                Object.values<NodeParameter>(
+                  this.defaultValue,
+                ),
+                value as NodeParameterRowValue<V>,
+              ),
+              ...this.value,
+            ]
+          : [
+              ...(value as NodeParameterRepeatableValue<V>),
+              ...this.value,
+            ];
+    } else {
+      this.value = value;
+    }
+
     return this;
   }
 
@@ -149,12 +169,9 @@ export class NodeParameter {
     return this;
   }
 
-  repeatable(extraDefaultValues: any[] = []) {
+  repeatable() {
     this.defaultValue = this.value;
-    this.value =
-      this.fieldType === 'Row'
-        ? [this.value, ...this.extraRowsDefaultValues]
-        : [this.value, ...extraDefaultValues];
+    this.value = [this.value];
 
     this.isRepeatable = true;
 

@@ -1,6 +1,6 @@
 import { Feature } from '../../Feature';
 import { Node } from '../Node';
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 
 export class Map extends Node {
   constructor(options = {}) {

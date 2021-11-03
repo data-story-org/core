@@ -1,4 +1,4 @@
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
 import { Node } from '../Node';
 
@@ -45,7 +45,7 @@ export class RemoveAttributes extends Node {
       ...super.getDefaultParameters(),
       NodeParameter.string('Attributes to remove')
         .withPlaceholder('Attribute name')
-        .repeatable(),
+        .repeatable()
     ];
   }
 }

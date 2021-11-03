@@ -1,7 +1,7 @@
 import { Node } from '../Node';
 import axios from 'axios';
 import { Feature } from '../../Feature';
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 
 export class HTTPRequest extends Node {
   client = axios;

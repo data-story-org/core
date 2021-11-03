@@ -1,5 +1,5 @@
 import { Node } from '../Node';
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 import axios, { AxiosRequestConfig } from 'axios';
 import { Feature } from '../../Feature';
 import cheerio from 'cheerio';

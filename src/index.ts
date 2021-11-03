@@ -9,6 +9,11 @@ export {
 } from './server';
 
 export {
+  NodeParameter,
+  repeatableConverter,
+} from './server/NodeParameter';
+
+export {
   SerializedDiagram,
   SerializedLink,
   SerializedNode,
@@ -18,7 +23,4 @@ export {
 } from './types';
 
 export { Feature } from './Feature';
-export { NodeParameter } from './NodeParameter';
-export { repeatableConverter } from './NodeParameter';
-
 export { demos } from './server/demos';
