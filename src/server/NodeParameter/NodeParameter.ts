@@ -117,7 +117,9 @@ export class NodeParameter {
       rowParams.map((p) => [p.name, p]),
     );
 
-    return this.make(name, value).withFieldType('Row');
+    return this.make(name, value)
+      .withFieldType('Row')
+      .repeatable();
   }
 
   withFieldType(type: FieldType) {
@@ -170,10 +172,12 @@ export class NodeParameter {
   }
 
   repeatable() {
-    this.defaultValue = this.value;
-    this.value = [this.value];
+    if (!this.isRepeatable) {
+      this.defaultValue = this.value;
+      this.value = [this.value];
 
-    this.isRepeatable = true;
+      this.isRepeatable = true;
+    }
 
     return this;
   }
