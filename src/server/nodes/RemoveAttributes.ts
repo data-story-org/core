@@ -45,7 +45,7 @@ export class RemoveAttributes extends Node {
       ...super.getDefaultParameters(),
       NodeParameter.string('Attributes to remove')
         .withPlaceholder('Attribute name')
-        .repeatable()
+        .repeatable(),
     ];
   }
 }
