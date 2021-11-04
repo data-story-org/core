@@ -25,6 +25,7 @@ export * from './RegExpFilter';
 export * from './RemoveAttributes';
 export * from './RenameAttributes';
 export * from './ResolveContextFeatures';
+export * from './RunDiagram';
 export * from './Sample';
 export * from './ScrapeHTML';
 export * from './Sleep';
