@@ -1,5 +1,5 @@
 import { Node } from '../Node';
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 import { DiagramRunResult } from '../Diagram';
 import { Feature } from '../../Feature';
 import { DiagramFactory } from '../DiagramFactory';

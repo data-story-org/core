@@ -1,5 +1,5 @@
 import { Node } from '../Node';
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
 
 const placeholder = `// PER FEATURE mode gives you access to variables: previous, current and next, ie

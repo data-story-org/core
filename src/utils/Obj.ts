@@ -19,7 +19,13 @@ export const pickBy = (object, picker) => {
   return result;
 };
 
-const clone = (obj) => Object.assign({}, obj);
+export const clone = <T>(obj: T) => Object.assign({}, obj);
+
+export const cloneClass = <T>(obj: T) =>
+  Object.assign(
+    Object.create(Object.getPrototypeOf(obj)),
+    obj,
+  );
 
 export const renameKey = (object, key, newKey) => {
   const clonedObj = clone(object);

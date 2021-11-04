@@ -1,4 +1,4 @@
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 import { DownloadData } from '../../types';
 import { get } from '../../utils';
 import { DownloaderNode } from '../DownloaderNode';

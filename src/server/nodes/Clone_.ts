@@ -1,4 +1,4 @@
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 import { Node } from '../Node';
 
 export class Clone_ extends Node {

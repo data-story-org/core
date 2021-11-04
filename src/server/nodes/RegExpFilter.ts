@@ -1,6 +1,6 @@
 import { Node } from '../Node';
 import { trim } from '../../utils/Str';
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 
 export class RegExpFilter extends Node {
   constructor(options = {}) {

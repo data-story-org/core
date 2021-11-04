@@ -1,5 +1,5 @@
 import { Node } from '../Node';
-import { NodeParameter } from '../../NodeParameter';
+import { NodeParameter } from '../NodeParameter';
 
 export class Comment extends Node {
   constructor(options = {}) {
