@@ -163,15 +163,8 @@ export abstract class Node {
     return this.parameters.find((p) => p.name == name);
   }
 
-  getParameterValue(
-    name: string,
-    feature: Feature = null,
-  ): any {
-    const value = this.getParameter(name).value;
-
-    if (!feature) return value;
-
-    return this.interpretParameterValue(value, feature);
+  getParameterValue(name: string): any {
+    return this.getParameter(name).value;
   }
 
   public setParameterValue(name, value) {
@@ -179,40 +172,6 @@ export abstract class Node {
       (p) => p.name == name,
     );
     found.value = value;
-  }
-
-  protected interpretParameterValue(parametric, feature) {
-    /* eslint-disable no-useless-escape */
-    const matches = parametric.match(
-      /\{\{[\.a-zA-Z\s_]*\}\}/g,
-    );
-    if (matches) {
-      for (const match of matches) {
-        const originalMatch = match;
-
-        const parts = match
-          .replace('{{', '')
-          .replace('}}', '')
-          .trim()
-          .split('.');
-
-        parts.shift(); // Remove 'feature'
-
-        const interpreted = parts.reduce(
-          (carry, property) => {
-            return carry[property];
-          },
-          feature.original,
-        );
-
-        parametric = parametric.replace(
-          originalMatch,
-          interpreted,
-        );
-      }
-    }
-
-    return parametric;
   }
 
   protected input(portName = 'Input') {

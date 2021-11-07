@@ -19,6 +19,43 @@ export class Feature {
     return this;
   }
 
+  public parse(template) {
+    /* eslint-disable no-useless-escape */
+    const matches = template.match(
+      /\{\{[\.a-zA-Z\s_]*\}\}/g,
+    );
+
+		if(!matches) return template;
+
+		let parsed = template;
+
+		for (const match of matches) {
+			const originalMatch = match;
+
+			const parts = match
+				.replace('{{', '')
+				.replace('}}', '')
+				.trim()
+				.split('.');
+
+			parts.shift(); // Remove 'feature'
+
+			const interpreted = parts.reduce(
+				(carry, property) => {
+					return carry[property];
+				},
+				this.original,
+			);
+
+			parsed = parsed.replace(
+				originalMatch,
+				interpreted,
+			);
+		}
+
+		return parsed;
+  }
+
   public type() {
     return typeof this.original;
   }
