@@ -108,25 +108,25 @@ export class HTTPRequest extends Node {
     }
   }
 
-	protected verb(feature: Feature) {
+	protected verb(feature: Feature): string {
 		return feature.parse(
 			this.getParameterValue('verb')			
 		)
 	}
 
-	protected url(feature: Feature) {
+	protected url(feature: Feature): string {
 		return feature.parse(
 			this.getParameterValue('url')			
 		)		
 	}
 	
-	protected data(feature: Feature) {
+	protected data(feature: Feature): string {
 		return feature.parse(
 			this.getParameterValue('data')			
 		)		
 	}
 
-	protected config(feature: Feature) {
+	protected config(feature: Feature): string {
 		return feature.parse(
 			this.getParameterValue('config')			
 		)		

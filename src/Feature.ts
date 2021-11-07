@@ -19,7 +19,7 @@ export class Feature {
     return this;
   }
 
-  public parse(template) {
+  public parse(template: string): string {
     /* eslint-disable no-useless-escape */
     const matches = template.match(
       /\{\{[\.a-zA-Z\s_]*\}\}/g,
@@ -40,7 +40,7 @@ export class Feature {
 
 			parts.shift(); // Remove 'feature'
 
-			const interpreted = parts.reduce(
+			const interpreted: any = parts.reduce(
 				(carry, property) => {
 					return carry[property];
 				},
