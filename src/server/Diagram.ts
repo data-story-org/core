@@ -14,6 +14,13 @@ export interface DiagramRunResult {
 
 export type RunResult = Promise<DiagramRunResult>;
 
+export const diagramRunResult = (
+  diagram: Diagram,
+): RunResult =>
+  new Promise<DiagramRunResult>((callback) =>
+    callback({ diagram: diagram }),
+  );
+
 export class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];
