@@ -31,7 +31,6 @@ export class Map extends Node {
       }),
     );
 
-
     return diagramRunResult(this.diagram);
   }
 

@@ -84,7 +84,7 @@ export class DownloadJSON extends DownloaderNode {
 
     // this.output(this.input());
     return diagramRunResult(this.diagram);
-   }
+  }
 
   getDefaultParameters() {
     return [

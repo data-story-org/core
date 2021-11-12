@@ -30,7 +30,6 @@ export class CreateSequence extends Node {
       }),
     );
 
-
     return diagramRunResult(this.diagram);
   }
 
