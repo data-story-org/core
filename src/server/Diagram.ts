@@ -12,6 +12,8 @@ export interface DiagramRunResult {
   diagram: Diagram;
 }
 
+export type RunResult = Promise<DiagramRunResult>;
+
 export class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];
