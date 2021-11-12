@@ -1,6 +1,7 @@
 import { Node } from '../Node';
 import { trim } from '../../utils/Str';
 import { NodeParameter } from '../NodeParameter';
+import { diagramRunResult } from '../Diagram';
 
 export class RegExpFilter extends Node {
   constructor(options = {}) {
@@ -30,6 +31,8 @@ export class RegExpFilter extends Node {
   async run() {
     this.output(this.matching(), 'Passed');
     this.output(this.notMatching(), 'Failed');
+
+    return diagramRunResult(this.diagram);
   }
 
   protected matching() {

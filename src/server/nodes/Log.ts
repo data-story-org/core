@@ -1,3 +1,4 @@
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 
 export class Log extends Node {
@@ -28,5 +29,7 @@ export class Log extends Node {
       JSON.stringify(this.input().map((f) => f.original)),
     );
     this.logger.groupEnd();
+
+    return diagramRunResult(this.diagram);
   }
 }

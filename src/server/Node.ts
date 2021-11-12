@@ -1,4 +1,4 @@
-import { Diagram } from './Diagram';
+import { Diagram, RunResult } from './Diagram';
 import cloneDeep from 'lodash/cloneDeep';
 import { Feature } from '../Feature';
 import { UID } from '../utils';
@@ -42,7 +42,7 @@ export abstract class Node {
   public defaultOutPorts: string[];
   public features: any[];
 
-  abstract run(): any;
+  abstract run(): RunResult;
 
   constructor(options: NodeOptions = {}) {
     this.diagram = options.diagram;

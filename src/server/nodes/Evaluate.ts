@@ -1,6 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 const placeholder = `// PER FEATURE mode gives you access to variables: previous, current and next, ie
 // previous.get('some_property')
@@ -25,10 +26,12 @@ export class Evaluate extends Node {
   }
 
   async run() {
-    return this.getParameterValue('evaluation_context') ==
-      'per_feature'
+    this.getParameterValue('evaluation_context') ==
+    'per_feature'
       ? this.runPerFeature()
       : this.runGlobal();
+
+    return diagramRunResult(this.diagram);
   }
 
   runPerFeature() {

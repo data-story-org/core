@@ -1,4 +1,5 @@
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 
@@ -28,6 +29,8 @@ export class CreateSequence extends Node {
         return new Feature({ creation_id: i });
       }),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

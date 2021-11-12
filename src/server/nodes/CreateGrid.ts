@@ -1,4 +1,5 @@
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 
@@ -80,6 +81,8 @@ export class CreateGrid extends Node {
     }
 
     this.output(features);
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

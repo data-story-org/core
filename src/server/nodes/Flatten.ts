@@ -1,4 +1,5 @@
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 
 export class Flatten extends Node {
@@ -22,5 +23,7 @@ export class Flatten extends Node {
         .flat()
         .map((item) => new Feature(item)),
     );
+
+    return diagramRunResult(this.diagram);
   }
 }

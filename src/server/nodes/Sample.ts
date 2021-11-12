@@ -1,3 +1,4 @@
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 
@@ -22,6 +23,8 @@ export class Sample extends Node {
         this.getParameterValue('first_n_features'),
       ),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

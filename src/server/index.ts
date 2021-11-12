@@ -1,4 +1,4 @@
-export { Diagram } from './Diagram';
+export * from './Diagram';
 export { Server } from './Server';
 export { NodeFactory } from './NodeFactory';
 export { DiagramBuilder } from './DiagramBuilder';

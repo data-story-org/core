@@ -1,3 +1,4 @@
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 
@@ -18,13 +19,22 @@ export class Sleep extends Node {
   async run() {
     this.output(this.input());
 
+    await this.sleep(
+      parseInt(this.getParameterValue('seconds_to_sleep')) *
+        1000,
+    );
+
+    return diagramRunResult(this.diagram);
+  }
+
+  async sleep(ms: number) {
     return new Promise((resolve) => {
       const wait = setTimeout(() => {
         if (typeof wait !== 'undefined') {
           clearTimeout(wait);
         }
         resolve('Node complete');
-      }, parseInt(this.getParameterValue('seconds_to_sleep')) * 1000);
+      }, ms);
     });
   }
 

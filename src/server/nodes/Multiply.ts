@@ -1,6 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 export class Multiply extends Node {
   constructor(options = {}) {
@@ -26,6 +27,8 @@ export class Multiply extends Node {
         );
       }),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

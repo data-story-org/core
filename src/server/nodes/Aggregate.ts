@@ -2,6 +2,7 @@ import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 import { groupBy } from '../../utils/Arr';
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 export class Aggregate extends Node {
   constructor(options = {}) {
@@ -40,6 +41,8 @@ export class Aggregate extends Node {
     }
 
     this.output(features);
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

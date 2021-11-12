@@ -2,6 +2,7 @@ import { NodeParameter } from '../NodeParameter';
 import { DownloadData } from '../../types';
 import { get } from '../../utils';
 import { DownloaderNode } from '../DownloaderNode';
+import { diagramRunResult } from '../Diagram';
 
 export class DownloadJSON extends DownloaderNode {
   constructor(options = {}) {
@@ -82,6 +83,7 @@ export class DownloadJSON extends DownloaderNode {
         ));
 
     // this.output(this.input());
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

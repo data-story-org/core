@@ -1,6 +1,7 @@
 import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
 import { Node } from '../Node';
+import { diagramRunResult } from '../Diagram';
 
 export class RemoveAttributes extends Node {
   constructor(options = {}) {
@@ -38,6 +39,8 @@ export class RemoveAttributes extends Node {
         return new Feature(filtered);
       }),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

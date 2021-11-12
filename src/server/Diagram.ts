@@ -12,6 +12,15 @@ export interface DiagramRunResult {
   diagram: Diagram;
 }
 
+export type RunResult = Promise<DiagramRunResult>;
+
+export const diagramRunResult = (
+  diagram: Diagram,
+): RunResult =>
+  new Promise<DiagramRunResult>((callback) =>
+    callback({ diagram: diagram }),
+  );
+
 export class Diagram {
   links: Link[] = [];
   nodes: Node[] = [];
@@ -40,7 +49,7 @@ export class Diagram {
     });
   }
 
-  async run(inputMap = {}): Promise<DiagramRunResult> {
+  async run(inputMap = {}): RunResult {
     this.populateInputs(inputMap);
 
     for await (const node of this.executionOrder()) {
@@ -50,11 +59,7 @@ export class Diagram {
       }
     }
 
-    return new Promise((callback) => {
-      return callback({
-        diagram: this,
-      });
-    });
+    return diagramRunResult(this);
   }
 
   findPort(id: string): Port {

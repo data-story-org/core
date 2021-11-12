@@ -1,3 +1,4 @@
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 
@@ -91,6 +92,8 @@ export class Filter extends Node {
     });
 
     this.output(unmatched, 'Unfiltered');
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

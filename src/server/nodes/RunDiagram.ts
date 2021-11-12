@@ -1,6 +1,9 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
-import { DiagramRunResult } from '../Diagram';
+import {
+  diagramRunResult,
+  DiagramRunResult,
+} from '../Diagram';
 import { Feature } from '../../Feature';
 import { DiagramFactory } from '../DiagramFactory';
 import { NodeFactory } from '../NodeFactory';
@@ -38,6 +41,8 @@ export class RunDiagram extends Node {
         'Failed',
       );
     }
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

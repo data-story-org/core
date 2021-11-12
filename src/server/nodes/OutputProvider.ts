@@ -1,6 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 export class OutputProvider extends Node {
   constructor(options = {}) {
@@ -30,6 +31,8 @@ export class OutputProvider extends Node {
         key,
       );
     }
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

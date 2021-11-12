@@ -1,6 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 export class FilterDuplicates extends Node {
   constructor(options = {}) {
@@ -18,6 +19,8 @@ export class FilterDuplicates extends Node {
 
   async run() {
     this.output(this.uniqueFeatures(this.input()));
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

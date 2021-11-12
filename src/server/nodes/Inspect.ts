@@ -1,3 +1,4 @@
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 
 export class Inspect extends Node {
@@ -16,5 +17,7 @@ export class Inspect extends Node {
 
   async run() {
     this.features = this.input();
+
+    return diagramRunResult(this.diagram);
   }
 }
