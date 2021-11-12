@@ -1,5 +1,7 @@
 export {
   Diagram,
+  DiagramRunResult,
+  RunResult,
   Node,
   Port,
   Link,
