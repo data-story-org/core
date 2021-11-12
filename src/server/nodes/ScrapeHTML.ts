@@ -3,6 +3,7 @@ import { NodeParameter } from '../NodeParameter';
 import axios, { AxiosRequestConfig } from 'axios';
 import { Feature } from '../../Feature';
 import cheerio from 'cheerio';
+import { diagramRunResult } from '../Diagram';
 
 export class ScrapeHTML extends Node {
   constructor(options = {}) {
@@ -42,6 +43,8 @@ export class ScrapeHTML extends Node {
         console.log(reason);
         throw reason;
       });
+
+    return diagramRunResult(this.diagram);
   }
 
   toFeatures(elements): Feature[] {

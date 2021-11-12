@@ -1,4 +1,5 @@
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 
@@ -22,6 +23,8 @@ export class CreateJSON extends Node {
         (item) => new Feature(item),
       ),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

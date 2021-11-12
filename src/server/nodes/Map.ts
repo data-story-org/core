@@ -1,4 +1,5 @@
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 
@@ -29,6 +30,9 @@ export class Map extends Node {
         return new Feature(mapped);
       }),
     );
+
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

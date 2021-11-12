@@ -2,6 +2,7 @@ import { Node } from '../Node';
 import axios from 'axios';
 import { Feature } from '../../Feature';
 import { NodeParameter } from '../NodeParameter';
+import { diagramRunResult } from '../Diagram';
 
 export class HTTPRequest extends Node {
   client = axios;
@@ -55,6 +56,8 @@ export class HTTPRequest extends Node {
           }
         });
     }
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

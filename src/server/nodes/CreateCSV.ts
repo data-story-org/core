@@ -1,6 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 export class CreateCSV extends Node {
   constructor(options = {}) {
@@ -35,6 +36,8 @@ export class CreateCSV extends Node {
     });
 
     this.output(objects.map((o) => new Feature(o)));
+
+    return diagramRunResult(this.diagram);
   }
 
   serialize() {

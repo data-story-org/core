@@ -1,5 +1,6 @@
 import { NodeParameter } from '../NodeParameter';
 import { Node } from '../Node';
+import { diagramRunResult } from '../Diagram';
 
 export class Clone_ extends Node {
   constructor(options = {}) {
@@ -26,6 +27,8 @@ export class Clone_ extends Node {
         ).fill(this.input()),
       ].flat(),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

@@ -1,6 +1,6 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
-import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 export class Sort extends Node {
   constructor(options = {}) {
@@ -20,6 +20,8 @@ export class Sort extends Node {
     this.getParameterValue('sort_context') == 'global'
       ? this.sortGlobal()
       : this.sortLocal();
+
+    return diagramRunResult(this.diagram);
   }
 
   sortGlobal() {

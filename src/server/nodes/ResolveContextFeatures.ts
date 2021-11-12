@@ -1,6 +1,7 @@
 import { Node } from '../Node';
 import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 
 export class ResolveContextFeatures extends Node {
   constructor(options = {}) {
@@ -31,6 +32,8 @@ export class ResolveContextFeatures extends Node {
         (data) => new Feature(data),
       ),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

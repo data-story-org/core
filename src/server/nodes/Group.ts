@@ -1,4 +1,5 @@
 import { Feature } from '../../Feature';
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 
 export class Group extends Node {
@@ -20,5 +21,7 @@ export class Group extends Node {
     this.output([
       new Feature(this.input().map((f) => f.original)),
     ]);
+
+    return diagramRunResult(this.diagram);
   }
 }

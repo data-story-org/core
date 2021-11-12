@@ -1,5 +1,6 @@
 import { NodeParameter } from '../NodeParameter';
 import { Node } from '../Node';
+import { diagramRunResult } from '../Diagram';
 
 export class ThrowError extends Node {
   constructor(options = {}) {
@@ -18,6 +19,8 @@ export class ThrowError extends Node {
   async run() {
     if (this.input().length)
       throw Error(this.getParameterValue('error_message'));
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {

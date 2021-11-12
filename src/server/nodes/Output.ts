@@ -1,3 +1,4 @@
+import { diagramRunResult } from '../Diagram';
 import { Node } from '../Node';
 export class Output extends Node {
   constructor(options = {}) {
@@ -15,5 +16,7 @@ export class Output extends Node {
 
   async run() {
     this.features = this.input();
+
+    return diagramRunResult(this.diagram);
   }
 }

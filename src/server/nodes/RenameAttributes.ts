@@ -2,6 +2,7 @@ import { NodeParameter } from '../NodeParameter';
 import { Feature } from '../../Feature';
 import { Node } from '../Node';
 import { renameKey } from '../../utils';
+import { diagramRunResult } from '../Diagram';
 
 export class RenameAttributes extends Node {
   constructor(options = {}) {
@@ -60,6 +61,8 @@ export class RenameAttributes extends Node {
         return new Feature(filtered);
       }),
     );
+
+    return diagramRunResult(this.diagram);
   }
 
   getDefaultParameters() {
