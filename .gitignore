@@ -120,3 +120,6 @@ dist
 
 # notes
 notes/
+
+# editors
+.vscode

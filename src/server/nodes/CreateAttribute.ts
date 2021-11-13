@@ -22,27 +22,18 @@ export class CreateAttribute extends Node {
       'Atrribute & value to create',
     );
 
-    const valuesMap = new Map();
+    const outputs = this.input().map((feature) => {
+			toCreate.forEach((row) => {
+				feature.set(
+					feature.parse(row['Attribute']['value']),
+					feature.parse(row['Value']['value'])
+				);
+			});
 
-    toCreate.map((result) => {
-      valuesMap.set(
-        result['Attribute']['value'],
-        result['Value']['value'],
-      );
+			return feature;
     });
 
-    this.output(
-      this.input().map((feature) => {
-        const { original } = feature;
-
-        let filtered = original;
-        for (const [attr, v] of valuesMap) {
-          filtered = Object.assign(filtered, { [attr]: v });
-        }
-
-        return new Feature(filtered);
-      }),
-    );
+		this.output(outputs);
 
     return diagramRunResult(this.diagram);
   }

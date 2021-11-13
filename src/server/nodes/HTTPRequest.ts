@@ -85,26 +85,50 @@ export class HTTPRequest extends Node {
   }
 
   protected request(feature: Feature) {
-    if (this.getParameterValue('verb', feature) == 'GET') {
+    if (this.verb(feature) == 'GET') {
       return this.client.get(
-        this.getParameterValue('url', feature),
-        JSON.parse(this.getParameterValue('config')),
+        this.url(feature),
+        JSON.parse(this.config(feature)),
       );
     }
 
-    if (this.getParameterValue('verb') == 'POST') {
+    if (this.verb(feature) == 'POST') {
       return this.client.post(
-        this.getParameterValue('url', feature),
-        this.getParameterValue('data'),
-        JSON.parse(this.getParameterValue('config')),
+        this.url(feature),
+        this.data(feature),
+        JSON.parse(this.config(feature)),
       );
     }
 
-    if (this.getParameterValue('verb') == 'DELETE') {
+    if (this.verb(feature) == 'DELETE') {
       return this.client.delete(
-        this.getParameterValue('url', feature),
-        JSON.parse(this.getParameterValue('config')),
+        this.url(feature),
+        JSON.parse(this.config(feature)),
       );
     }
   }
+
+	protected verb(feature: Feature): string {
+		return feature.parse(
+			this.getParameterValue('verb')			
+		)
+	}
+
+	protected url(feature: Feature): string {
+		return feature.parse(
+			this.getParameterValue('url')			
+		)		
+	}
+	
+	protected data(feature: Feature): string {
+		return feature.parse(
+			this.getParameterValue('data')			
+		)		
+	}
+
+	protected config(feature: Feature): string {
+		return feature.parse(
+			this.getParameterValue('config')			
+		)		
+	}
 }
