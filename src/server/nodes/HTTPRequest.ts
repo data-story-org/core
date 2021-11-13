@@ -108,27 +108,19 @@ export class HTTPRequest extends Node {
     }
   }
 
-	protected verb(feature: Feature): string {
-		return feature.parse(
-			this.getParameterValue('verb')			
-		)
-	}
+  protected verb(feature: Feature): string {
+    return feature.parse(this.getParameterValue('verb'));
+  }
 
-	protected url(feature: Feature): string {
-		return feature.parse(
-			this.getParameterValue('url')			
-		)		
-	}
-	
-	protected data(feature: Feature): string {
-		return feature.parse(
-			this.getParameterValue('data')			
-		)		
-	}
+  protected url(feature: Feature): string {
+    return feature.parse(this.getParameterValue('url'));
+  }
 
-	protected config(feature: Feature): string {
-		return feature.parse(
-			this.getParameterValue('config')			
-		)		
-	}
+  protected data(feature: Feature): string {
+    return feature.parse(this.getParameterValue('data'));
+  }
+
+  protected config(feature: Feature): string {
+    return feature.parse(this.getParameterValue('config'));
+  }
 }

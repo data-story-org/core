@@ -23,17 +23,17 @@ export class CreateAttribute extends Node {
     );
 
     const outputs = this.input().map((feature) => {
-			toCreate.forEach((row) => {
-				feature.set(
-					feature.parse(row['Attribute']['value']),
-					feature.parse(row['Value']['value'])
-				);
-			});
+      toCreate.forEach((row) => {
+        feature.set(
+          feature.parse(row['Attribute']['value']),
+          feature.parse(row['Value']['value']),
+        );
+      });
 
-			return feature;
+      return feature;
     });
 
-		this.output(outputs);
+    this.output(outputs);
 
     return diagramRunResult(this.diagram);
   }

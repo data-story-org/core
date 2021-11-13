@@ -24,21 +24,20 @@ test('it can get dot notated attributes', () => {
   expect(feature.get('user.name')).toBe('ajthinking');
 });
 
-
 test('it can parse template strings', () => {
-	const feature = new Feature({
-		name: 'Anders'
-	});
+  const feature = new Feature({
+    name: 'Anders',
+  });
 
-	const greeting = "Hi {{ user.name }}!"
+  const greeting = 'Hi {{ user.name }}!';
 
-	expect(feature.parse(greeting)).toBe('Hi Anders!');
+  expect(feature.parse(greeting)).toBe('Hi Anders!');
 });
 
 test('it can parse non template strings', () => {
-	const feature = new Feature({});
+  const feature = new Feature({});
 
-	const greeting = "Hi!"
+  const greeting = 'Hi!';
 
-	expect(feature.parse(greeting)).toBe('Hi!');
+  expect(feature.parse(greeting)).toBe('Hi!');
 });

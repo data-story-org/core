@@ -19,16 +19,18 @@ it('can add a attribute value to an object feature', async () => {
 
 it('can add a attribute using a template syntax', async () => {
   await when(CreateAttribute)
-    .hasInput([{name: 'ajthinking'}])
+    .hasInput([{ name: 'ajthinking' }])
     .and()
     .parameters({
       'Atrribute & value to create': [
         {
           Attribute: { value: 'greeting' },
-          Value: { value: "Hi {{ user.name }}!" },
+          Value: { value: 'Hi {{ user.name }}!' },
         },
       ],
     })
-    .assertOutput([{ name: 'ajthinking', greeting: 'Hi ajthinking!' }])
+    .assertOutput([
+      { name: 'ajthinking', greeting: 'Hi ajthinking!' },
+    ])
     .finish();
 });

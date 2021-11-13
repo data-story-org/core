@@ -25,35 +25,32 @@ export class Feature {
       /\{\{[\.a-zA-Z\s_]*\}\}/g,
     );
 
-		if(!matches) return template;
+    if (!matches) return template;
 
-		let parsed = template;
+    let parsed = template;
 
-		for (const match of matches) {
-			const originalMatch = match;
+    for (const match of matches) {
+      const originalMatch = match;
 
-			const parts = match
-				.replace('{{', '')
-				.replace('}}', '')
-				.trim()
-				.split('.');
+      const parts = match
+        .replace('{{', '')
+        .replace('}}', '')
+        .trim()
+        .split('.');
 
-			parts.shift(); // Remove 'feature'
+      parts.shift(); // Remove 'feature'
 
-			const interpreted: any = parts.reduce(
-				(carry, property) => {
-					return carry[property];
-				},
-				this.original,
-			);
+      const interpreted: any = parts.reduce(
+        (carry, property) => {
+          return carry[property];
+        },
+        this.original,
+      );
 
-			parsed = parsed.replace(
-				originalMatch,
-				interpreted,
-			);
-		}
+      parsed = parsed.replace(originalMatch, interpreted);
+    }
 
-		return parsed;
+    return parsed;
   }
 
   public type() {
